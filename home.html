@@ -1,0 +1,264 @@
+<?php
+	session_start();
+?>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>FoundIt - Home</title>
+	<link rel="stylesheet" href="css/full-slider.css" type="text/css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+            
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+                
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+                          
+                          $("#btn1").click(function(){
+                                           $("#test").text("Hello world!");
+                                           });
+                          
+                          });
+        </script>
+    <style>
+        #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 300px;
+                    }
+
+        </style>
+    </head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">FoundIt</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+            
+            <a href="signup.html">
+                <button type="button" class="btn btn-default navbar-btn" style="float: right">Sign Up</button>
+            </a>
+            
+            <a href="signin.html">
+                <button type="button" class="btn btn-default navbar-btn" style="float: right">Sign In</button>
+            </a>
+
+            
+        </div>
+        
+               <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+		<!-- /#header -->
+
+		<div id="contents">
+			<div id="adbox">
+               <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+               <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+				                <script>
+                    
+                    function initAutocomplete() {
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                                center: {lat: 37.3525, lng: -121.87234}, zoom: 12,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                                });
+                        setMarkers(map);
+                                                      
+                        // Create the search box and link it to the UI element.
+                        var input = document.getElementById('pac-input');
+                              var searchBox = new google.maps.places.SearchBox(input);
+                              map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+                              
+                              // Bias the SearchBox results towards current map's viewport.
+                              map.addListener('bounds_changed', function() {
+                                  searchBox.setBounds(map.getBounds());
+                                  });
+                                  
+                                  var markers = [];
+                                  // [START region_getplaces]
+                                  // Listen for the event fired when the user selects a prediction and retrieve
+                                  // more details for that place.
+                                  searchBox.addListener('places_changed', function() {
+                                        var places = searchBox.getPlaces();
+                                        
+                                        if (places.length == 0) {
+                                        return;
+                                        }
+                                        
+                                        // Clear out the old markers.
+                                        markers.forEach(function(marker) {
+                                                        marker.setMap(null);
+                                                        });
+                                        markers = [];
+                                                        
+                                        // For each place, get the icon, name and location.
+                                        var bounds = new google.maps.LatLngBounds();
+                                        places.forEach(function(place) {
+                                        var icon = {
+                                               url: place.icon,
+                                               size: new google.maps.Size(70, 70),
+                                               origin: new google.maps.Point(0, 0),
+                                               anchor: new google.maps.Point(17, 34),
+                                               scaledSize: new google.maps.Size(25, 25)
+                                               };
+                                                       
+                                        // Create a marker for each place.
+                                       markers.push(new google.maps.Marker({
+                                           map: map,
+                                           icon: icon,
+                                           title: place.name,
+                                           position: place.geometry.location
+                                           }));
+                                       
+                                       if (place.geometry.viewport) {
+                                       // Only geocodes have viewport.
+                                       bounds.union(place.geometry.viewport);
+                                       } else {
+                                       bounds.extend(place.geometry.location);
+                                       }
+                                       });
+                                        map.fitBounds(bounds);
+                                        });
+                                        
+                    }
+                    var houses = [
+                                  
+                                  ['3015 Senter Rd, San Jose, CA 95111', 37.295796, -121.836151, 15, '$600K', '3 bd, 2 ba','1,593 sqft'],
+                                  ['117 N 5th St, San Jose, CA 95112', 37.339803, -121.888025, 14, '$2.30M', ' 10,541 sqft lot',''],
+                                  ['1879 Perrone Cir, San Jose, CA 95116',  37.357783, -121.851875, 13, '$759K', '4 bd, 3 ba','1,938 sqft'],
+                                  ['846 Paseo Estero Dr, San Jose, CA 95122', 37.316090, -121.845615, 12, '$520K', '3 bd, 3 ba','1,112 sqft'],
+                                  ['1021 Malott Dr,San Jose, CA 95121', 37.308508, -121.832451, 11, '$729K','3 bd, 2ba','1,444 sqft'],
+                                  ['1781 Parkview Green Cir,San Jose, CA 95131', 37.308508,-121.832451, 10, '$588K', '2 bd, 1 ba','941 sqft'],
+                                  ['1371 Tea Rose Cir, San Jose, CA 95131', 37.387995, -121.894348, 9, '$659K', '2 bd, 3 ba','1,506 sqft'],
+                                  ['2131 Bayhaven Dr, San Jose, CA 95122', 37.331524, -121.822463, 8, '$519K','3 bd, 2 ba','1,232 sqft'],
+                                  ['2269 Freya Dr, San Jose, CA 95148', 37.315251, -121.788724, 7, '$610K','3 bd, 2 ba','1,061 sqft'],
+                                  ['2117 Ashley Ridge Ct,San Jose, CA 95138', 37.292790, -121.780485, 6, '$1.89M', '5 bd, 4 ba','4,079 sqft'],
+                                  ['589 S 22nd St, San Jose, CA 95116', 37.337286, -121.863899, 5, '$798K','3 bd, 3 ba','2,250 sqft'],
+                                  ['870 E Empire St, San Jose, CA 95112', 37.352815, -121.879539, 4, '$700K', '4 bd, 2.5ba','2,405 sqft'],
+                                  ['86 N 25th St, San Jose, CA 95116', 37.348626, -121.867562, 3, '$519K', '2 bd, 1 ba','936 sqft'],
+                                  ['3312 Vernice Ave,San Jose, CA 95127', 37.358043, -121.811202, 2, '$699K', '4 bd, 3 ba','1,875 sqft'],
+                                  ['2249 Kammerer Ave, San Jose, CA 95116', 37.353685, -121.840582, 1, '$599K', '3 bd, 1 ba','1,083 sqft']
+                                  ];
+                                  
+                          function setMarkers(map) {
+                              // Adds markers to the map.
+                              
+                              // Marker sizes are expressed as a Size of X,Y where the origin of the image
+                              // (0,0) is located in the top left of the image.
+                              
+                              // Origins, anchor positions and coordinates of the marker increase in the X
+                              // direction to the right and in the Y direction down.
+                              var image = {
+                                  url: 'images/blue.png',
+                                  // This marker is 20 pixels wide by 32 pixels high.
+                                  size: new google.maps.Size(20, 32),
+                                  // The origin for this image is (0, 0).
+                                  origin: new google.maps.Point(0, 0),
+                                  // The anchor for this image is the base of the flagpole at (0, 32).
+                                  anchor: new google.maps.Point(0, 32)
+                              };
+                              // Shapes define the clickable region of the icon. The type defines an HTML
+                              // <area> element 'poly' which traces out a polygon as a series of X,Y points.
+                              // The final coordinate closes the poly by connecting to the first coordinate.
+                              var shape = {
+                                  coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                                  type: 'poly'
+                              };
+                              var infowindow = new google.maps.InfoWindow({maxWidth: 50});
+
+                              function placeMarker(house){
+                                  var marker = new google.maps.Marker({
+                                      position: {lat: house[1], lng: house[2]},
+                                      map: map,
+                                      icon: image,
+                                      shape: shape,
+                                      title: house[0],
+                                      zIndex: house[3]
+                                      });
+                                      google.maps.event.addListener(marker, 'click', function() {
+                                                         infowindow.close();
+                                                         infowindow.setContent( "<div><a id='btn1'><b>"+ house[4] + "</b></a><br><font size='1.5'>"+ house[5]+ "<br>"+ house[6]+"</font></div>");
+                                                         infowindow.open(map, marker);
+                                                         });
+
+                                  
+                              }
+                              for (var i = 0; i < houses.length; i++) {
+                                  placeMarker(houses[i]);
+                
+                              }
+                    }
+                    </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOw_TXQlHoR3fWgFSzof6HR0YLh4lvFz4&libraries=places&callback=initAutocomplete"
+                    async defer></script>
+                <hr>
+                <hr>
+                <div id="map" style="width:1000px;height:550px; margin: 0 auto;"></div>
+				<!--<img src="images/houses.jpg" alt="Img" height="444" width="630">-->
+			</div>
+		<!-- /#contents -->
+			<div id="footer">
+			<div>
+				<ul id="links">
+					<li>
+						
+						<h4>Social Links</h4>
+						<ul id="connect">
+							<li>
+								<a href="https://twitter.com/" target="_blank" class="twitter">Twitter</a>
+							</li>
+							<li>
+								<a href="https://www.facebook.com/" target="_blank" class="facebook">Facebook</a>
+							</li>
+							<li>
+								<a href="https://www.google.com/" target="_blank" class="googleplus">Google +</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<!-- /#links -->
+				<p class="footnote">
+					© Copyright 2015.FoundIt all rights reserved
+				</p>
+			</div>
+		</div>
+		<!-- /#footer -->
+	</div>
+	<!-- /#page -->
+</body>
+</html>

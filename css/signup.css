@@ -1,0 +1,53 @@
+h1 {
+    color: #ff6600;
+    text-shadow: 5px 5px 5px #000000;
+    position: relative;
+    -webkit-animation: mymove 5s; /* Chrome, Safari, Opera */
+    animation: mymove 2s;
+	-webkit-animation-fill-mode: forwards;
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    from {left: 0px;}
+    to {left: 550px;}
+}
+body{
+    margin: 0 auto;
+    margin-bottom: -0.5cm;
+    background-image: url('image.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+fieldset {
+    background-color: grey;
+    margin: 0;
+    margin-right: 2cm;
+    width:300px;
+    float: right;
+
+}
+
+input{
+    height:40px;
+    width:350px;
+    font-size: 17px;
+}
+
+footer{
+    margin-top: 14cm;
+    text-align:center;
+    font-size: inherit;
+
+
+}
+label{
+    font-size:20px;
+}
+
+button {
+    height:40px;
+    width:90px;
+    background-color: #6699FF;
+}
+
