@@ -16,7 +16,7 @@
 	</head>
 <body>
 
-<h1><font face="Segoe Print" size="100"><em>FoundIt</em></font></h1>
+<h1><img src ="images/logo.png" height="10%" width="10%"></h1>
 
 
 				<div class="err" id="add_err"></div>
@@ -25,21 +25,23 @@
             <form action="../signup/signup.html" method="post">
             <p>
                 <label><strong>Email Address:</strong></label><br>
-                <input name="name" id="name" type="text" pattern="^.+@.+\..{2,4}$" placeholder = "ex: abcd@xyz.com" required/>
+                <input name="name" id="name" type="text" pattern="^.+@.+\..{2,4}$" placeholder = "abcd@xyz.com" required/>
             </p>
             <p>
                 <label><strong>Password:</strong></label><br>
-                <input name="word" id="word" type="password" pattern="^.+\d+$" placeholder = "ex: efgh222" required/>
+                <input name="word" id="word" type="password" pattern="^.+\d+$" required/>
             </p>
 
-				<button type="button" class="btn btn-default navbar-btn">Sign In</button>
-                <button type="button" class="btn btn-default navbar-btn"><a href="signup.html">Sign Up</button>
+             <p>
+				<button name="login" id="login" type="Submit" value="Login" onClick="login.php" >Login</button>
 				
+				<a href="signup.html" class="nounderline"><button type="button" id="signup">Sign Up </button></a> </form>
+            </p>
 			<p>
 				<a href="forgotpassword.html">Forgot Password</a>
 			</p>
         </fieldset>
-
+    </form>
 	
 <!-- ==== START PAGE FOOTER ==== -->
     <footer role="contentinfo" class="footer">
