@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="FoundIt" content="">
 
     <title>Found It</title>
 
@@ -46,8 +46,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">FoundIt</a>
+                <a class="navbar-brand" href="home.html">FoundIt</a>
             </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="profile.html">Profile</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                
+
                         <a href="signup.html">
                             <button type="button" class="btn btn-default navbar-btn" style="float: right">Sign Up</button>
                         </a>
@@ -55,62 +70,47 @@
                         <a href="signin.html">
                             <button type="button" class="btn btn-default navbar-btn" style="float: right">Sign In</button>
                         </a>
+            </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
-
-    <!-- Full Page Image Background Carousel Header -->
-    <header id="myCarousel" class="carousel slide">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for Slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('house.jpg');"></div>
-                <div class="carousel-caption">
-                    <h2>"Owning a home is a keystone of wealth...both financial affluence and emotional security"</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('computer.jpg');"></div>
-                <div class="carousel-caption">
-                    <h2>"Find your dream home with all of its features at your fingertips"</h2>
-                </div>
-            </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('found.jpg');"></div>
-                <div class="carousel-caption">
-                    <h2>
-                        <a href="home.html">
-                            <button type="button" class="btn btn-success navbar-btn">Get Started</button>
-                        </a>
-                    </h2>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="icon-prev"></span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="icon-next"></span>
-        </a>
-
-    </header>
+    <hr>
+    <hr>
+    <div class="info">
+        <h1 style="color : orange"><center>Forum<br><b>870 E Empire St, San Jose, CA 95112<br>For sale: $699,950</b></center></h1>
+        <p1><b>4 beds 3 baths 2,405 sqft - built in 1976</b></p1><br>
+        <p1>This 2,405 square foot house sits on a 7,384 square foot lot and features 4 bedrooms and 2.5 bathrooms.</p1>
+        <ul id="list">
+            <li>Nearby schools: Empire Gardens Elementary School, San Jose Community High School and San Jose Community Middle School. </li>
+            <li>Near Attractions: Backesto Park, Watson Park and Watson Dog Park.</li>
+            <li>Crimes: 5 Register Sex Offenders in radius 1 mile.</li>
+        </ul>
+        <img src="images/sample1.jpg" alt="house1" style="width:304px;height:228px;">
+        <img src="images/room1.jpg" alt="house1" style="width:304px;height:228px;">
+        <img src="images/room2.jpg" alt="house1" style="width:304px;height:228px;">
+        <img src="images/kitchen.jpg" alt="house1" style="width:304px;height:228px;">
+        <img src="images/heat.jpg" alt="house1" style="width:304px;height:228px;">
+      </div>
+    <a href="profile.html">
+        <center><button type="button" class="btn btn-success navbar-btn">Add to my list</button></center>
+    </a>
+    <hr>
+    <div class="comment">
+        <form method='post'>
+        
+            Comment:<br />
+            <textarea name='comment' id='comment' style="width:20cm;"></textarea><br />
+            
+            <input type='hidden' name='articleid' id='articleid' value='<? echo $_GET["id"]; ?>' />
+            
+            <input type='submit' value='Post' style="margin-left:19cm"/>
+        </form>
+    </div>
 
     <!-- Page Content -->
     <div class="container">
-
+        <hr>
             <!-- /#contents -->
             <div id="footer">
             <div>

@@ -18,6 +18,11 @@ body {
     height: 100%;
 }
 
+fieldset {
+    background-color: grey;
+    margin: 0 auto;
+    width:300px;
+}
 /* Background images are set within the HTML using inline CSS, not here */
 
 .fill {
@@ -29,10 +34,38 @@ body {
     background-size: cover;
     -o-background-size: cover;
 }
+h1{
+    margin: 0 auto;
+    margin-right: 2cm;
+    font-family: "Papyrus", Times, serif;
+    
+}
 h2{
     color: orange;
     font-size: 1.75em;
     font-family: "Papyrus", Times, serif;
+}
+p1{
+    font-size:1.25em;
+}
+p{
+    
+    font-size: 1.25em;
+    float : left;
+    float : right;
+    margin-left: 3cm;
+    margin-right:3cm;
+}
+#comment{
+    margin-left:1cm;
+}
+p2{
+    
+    font-size: 1.25em;
+    margin-left: 3cm;
+}
+#list{
+    font-size: 1.25em;
 }
 
 }

@@ -16,15 +16,7 @@
                 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function(){
-                          
-                          $("#btn1").click(function(){
-                                           $("#test").text("Hello world!");
-                                           });
-                          
-                          });
-        </script>
+    
     <style>
         #pac-input {
             background-color: #fff;
@@ -52,19 +44,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">FoundIt</a>
+            <a class="navbar-brand" href="home.html" style="color:orange">FoundIt</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">About</a>
+                    <a href="about.html">About</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a href="profile.html">Profile</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="contact.html">Contact</a>
                 </li>
             </ul>
             
@@ -158,23 +150,42 @@
                     }
                     var houses = [
                                   
-                                  ['3015 Senter Rd, San Jose, CA 95111', 37.295796, -121.836151, 15, '$600K', '3 bd, 2 ba','1,593 sqft'],
-                                  ['117 N 5th St, San Jose, CA 95112', 37.339803, -121.888025, 14, '$2.30M', ' 10,541 sqft lot',''],
-                                  ['1879 Perrone Cir, San Jose, CA 95116',  37.357783, -121.851875, 13, '$759K', '4 bd, 3 ba','1,938 sqft'],
-                                  ['846 Paseo Estero Dr, San Jose, CA 95122', 37.316090, -121.845615, 12, '$520K', '3 bd, 3 ba','1,112 sqft'],
-                                  ['1021 Malott Dr,San Jose, CA 95121', 37.308508, -121.832451, 11, '$729K','3 bd, 2ba','1,444 sqft'],
-                                  ['1781 Parkview Green Cir,San Jose, CA 95131', 37.308508,-121.832451, 10, '$588K', '2 bd, 1 ba','941 sqft'],
-                                  ['1371 Tea Rose Cir, San Jose, CA 95131', 37.387995, -121.894348, 9, '$659K', '2 bd, 3 ba','1,506 sqft'],
-                                  ['2131 Bayhaven Dr, San Jose, CA 95122', 37.331524, -121.822463, 8, '$519K','3 bd, 2 ba','1,232 sqft'],
-                                  ['2269 Freya Dr, San Jose, CA 95148', 37.315251, -121.788724, 7, '$610K','3 bd, 2 ba','1,061 sqft'],
-                                  ['2117 Ashley Ridge Ct,San Jose, CA 95138', 37.292790, -121.780485, 6, '$1.89M', '5 bd, 4 ba','4,079 sqft'],
-                                  ['589 S 22nd St, San Jose, CA 95116', 37.337286, -121.863899, 5, '$798K','3 bd, 3 ba','2,250 sqft'],
-                                  ['870 E Empire St, San Jose, CA 95112', 37.352815, -121.879539, 4, '$700K', '4 bd, 2.5ba','2,405 sqft'],
-                                  ['86 N 25th St, San Jose, CA 95116', 37.348626, -121.867562, 3, '$519K', '2 bd, 1 ba','936 sqft'],
-                                  ['3312 Vernice Ave,San Jose, CA 95127', 37.358043, -121.811202, 2, '$699K', '4 bd, 3 ba','1,875 sqft'],
-                                  ['2249 Kammerer Ave, San Jose, CA 95116', 37.353685, -121.840582, 1, '$599K', '3 bd, 1 ba','1,083 sqft']
+                                  ['3015 Senter Rd, San Jose, CA 95111', 37.295796, -121.836151, 15, ' $600K', '3 bd, 2 ba','1,593 sqft'],
+                                  ['117 N 5th St, San Jose, CA 95112', 37.339803, -121.888025, 14, ' $2.30M', ' 10,541 sqft lot',''],
+                                  ['1879 Perrone Cir, San Jose, CA 95116',  37.357783, -121.851875, 13, ' $759K', '4 bd, 3 ba','1,938 sqft'],
+                                  ['846 Paseo Estero Dr, San Jose, CA 95122', 37.316090, -121.845615, 12, ' $520K', '3 bd, 3 ba','1,112 sqft'],
+                                  ['1021 Malott Dr,San Jose, CA 95121', 37.308508, -121.832451, 11, ' $729K','3 bd, 2ba','1,444 sqft'],
+                                  ['1781 Parkview Green Cir,San Jose, CA 95131', 37.308508,-121.832451, 10, ' $588K', '2 bd, 1 ba','941 sqft'],
+                                  ['1371 Tea Rose Cir, San Jose, CA 95131', 37.387995, -121.894348, 9, ' $659K', '2 bd, 3 ba','1,506 sqft'],
+                                  ['2131 Bayhaven Dr, San Jose, CA 95122', 37.331524, -121.822463, 8, ' $519K','3 bd, 2 ba','1,232 sqft'],
+                                  ['2269 Freya Dr, San Jose, CA 95148', 37.315251, -121.788724, 7, ' $610K','3 bd, 2 ba','1,061 sqft'],
+                                  ['2117 Ashley Ridge Ct,San Jose, CA 95138', 37.292790, -121.780485, 6, ' $1.89M', '5 bd, 4 ba','4,079 sqft'],
+                                  ['589 S 22nd St, San Jose, CA 95116', 37.337286, -121.863899, 5, ' $798K','3 bd, 3 ba','2,250 sqft'],
+                                  ['870 E Empire St, San Jose, CA 95112', 37.352815, -121.879539, 4, ' $700K', '4 bd, 2.5ba','2,405 sqft'],
+                                  ['86 N 25th St, San Jose, CA 95116', 37.348626, -121.867562, 3, ' $519K', '2 bd, 1 ba','936 sqft'],
+                                  ['3312 Vernice Ave,San Jose, CA 95127', 37.358043, -121.811202, 2, ' $699K', '4 bd, 3 ba','1,875 sqft'],
+                                  ['2249 Kammerer Ave, San Jose, CA 95116', 37.353685, -121.840582, 1, ' $599K', '3 bd, 1 ba','1,083 sqft']
                                   ];
-                                  
+                    var crime = [
+                                    ['1285 Tripp Ave Apt # 13, San Jose, CA',37.353771, -121.870921,1,'Sex Offender' ,'COLEMAN, ANTHONY'],
+                                    ['362 N 21st St, San Jose, CA',37.351476, -121.874990, 2,'Sex Offender', 'DELATORRE, NICHOLAS MURILLO'],
+                                    ['65 N 32nd St, San Jose, CA',37.351573, -121.860969,3,'Sex Offender','CARLSON, JONATHAN TODD'],
+                                    ['1300 Block E JULIAN ST, San Jose, CA',37.352388, -121.868930, 4, 'Breaking & Enter', '09 Nov 2015'],
+                                    ['1300 Block FIVE WOUNDS LN, San Jose, CA', 37.349848, -121.865044, 5, 'Breaking & Enter', '10 Nov 2015'],
+                                    ['269 N 17th St, San Jose, CA', 37.347641, -121.877608,6,'Sex Ofender','GONZALES, JOSEPH LOUIS'],
+                                    ['201 N 34th St, San Jose, CA', 37.355176, -121.861327, 7,'Sex Offender', 'BOVADILLA, JOSE MIQUEL']
+                                 ];
+                                 
+                    var school = [
+                                    ['55 N 7th St, San Jose, CA 95112',37.339475, -121.885184, 1,'Elementary School','Horace Mann'],
+                                    ['1944 Flint Ave, San Jose, CA 95148', 37.346510, -121.800455, 2,'Middle School', 'August Boeger'],
+                                    ['1155 E Julian St, San Jose, CA 95116', 37.350981, -121.872055, 3,'Middle and High Schools','San Jose Community'],
+                                    ['830 N Capitol Ave, San Jose, CA',37.381795, -121.853208, 4,'High School district','East Side Union '],
+                                    ['100 Oak St, San Jose, CA 95110', 37.321765, -121.881576,5,'Elementary School','Washington '],
+                                    ['2100 Moorpark Ave, San Jose, CA 95128', 37.315505, -121.930026, 6,'College','San Jose City '],
+                                    ['1 Washington Sq, San Jose, CA 95192', 37.335142, -121.881276, 7,'University','San Jose State ']
+                                  ];
+                    
                           function setMarkers(map) {
                               // Adds markers to the map.
                               
@@ -192,6 +203,25 @@
                                   // The anchor for this image is the base of the flagpole at (0, 32).
                                   anchor: new google.maps.Point(0, 32)
                               };
+                              var crimeicon = {
+                                  url: 'images/red.png',
+                                  // This marker is 20 pixels wide by 32 pixels high.
+                                  size: new google.maps.Size(20, 32),
+                                  // The origin for this image is (0, 0).
+                                  origin: new google.maps.Point(0, 0),
+                                  // The anchor for this image is the base of the flagpole at (0, 32).
+                                  anchor: new google.maps.Point(0, 32)
+                              };
+                              var schoolicon = {
+                                  url: 'images/school.png',
+                                  // This marker is 20 pixels wide by 32 pixels high.
+                                  size: new google.maps.Size(20, 32),
+                                  // The origin for this image is (0, 0).
+                                  origin: new google.maps.Point(0, 0),
+                                  // The anchor for this image is the base of the flagpole at (0, 32).
+                                  anchor: new google.maps.Point(0, 32)
+                              };
+                              
                               // Shapes define the clickable region of the icon. The type defines an HTML
                               // <area> element 'poly' which traces out a polygon as a series of X,Y points.
                               // The final coordinate closes the poly by connecting to the first coordinate.
@@ -199,7 +229,7 @@
                                   coords: [1, 1, 1, 20, 18, 20, 18, 1],
                                   type: 'poly'
                               };
-                              var infowindow = new google.maps.InfoWindow({maxWidth: 50});
+                              var infowindow = new google.maps.InfoWindow({maxWidth: 100});
 
                               function placeMarker(house){
                                   var marker = new google.maps.Marker({
@@ -212,7 +242,7 @@
                                       });
                                       google.maps.event.addListener(marker, 'click', function() {
                                                          infowindow.close();
-                                                         infowindow.setContent( "<div><a id='btn1'><b>"+ house[4] + "</b></a><br><font size='1.5'>"+ house[5]+ "<br>"+ house[6]+"</font></div>");
+                                                         infowindow.setContent( "<div><img src='images/sample.jpg' alt='house' style='width:40px;height:40px;'></img><a id='link' href='forum.html'><b>"+ house[4] + "</b></a><br><font size='1.5'>"+ house[5]+ "<br>"+ house[6]+"</font></div>");
                                                          infowindow.open(map, marker);
                                                          });
 
@@ -222,6 +252,50 @@
                                   placeMarker(houses[i]);
                 
                               }
+                              function placeMarkers(crime){
+                                  var markers = new google.maps.Marker({
+                                                                      position: {lat: crime[1], lng: crime[2]},
+                                                                      map: map,
+                                                                      icon: crimeicon,
+                                                                      shape: shape,
+                                                                      title: crime[0],
+                                                                      zIndex: crime[3]
+                                                                      });
+                                                                      google.maps.event.addListener(markers, 'click', function() {
+                                                                                                    infowindow.close();
+                                                                                                    infowindow.setContent( "<div><a id='link'><b>"+ crime[4] + "</b></a><br><font size='1.5'>"+ crime[5]+"</font></div>");
+                                                                                                    infowindow.open(map, markers);
+                                                                                                    });
+                                                                                                    
+                                                                                                    
+                              }
+                              for (var i = 0; i < crime.length; i++) {
+                                  placeMarkers(crime[i]);
+                                 
+                              }
+                              function placeschool(school){
+                                  var mark = new google.maps.Marker({
+                                                                      position: {lat: school[1], lng: school[2]},
+                                                                      map: map,
+                                                                      icon: schoolicon,
+                                                                      shape: shape,
+                                                                      title: school[0],
+                                                                      zIndex: school[3]
+                                                                      });
+                                                                      google.maps.event.addListener(mark, 'click', function() {
+                                                                                                    infowindow.close();
+                                                                                                    infowindow.setContent( "<div><a id='link'><b>"+ school[4] + "</b></a><br><font size='1.5'>"+ school[5]+"</font></div>");
+                                                                                                    infowindow.open(map, mark);
+                                                                                                    });
+                                                                                                    
+                                                                                                    
+                              }
+                              for (var i = 0; i < school.length; i++) {
+                                  placeschool(school[i]);
+                                  
+                              }
+                              
+
                     }
                     </script>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOw_TXQlHoR3fWgFSzof6HR0YLh4lvFz4&libraries=places&callback=initAutocomplete"

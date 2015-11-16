@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="FoundIt" content="">
+
+    <title>Found It</title>
+
+    <!-- Bootstrap Core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+            
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link href="css/full-slider.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">FoundIt</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="profile.html">Profile</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                
+
+                        <a href="signup.html">
+                            <button type="button" class="btn btn-default navbar-btn" style="float: right">Sign Up</button>
+                        </a>
+                    
+                        <a href="signin.html">
+                            <button type="button" class="btn btn-default navbar-btn" style="float: right">Sign In</button>
+                        </a>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <hr>
+    <hr>
+    <div class="info">
+        <h1 style="color : orange"><center>Forum<br><b>2117 Ashley Ridge Ct,
+            San Jose, CA 95138<br>For sale: $1,888,000</b></center></h1>
+        <p1><b>5 beds 4 baths 4,079 sqft - built in 1998</b></p1><br>
+        <p1>This prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1>
+        <ul id="list">
+            <li>Nearby schools: Evergreen School District, James Franklin Smith Elementary School, Evergreen Valley College. </li>
+            <li>Near Attractions: The Ranch Golf Club, Montgomery Hill Park, Evergreen Park</li>
+            <li>Crimes: 1 Register Sex Offenders in radius 1 mile.</li>
+        </ul>
+        <img src="images/sample.jpg" alt="house" style="width:304px;height:228px;">
+        <img src="images/living.jpg" alt="house" style="width:304px;height:228px;">
+        <img src="images/roomE.jpg" alt="house" style="width:304px;height:228px;">
+        <img src="images/garden.jpg" alt="house" style="width:304px;height:228px;">
+        <img src="images/bath.jpg" alt="house" style="width:304px;height:228px;"></img>
+        <h1>Features</h1>
+        <ul id="list">
+            <li>Security System</li>
+            <li>Fireplace</li>
+            <li>Hot Tub / Spa</li>
+            <li>Pool and Garden</li>
+        </ul>
+      </div>
+    <a href="profile.html">
+        <center><button type="button" class="btn btn-success navbar-btn">Add to my list</button></center>
+    </a>
+    <hr>
+    <div class="comment">
+        <form method='post'>
+        
+            Comment:<br />
+            <textarea name='comment' id='comment' style="width:20cm;"></textarea><br />
+            
+            <input type='hidden' name='articleid' id='articleid' value='<? echo $_GET["id"]; ?>' />
+            
+            <input type='submit' value='Post' style="margin-left:19cm"/>
+        </form>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <hr>
+            <!-- /#contents -->
+            <div id="footer">
+            <div>
+                <ul id="links">
+                    <li>
+                        
+                        <h4>Social Links</h4>
+                        <ul id="connect">
+                            <li>
+                                <a href="https://twitter.com/" target="_blank" class="twitter">Twitter</a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/" target="_blank" class="facebook">Facebook</a>
+                            </li>
+                            <li>
+                                <a href="https://www.google.com/" target="_blank" class="googleplus">Google +</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /#links -->
+                <p class="footnote">
+                © Copyright 2015.FoundIt all rights reserved
+                </p>
+            </div>
+            </div>
+            <!-- /#footer -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 2000 //changes the speed
+    })
+    </script>
+
+</body>
+
+</html>
