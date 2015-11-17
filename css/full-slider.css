@@ -40,15 +40,15 @@ h1{
     font-family: "Papyrus", Times, serif;
     
 }
-h2{
+h2 {
     color: orange;
     font-size: 1.75em;
     font-family: "Papyrus", Times, serif;
 }
-p1{
+p1 {
     font-size:1.25em;
 }
-p{
+p {
     
     font-size: 1.25em;
     float : left;
@@ -56,15 +56,15 @@ p{
     margin-left: 3cm;
     margin-right:3cm;
 }
-#comment{
+#comment {
     margin-left:1cm;
 }
-p2{
+p2 {
     
     font-size: 1.25em;
     margin-left: 3cm;
 }
-#list{
+#list {
     font-size: 1.25em;
 }
 
