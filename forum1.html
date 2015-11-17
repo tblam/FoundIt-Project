@@ -77,14 +77,22 @@
     </nav>
     <hr>
     <hr>
+    <script>
+        function toggleByClass(className) {
+            $("."+className).toggle();
+        }
+        </script>
     <div class="info">
         <h1 style="color : orange"><center>Forum<br><b>870 E Empire St, San Jose, CA 95112<br>For sale: $699,950</b></center></h1>
         <p1><b>4 beds, 3 baths, 2,405 sqft - built in 1976</b></p1><br>
         <p1>This 2,405 square foot house sits on a 7,384 square foot lot and features 4 bedrooms and 2.5 bathrooms.</p1>
         <ul id="list">
-            <li>Nearby schools: Empire Gardens Elementary School, San Jose Community High School and San Jose Community Middle School </li>
-            <li>Nearby Attractions: Backesto Park, Watson Park and Watson Dog Park.</li>
-            <li>Crime Alerts: 5 Registered Sex Offenders in 1 mile radius.</li>
+            <button class="btn btn-lg btn-block" onclick="toggleByClass('schools');">Schools</button>
+            <div class="schools" id="information">Nearby schools: Empire Gardens Elementary School, San Jose Community High School and San Jose Community Middle School</div>
+            <button class="btn btn-lg btn-block" onclick="toggleByClass('attractions');">Nearby Attractions</button> 
+            <div class="attractions" id="information">Nearby Attractions: Backesto Park, Watson Park and Watson Dog Park</div>
+            <button class="btn btn-lg btn-block" onclick="toggleByClass('crime');">Crime Alerts</button>
+            <div class="crime" id="information">5 Registered Sex Offenders in 1 mile radius.</div>
         </ul>
         <img src="images/sample1.jpg" alt="house1" style="width:304px;height:228px;">
         <img src="images/room1.jpg" alt="house1" style="width:304px;height:228px;">
