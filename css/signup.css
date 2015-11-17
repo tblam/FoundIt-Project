@@ -31,7 +31,8 @@ input{
 }
 
 footer{
-    margin-top: 14cm;
+    margin-top: 15cm;
+    margin-bottom: 0cm;
     text-align:center;
     font-size: inherit;
 
