@@ -57,6 +57,7 @@
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
+            <hr>
         </ol>
 
         <!-- Wrapper for Slides -->
@@ -66,6 +67,7 @@
                 <div class="fill" style="background-image:url('house.jpg');"></div>
                 <div class="carousel-caption">
                     <h2>"Owning a home is a keystone of wealth...both financial affluence and emotional security"</h2>
+                    <br>
                 </div>
             </div>
             <div class="item">
@@ -73,6 +75,7 @@
                 <div class="fill" style="background-image:url('computer.jpg');"></div>
                 <div class="carousel-caption">
                     <h2>"Find your dream home with all of its features at your fingertips"</h2>
+                    <br>
                 </div>
             </div>
             <div class="item">
@@ -84,6 +87,7 @@
                             <button type="button" class="btn btn-success navbar-btn">Get Started</button>
                         </a>
                     </h2>
+                    <br>
                 </div>
             </div>
         </div>
@@ -95,41 +99,44 @@
         <a class="right carousel-control" href="#myCarousel" data-slide="next">
             <span class="icon-next"></span>
         </a>
-
     </header>
 
     <!-- Page Content -->
-    <div class="container">
-
-            <!-- /#contents -->
-            <div id="footer">
-            <div>
-                <ul id="links">
+    <nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Social Links</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
                     <li>
-                        
-                        <h4>Social Links</h4>
-                        <ul id="connect">
-                            <li>
-                                <a href="https://twitter.com/" target="_blank" class="twitter">Twitter</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/" target="_blank" class="facebook">Facebook</a>
-                            </li>
-                            <li>
-                                <a href="https://www.google.com/" target="_blank" class="googleplus">Google +</a>
-                            </li>
-                        </ul>
+                        <a href="https://www.facebook.com/">Facebook</a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/">Twitter</a>
+                    </li>
+                    <li>
+                        <a href="https://www.google.com/">Google+</a>
+                    </li>
+                    <li> <p class="footnote" style="color:orange">
+                        © Copyright 2015.FoundIt all rights reserved
+                        </p>
                     </li>
                 </ul>
-                <!-- /#links -->
-                <p class="footnote">
-                © Copyright 2015.FoundIt all rights reserved
-                </p>
+                
             </div>
-            </div>
-            <!-- /#footer -->
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
 
-    </div>
     <!-- /.container -->
 
     <!-- jQuery -->
@@ -141,7 +148,7 @@
     <!-- Script to Activate the Carousel -->
     <script>
     $('.carousel').carousel({
-        interval: 2000 //changes the speed
+        interval: 1750 //changes the speed
     })
     </script>
 
