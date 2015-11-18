@@ -19,12 +19,19 @@
     <!-- Custom CSS -->
     <link href="css/full-slider.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <script>
+        $(document).ready(function(){
+            $(".remove").on("click", function(){
+                $(this).closest("li").remove();
+                });
+                          });
+    </script>
 
 </head>
 
@@ -90,13 +97,11 @@
         <ul id="list">
             <li>
                 <a href="forum.html"><img src="images/sample.jpg" alt="sample" style="width:120px;height:100px;">
-                    $1.89M - 2117 Ashley Ridge Ct,San Jose, CA 95138  </a><button type="button" class="btn btn-warning">Remove</button>
-            </li>
+                    $1.89M - 2117 Ashley Ridge Ct,San Jose, CA 95138 </a><div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></li>
+            <br>
             <li>
                 <a href="forum1.html"><img src="images/sample1.jpg" alt="sample" style="width:120px;height:100px;">
-                    $700K - 870 E Empire St, San Jose, CA 95112  </a><button type="button" class="btn btn-warning">Remove</button>
-
-            </li>
+                    $700K - 870 E Empire St, San Jose, CA 95112 </a><div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></li>
         </ul>
     </div>
         
