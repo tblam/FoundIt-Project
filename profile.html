@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="FoundIt" content="">
+
+    <title>Found It</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/home.css"/>
+    <script src="backend.js"></script>
+     
+    <!-- Custom CSS for sign up / sign in modal-->
+    <link href="css/profile.css" rel="stylesheet"/>
+    <link href="css/signup_login/normalize.css" rel="stylesheet"/>  
+    <link href="css/signup_login/style.css" rel="stylesheet"/>   
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script>
+        $(document).ready(function(){
+            $(".remove").on("click", function(){
+                $(this).closest("li").remove();
+                });
+                          });
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="navigation" class="container-fluid">
+            <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+                <div  class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html"></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="top-navbar-1"> 
+                        <ul id="nav_text" class="nav navbar-nav navbar-right">
+                            <li> <a href="about.html">About</a></li>
+                            <li> <a href="profile.html">Profile</a></li>
+                            <li> <a href="contact.html">Contact</a></li>
+                            <li> <a href="#myModal" data-toggle="modal" data-target="#myModal">Login / Sign Up</a></li>
+
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog modal-lg" >
+                                    <!-- Modal content-->
+                                    <div class="modal-content" style="background: rgba(19, 35, 47, 0.9);">  
+                                        <div class="modal-body">
+                                            <ul class="tab-group">
+                                                <li class="tab active"><a href="#login">Log In</a></li>
+                                                <li class="tab"><a href="#signup">Sign Up</a></li>
+                                            </ul>
+
+                                            <div class="tab-content"> 
+                                                <div id="login">   
+                                                    <h1>Welcome Back!</h1>
+
+                                                    <form action="/" method="post">
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="email" placeholder="Email..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <div class="field-wrap">
+                                                            <input type="password" placeholder="Password..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <p class="forgot"><a href="#">Forgot Password?</a></p>
+
+                                                        <button class="button button-block"/>Log In</button> 
+                                                    </form> 
+                                                </div>
+
+                                                <div id="signup">   
+                                                    <h1>Sign Up for Free</h1>
+
+                                                    <form action="/" method="post">
+
+                                                        <div class="top-row">
+                                                            <div class="field-wrap">
+                                                                <input type="text" placeholder="First name..." required autocomplete="off" />
+                                                            </div>
+
+                                                            <div class="field-wrap"> 
+                                                                <input type="text" placeholder="Last name..." required autocomplete="off"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="email" placeholder="Email..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="password" placeholder="Password..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="password" placeholder="Re-type password..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <button type="submit" class="button button-block"/>Get Started</button>
+                                                </div>
+                                            </div><!--Tab content---->
+                                        </div> <!--Modal body---->
+                                    </div>
+                                </div>
+                            </div> <!-- End modal ---->
+                        </ul> 
+                    </div> <!-- Collapsed bar --> 
+                </div> 
+            </nav> 
+        </div>
+    
+    <!-- Body section -->
+    <div id="background">
+        <img style="max-height:100%; width:100%; "src="images/roomE.jpg">
+    </div>
+    <div id="sidebar">
+        <div id="profile">
+            <img src="images/profile.jpg">
+        </div>
+        <div id="list"><p>Name: <b>Jenny Banker</b></p>
+            
+               <p>Occupantion: Real Estate Agent</p>
+               <p>Phone number: 408-123-4545</p>
+               <p>Email: <a href="">jbaker@foundit.com</p></a>
+        </p>
+        </div>
+    </div>
+    <div id="mainContent">
+        <div id="topContent">
+            <p>Favorite Houses | Contact List | House Collections </p>
+        </div>
+        <div id="bodyContent">
+            <ul id="">
+            <li>
+                <a href="forum.html"><img src="images/sample.jpg" alt="sample" style="width:120px;height:100px;">
+                    $1.89M - 2117 Ashley Ridge Ct,San Jose, CA 95138 </a><div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></li>
+            <br>
+            <li>
+                <a href="forum1.html"><img src="images/sample1.jpg" alt="sample" style="width:120px;height:100px;">
+                    $700K - 870 E Empire St, San Jose, CA 95112 </a><div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></li>
+            <br>
+            <li>
+                <a href="forum1.html"><img src="images/sample1.jpg" alt="sample" style="width:120px;height:100px;">
+                    $700K - 870 E Empire St, San Jose, CA 95112 </a><div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></li>
+            <br>
+            <li>
+                <a href="forum1.html"><img src="images/sample1.jpg" alt="sample" style="width:120px;height:100px;">
+                    $700K - 870 E Empire St, San Jose, CA 95112 </a><div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></li>
+        </ul>
+        </div>
+    </div>
+    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 2000 //changes the speed
+    })
+    </script>
+
+</body>
+
+</html>

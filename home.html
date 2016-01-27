@@ -1,0 +1,221 @@
+<?php
+	session_start();
+?>
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>FoundIt - Home</title> 
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+    <!-- Customed CSS for home page -->
+    <link rel="stylesheet" href="css/home.css"/>
+    <script src="backend.js"></script>
+     
+    <!-- Custom CSS for sign up / sign in modal-->
+    <link href="css/signup_login/normalize.css" rel="stylesheet"/>  
+    <link href="css/signup_login/style.css" rel="stylesheet"/>   
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    
+    </head>
+    
+    <body>
+        <div id="navigation" class="container-fluid">
+            <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+                <div  class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="index.html"></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="top-navbar-1"> 
+                        <ul id="nav_text" class="nav navbar-nav navbar-right">
+                            <li> <a href="about.html">About</a></li>
+                            <li> <a href="profile.html">Profile</a></li>
+                            <li> <a href="contact.html">Contact</a></li>
+                            <li> <a href="#myModal" data-toggle="modal" data-target="#myModal">Login / Sign Up</a></li>
+
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog modal-lg" >
+                                    <!-- Modal content-->
+                                    <div class="modal-content" style="background: rgba(19, 35, 47, 0.9);">  
+                                        <div class="modal-body">
+                                            <ul class="tab-group">
+                                                <li class="tab active"><a href="#login">Log In</a></li>
+                                                <li class="tab"><a href="#signup">Sign Up</a></li>
+                                            </ul>
+
+                                            <div class="tab-content"> 
+                                                <div id="login">   
+                                                    <h1>Welcome Back!</h1>
+
+                                                    <form action="/" method="post">
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="email" placeholder="Email..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <div class="field-wrap">
+                                                            <input type="password" placeholder="Password..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <p class="forgot"><a href="#">Forgot Password?</a></p>
+
+                                                        <button class="button button-block"/>Log In</button> 
+                                                    </form> 
+                                                </div>
+
+                                                <div id="signup">   
+                                                    <h1>Sign Up for Free</h1>
+
+                                                    <form action="/" method="post">
+
+                                                        <div class="top-row">
+                                                            <div class="field-wrap">
+                                                                <input type="text" placeholder="First name..." required autocomplete="off" />
+                                                            </div>
+
+                                                            <div class="field-wrap"> 
+                                                                <input type="text" placeholder="Last name..." required autocomplete="off"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="email" placeholder="Email..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="password" placeholder="Password..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <div class="field-wrap"> 
+                                                            <input type="password" placeholder="Re-type password..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <button type="submit" class="button button-block"/>Get Started</button>
+                                                </div>
+                                            </div><!--Tab content---->
+                                        </div> <!--Modal body---->
+                                    </div>
+                                </div>
+                            </div> <!-- End modal ---->
+                        </ul> 
+                    </div> <!-- Collapsed bar --> 
+                </div> 
+            </nav> 
+        </div>
+    
+        <div id="searcharea" class="container">   
+            <div class="input-group stylish-input-group" id="searchbox">
+                <input id="address_input" type="text" class="form-control"  placeholder="Search" >
+                <span class="input-group-addon">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>  
+                </span> 
+            </div>
+            <div class="dropdown" id="filter-item" >  
+                <a class="btn" type="button" data-toggle="dropdown">Price range <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">> 100K </a></li>
+                    <li><a href="#">> 200K </a></li>
+                    <li><a href="#">> 300K </a></li>
+                </ul>  
+            </div>
+            <div class="dropdown" id="filter-item" >  
+                <a class="btn" type="button" data-toggle="dropdown">Bed <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">+1</a></li>
+                    <li><a href="#">+2</a></li>
+                    <li><a href="#">+3</a></li>
+                </ul> 
+            </div> 
+
+            <div class="dropdown" id="filter-item" >  
+                <a class="btn" type="button" data-toggle="dropdown">Price range <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">> 100K </a></li>
+                    <li><a href="#">> 200K </a></li>
+                    <li><a href="#">> 300K </a></li>
+                </ul>  
+            </div>
+        </div>
+    
+        <div id="map">   
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script>
+        </div>  
+    
+        <div>
+            <button style="float:left;" onclick="clickCounter()" type="button">Click me!</button> 
+            <div style="margin-left:20px;" id="result"> </div>  
+        </div>
+    </body>
+
+
+<script>
+    $('.form').find('input, textarea').on('keyup blur focus', function (e) {
+  
+  var $this = $(this),
+      label = $this.prev('label');
+
+	  if (e.type === 'keyup') {
+			if ($this.val() === '') {
+          label.removeClass('active highlight');
+        } else {
+          label.addClass('active highlight');
+        }
+    } else if (e.type === 'blur') {
+    	if( $this.val() === '' ) {
+    		label.removeClass('active highlight'); 
+			} else {
+		    label.removeClass('highlight');   
+			}   
+    } else if (e.type === 'focus') {
+      
+      if( $this.val() === '' ) {
+    		label.removeClass('highlight'); 
+			} 
+      else if( $this.val() !== '' ) {
+		    label.addClass('highlight');
+			}
+    }
+
+});
+
+    $('.tab a').on('click', function (e) {
+  
+  e.preventDefault();
+  
+  $(this).parent().addClass('active');
+  $(this).parent().siblings().removeClass('active');
+  
+  target = $(this).attr('href');
+
+  $('.tab-content > div').not(target).hide();
+  
+  $(target).fadeIn(600);
+  
+});
+    
+    function clickCounter(){ 
+        if (typeof(Storage) !== "undefined") {  
+        document.getElementById("result").innerHTML = localStorage.getItem("storeddata"); 
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+        }
+    }
+</script>
+</html>
