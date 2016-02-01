@@ -1,51 +1,45 @@
 var map;
-var geocoder;
-var startingPoint = {lat: 37.3351874, lng: -121.88107150000002};
+var geocoder; 
 var infowindow;
+var marker;
 var markers = [];  
-var list_circle = [];
+var list_circle = []; 
+var range = 5; 
  
 function init () { 
     geocoder = new google.maps.Geocoder();
-    infowindow = new google.maps.InfoWindow({width: 2000}); 
+    infowindow = new google.maps.InfoWindow({maxWidth: 500}); 
     map = new google.maps.Map(document.getElementById("map"), { 
         zoom: 12 
-    }); 
+    });  
     
     //Set the starting point as user request
     if (typeof(Storage) !== "undefined") { 
         $('#address_input').val(localStorage.getItem("storeddata"));
-        geocodeAddress(localStorage.getItem("storeddata"));
+        var a = geocodeAddress(localStorage.getItem("storeddata")); 
     }
     else{
         alert("Sorry, your browser does not support web storage..."); 
     }  
-     
-    // Create the search box 
+      
+    // Create the search box and bind it to google autocomplete
     var input = document.getElementById('address_input'); 
     var types = document.getElementById('type-selector');
 //    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+//    map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
     var autocomplete = new google.maps.places.Autocomplete(input); 
     autocomplete.bindTo('bounds', map); 
     autocomplete.addListener('place_changed', function() {
-        
         infowindow.close();
         marker.setVisible(false);
         var place = autocomplete.getPlace();
-
         if (!place.geometry) {
-            window.alert("Autocomplete's returned place contains no geometry");
+            window.alert("Autocomplete's returned place contains no geometry. Please click on an address from the list.");
             return;
-        }
-        // If the place has a geometry, then present it on a map.
-//        if (place.geometry.viewport) {
-//            map.fitBounds(place.geometry.viewport); 
-//        } else {
-//            map.setCenter(place.geometry.location);  
-//        }
-
+        } 
+        
+        //Set center
         map.setCenter(place.geometry.location);  
         
         //Clear previous markers
@@ -61,49 +55,12 @@ function init () {
 //        }));
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
-         
-
-        //Get range and keyword
-        var range = 5; 
-        var keyword = "school"; 
-              
-        //Clear circle & Display range
-        for (var i = 0; i < list_circle.length; i++)  
-        {
-            list_circle[i].setMap(null);
-            list_circle.shift(); 
-        } 
+          
+        //Display range 
+        displayRange(place.geometry.location, range);
         
-        var circle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: map,
-            center: place.geometry.location,
-            radius: range / 0.00062137
-        });  
-        
-        list_circle.push(circle);
-        
-        
-        //PHP calling 
-        var a_url="getSchool.php?range=" + range + "&lat=" + place.geometry.location.lat() + "&lng=" + place.geometry.location.lng(); 
-        $.get(a_url, function(data, status){  
-            var count = 0;
-            for(count in data)  {
-                var icon = {
-				url: 'images/school.png',
-//				size: new google.maps.Size(50, 50),
-				origin: new google.maps.Point(0, 0),
-//				anchor: new google.maps.Point(17, 34),
-				scaledSize: new google.maps.Size(25, 25)
-                }
-                setMarker(data[count].long, data[count].lat, icon);
-                
-            } 
-         }, "json");          
+        //Connect to database
+        getSchool(range, place.geometry.location.lat(), place.geometry.location.lng()); 
  }); 
 //        var address = '';
 //        if (place.address_components) {
@@ -133,6 +90,46 @@ function init () {
 //    document.getElementById('geoCode').addEventListener('click', function() {geocodeAddress(geocoder)});
 }
 
+function displayRange(centerPoint, range){
+    //Clear circle & Display range
+    for (var i = 0; i < list_circle.length; i++)  
+    {
+        list_circle[i].setMap(null);
+        list_circle.shift(); 
+    } 
+
+    var circle = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: map,
+        center: centerPoint,
+        radius: range / 0.00062137
+    });  
+
+    list_circle.push(circle);
+}
+
+function getSchool(range, newlat, newlng){
+    //PHP calling 
+        var a_url="getSchool.php?range=" + range + "&lat=" + newlat + "&lng=" + newlng; 
+        $.get(a_url, function(data, status){  
+            var count = 0;
+            for(count in data)  {
+                var icon = {
+				url: 'images/school.png',
+//				size: new google.maps.Size(50, 50),
+				origin: new google.maps.Point(0, 0),
+//				anchor: new google.maps.Point(17, 34),
+				scaledSize: new google.maps.Size(25, 25)
+                }
+                setMarker(data[count].long, data[count].lat, icon); 
+            } 
+         }, "json"); 
+}
+
 function setMarker(newLng, newlat, a_icon){ 
     var marker = new google.maps.Marker({
         map: map,
@@ -143,24 +140,41 @@ function setMarker(newLng, newlat, a_icon){
     
     //Creating infor box when mouse over
     marker.addListener('mouseover', function() { 
-         infowindow.setContent("<div style='width:130px;'>" +
-                               "<div style='float:left; margin-right:5px;'>" +
-                               "<img src='images/kitchen.jpg' alt='house' style='width:50px;height:50px;'></img>" +
-                               "</div>" +
-                               "<a id='link' href='home.html'>$700</a><br>" +
-                               "4 bd, 3ba<br>" +
-                               "2000 sqft<br>" +
-                               "</div>");
-         infowindow.open(map, marker);
-         });
+        infowindow.setContent("<div class='infobox' style='border: solid black; width:130px;'>" +
+                           "<div style='float:left; margin-right:5px;'>" +
+                           "<img src='images/kitchen.jpg' alt='house' style='width:50px;height:50px;'></img>" +
+                           "</div>" +
+                           "<a id='link' href='home.html'>$700</a><br>" +
+                           "4 bd, 3ba<br>" +
+                           "2000 sqft<br>" +
+                           "</div>");
+        infowindow.open(map, marker);
+    });
     
     //Close infobox when mouse is not over
     var ibtimeout;
     marker.addListener('mouseout', function() {
         ibTimeout = setTimeout(function(){
-            ib.close();
-        }, 50);
+            infowindow.close();
+        }, 1000);
     }); 
+     
+    
+//    google.maps.event.addListener(infowindow, 'domready', function(e){
+//        $('.infobox').on('mouseenter', function(e){
+//            clearTimeout(ibtimeout);
+//        }).on('mouseleave', function(e){
+//            clearTimeout(ibtimeout);
+//            infowindow.close();
+//        }); 
+//        $('.infobox').mouseenter(function(){
+//            clearTimeout(ibTimeout);
+//        });
+//        $('.infobox').mouseout(function(){
+//            clearTimeout(ibTimeout);
+//            infowindow.close();
+//        });
+//    });
      
     markers.push(marker);
 }
@@ -199,20 +213,28 @@ function createMarker(place) {
 }
 
 function geocodeAddress(city) { 
+    var test = 0;
     geocoder.geocode({'address': city}, function(results, status) { 
       if (status == google.maps.GeocoderStatus.OK) 
       { 
           clearMarkers();  
-          startingPoint = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}; 
+          test = results[0].geometry.location.lat(); 
+          var startingPoint = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};  
           map.setCenter(startingPoint);
-          var marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
               map: map,
               position: startingPoint
-          });  
+          });    
+          //Get houses around
+          getSchool(5, startingPoint.lat, startingPoint.lng);
+          
+          //Display range
+          displayRange(startingPoint, 5);
+           
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
-    });
+    }); 
 }
 
 // Sets the map on all markers in the array.
