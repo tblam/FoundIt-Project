@@ -109,19 +109,8 @@ body{
     display: inline-block; 
 }
 
-#custom-image a img { 
-    width: 350px;
-    height: 200px;
-    margin: 10px;
-}
-
-#custom-image a img:hover{
-    opacity: 0.8;
-}
-
-#custom-image{ 
-    display: inline-block; 
-    position: relative; 
+#map{    
+    min-height: 25%; 
 }
 
 #description-text{ 
@@ -194,6 +183,19 @@ body{
     -o-transition: all ease 0.3s;
     -ms-transition: all ease 0.3s;
 */
+}
+
+/* Carousel */
+
+.carousel {
+    width: 304px;  
+    margin: 0 auto;
+}
+
+.carousel img {
+    width: auto;
+    height: 225px;
+    max-height: 225px;
 }
 
 .social i:hover {
