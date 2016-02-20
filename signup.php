@@ -22,6 +22,7 @@ if ($conn)
 		echo "Signup succeeded. Please log in";
 		header("Location: index.html#login");
 	}
+	else
 	
 	db2_close($conn);
 }
