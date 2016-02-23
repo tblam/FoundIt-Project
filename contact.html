@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap Registration Form Template</title>
+        <title>Contact Form</title>
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -88,24 +88,24 @@
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="" method="post" class="registration-form">
+			                    <form role="form" action="contact.php" method="post" class="registration-form">
 			                    	<div class="form-group" id="groupinfo">
 			                    		<label class="sr-only" for="form-first-name">First name</label>
-			                        	<input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name"> 
+			                        	<input type="text" name="firstname" id="firstname" placeholder="First name..." class="form-first-name form-control"> 
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-last-name">Last name</label>
-			                        	<input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
+			                        	<input type="text" name="lastname" id="lastname" placeholder="Last name..." class="form-last-name form-control">
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-email">Email</label>
-			                        	<input type="text" name="form-email" placeholder="Your email..." class="form-email form-control" id="form-email">
+			                        	<input type="email" name="email" id="email" placeholder="Your email..." class="form-email form-control">
 			                        </div>
                                     <div class="form-group"> 
                                         <label class="sr-only" for="form-message">Message</label>
-                                        <textarea type="text" name="form-message" placeholder="Message..." class="form-message form-control" id="form-message"></textarea>
+                                        <textarea type="text" name="message" id="message" placeholder="Message..." class="form-message form-control"></textarea>
 			                        </div>
-			                        <button type="submit" class="btn">Send the message</button>
+			                        <button type="submit" onClick="contact.php" class="btn">Send the message</button>
 			                    </form>
 		                    </div>
                         </div>
@@ -123,6 +123,12 @@
         <script src="assets/js/retina-1.1.0.min.js"></script>
         <script src="assets/js/scripts.js"></script>
         
+		<script>
+			function validateEmail($email) {
+				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+				return emailReg.test($email );
+			}
+		</script>	
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
         <![endif]-->

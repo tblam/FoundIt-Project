@@ -96,9 +96,13 @@
         <div id="profile">
             <img src="images/profile.jpg">
         </div>
-        <div id="list"><p>Name: <b>Jenny Banker</b></p>
+        <div id="list"><p>Name: <?php
+					echo "<strong>".$_SESSION['firstn']." ".$_SESSION['lastn']."</strong>";
+			?></p>
                <p>Phone number: 408-123-4545</p>
-               <p>Email: <a href="">jbaker@foundit.com</a></p>
+               <p>Email: <a href=""><?php
+					echo "<strong>".$_SESSION['email']."</strong>";
+			?></a></p>
         </div>
     </div>
     <div class="col-xs-12 col-sm-8 col-md-8" id="mainContent">
