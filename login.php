@@ -7,7 +7,7 @@ $conn = db2_connect("sample", "tran", "db2admin");
 session_start();
 if ($conn) 
 { 
-	$email = $_POST['email']; 
+	$email = strtolower($_POST['email']); 
 	$password = $_POST['password']; 
   
 	$sql = "SELECT firstn, lastn FROM user WHERE email='$email' AND password='$password'";   

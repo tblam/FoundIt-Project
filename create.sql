@@ -1,5 +1,6 @@
+--Go to the directory, which contains create.sql 
 --db2 -td"^" -f create.sql
-
+--db2se enable_db sample
 --create bufferpool bp8k pagesize 8 k^
 --create system temporary tablespace tmpsys8k pagesize 8 k bufferpool bp8k^
 --db2 connect to sample^

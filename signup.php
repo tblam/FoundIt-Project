@@ -9,7 +9,7 @@ if ($conn)
 {
 	$firstn = $_POST['firstn'];
 	$lastn = $_POST['lastn']; 
-	$email = $_POST['email']; 
+	$email = strtolower($_POST['email']); 
 	$password = $_POST['password']; 
   
 	$sql = "insert into user values ('$email', '$firstn', '$lastn', '$password')";   
@@ -23,6 +23,9 @@ if ($conn)
 		header("Location: index.html#login");
 	}
 	else
+	{
+		
+	}
 	
 	db2_close($conn);
 }
