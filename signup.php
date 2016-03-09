@@ -19,8 +19,9 @@ if ($conn)
 	$result = db2_execute($stmt);
 
 	if ($result == true) {   
-		echo "Signup succeeded. Please log in";
-		header("Location: index.html#login");
+		$_SESSION['firstn'] = $_POST['firstn'];
+		//$_SESSION['message'] = "You have signed up successfully. Please log in.";
+		header("Location: signupSucc.html?action=success");
 	}
 	else
 	{
