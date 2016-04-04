@@ -1,6 +1,7 @@
 var map;
 var geocoder; 
 var infowindow;
+var infoWindow; // for earthquake
 var marker;
 var markers = [];  
 var list_circle = []; 
@@ -8,7 +9,14 @@ var range = 5;
  
 function init () { 
     geocoder = new google.maps.Geocoder();
-    infowindow = new google.maps.InfoWindow({maxWidth: 500}); 
+	
+	// tran change infoWindow for earthquake
+    infoWindow = new google.maps.InfoWindow({
+		content: "",	
+	}); 
+	
+	infowindow = new google.maps.InfoWindow({maxWidth: 500}); 
+	
     map = new google.maps.Map(document.getElementById("map"), { 
         zoom: 12
     });
@@ -26,8 +34,37 @@ function init () {
 		return {
 		  icon: getCircle(magnitude)
 		};
-	  });
-    
+	});
+	
+	//want do display earthquake info
+	
+	/*map.data.addListener('mouseover', function(event) {
+				//show an infowindow on click   
+				infoWindow.setContent('<div> Place: '+
+					event.feature.getProperty("place") +"<br/> Magnitude: "+
+					event.feature.getProperty("mag") +"<br/>Gap: " + event.feature.getProperty("gap") + "</div>");
+				
+				infoWindow.open(map, marker);
+			});*/
+	map.data.addListener('mouseover', function(event) {
+				//show an infowindow on click   
+				infoWindow.setPosition(event.latLng);
+				infoWindow.setContent('<div> Location: '+
+					event.feature.getProperty("place") +"<br/> Magnitude: "+
+					event.feature.getProperty("mag") +"<br/>Gap: " + event.feature.getProperty("gap") + "</div>");
+				
+				infoWindow.open(map, this);
+			});
+	/*map.data.addListener('mouseover', function(event) {
+		infoWindow = new google.maps.InfoWindow({
+		position: event.latLng,
+		content: '<div> Place: '+
+					event.feature.getProperty("place") +"<br/> Magnitude: "+
+					event.feature.getProperty("mag") +"<br/>Gap: " + event.feature.getProperty("gap") + "</div>"
+		}).open(map);
+		setTimeout(function () { infoWindow.close(); }, 5);
+	});*/
+	
     //Set the starting point as user request
     if (typeof(Storage) !== "undefined") { 
         $('#address_input').val(localStorage.getItem("storeddata"));
@@ -40,8 +77,6 @@ function init () {
     // Create the search box and bind it to google autocomplete
     var input = document.getElementById('address_input'); 
     var types = document.getElementById('type-selector');
-//    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-//    map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
     var autocomplete = new google.maps.places.Autocomplete(input); 
     autocomplete.bindTo('bounds', map); 
@@ -60,14 +95,6 @@ function init () {
         //Clear previous markers
         clearMarkers();
         
-        //Set marker for current location
-//        marker.setIcon(/** @type {google.maps.Icon} */({
-//            url: place.icon,
-//            size: new google.maps.Size(71, 71),
-//            origin: new google.maps.Point(0, 0),
-//            anchor: new google.maps.Point(17, 34),
-//            scaledSize: new google.maps.Size(35, 35)
-//        }));
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
           
@@ -77,30 +104,7 @@ function init () {
         //Connect to database
         getSchool(range, place.geometry.location.lat(), place.geometry.location.lng()); 
  }); 
-//        var address = '';
-//        if (place.address_components) {
-//            address = [
-//                (place.address_components[0] && place.address_components[0].short_name || ''),
-//                (place.address_components[1] && place.address_components[1].short_name || ''),
-//                (place.address_components[2] && place.address_components[2].short_name || '')
-//                ].join(' ');
-//        }
-//
-//        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-//        infowindow.open(map, marker);
-    
 
-//    function setupClickListener(id, types) {
-//        var radioButton = document.getElementById(id);
-//        radioButton.addEventListener('click', function() {
-//        autocomplete.setTypes(types);
-//        });
-//    }
-//
-//    setupClickListener('changetype-all', []);
-//    setupClickListener('changetype-address', ['address']);
-//    setupClickListener('changetype-establishment', ['establishment']);
-//    setupClickListener('changetype-geocode', ['geocode']);
     
 //    document.getElementById('geoCode').addEventListener('click', function() {geocodeAddress(geocoder)});
 }
@@ -113,7 +117,8 @@ function getCircle(magnitude) {
 		fillOpacity: .5,
 		scale: Math.pow(2, magnitude) / 2,
 		strokeColor: 'red',
-		strokeWeight: .5
+		strokeWeight: .5,
+		
 	  };
 	  return circle;
 }
