@@ -6,22 +6,23 @@
 
 drop table house^
 
-
 create table house 
 (
 	status varchar(10), 
-	AdditionalListingInfo varchar (20),
-	MLSNumber varchar (15),
-	address char(50),
-	CurrentPrice integer(10),
-	DOM integer(5),
-	BathsTotal integer(2),
-	BedsTotal integer(2),
-	BathsFull integer(2),
-	BathsHalf integer(2),
-	SqftTotal integer(10),
+	AdditionalListingInfo varchar (50),
+	MLSNumber varchar (20),
+	address varchar(70),
+	CurrentPrice integer,
+	DOM integer,
+	BathsTotal integer,
+	BedsTotal integer,
+	BathsFull integer,
+	BathsHalf integer,
+	SqftTotal integer,
 	LotSizeArea_Min double,
 	City varchar(20),
-	Age integer,
+	Age integer
 )^
 
+import from SantaClaraListing.csv of del insert into house^
+import from SanMateoAlamedaListings.csv of del insert into house^
