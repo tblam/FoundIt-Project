@@ -108,19 +108,21 @@ function init () {
      //Add listener for filter search
     $("#submit_filter").on('click', function(){
         //Get text such as +100K
-        $price = $("#price_range").text().trim();
-        //Reformat the number
-        $price = $price.slice(1, $price.length -1) * 1000; 
-
+        $price = $("#price_range").text().trim(); 
+        //Reformat the string
+        $price = $price.slice(0, $price.length - 1); 
+        //Convert to number
+        $price = parseInt($price) * 1000;
+         
         //Get pure text for number of bed such as +2
         $bed = $("#num_bed").text().trim();
         //Reformat the number
-        $bed = $bed.slice(1, $bed.length);
+        $bed = $bed.slice(0, $bed.length - 1);
 
         //Get pure text for number of bath such as +1
         $bath = $("#num_bath").text().trim();
         //Reformat the number
-        $bath = $bath.slice(1, $bath.length);
+        $bath = $bath.slice(0, $bath.length - 1);
 
         //Check if any of the filter has not been selected 
         if(!$.isNumeric($price))
@@ -131,6 +133,7 @@ function init () {
             $bath = 0;
 
         var a_url="php/filter_query.php?city=" + localStorage.getItem("storeddata") + "&price_range=" + $price + "&num_bed=" + $bed + "&num_bath=" + $bath;   
+        
         $.get(a_url, function(data, status){   
             var count = 0; 
             //Remove all current displayed houses

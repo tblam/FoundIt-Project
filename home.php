@@ -147,33 +147,41 @@ include('php/signup.php');
             </div>
             <div class="dropdown" id="filter-item" >  
                 <a id="price_range" class="btn" type="button" data-toggle="dropdown">Price range <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a> +100K </a></li>
+                <ul id="price_range_menu" class="dropdown-menu">
+                    <li >     
+                        <div class = "range">
+                            <input id="min_range" placeholder="Min" class="form-control" type="text"> 
+                            <input id="max_range" placeholder="Max" class="form-control" type="text"> 
+                        </div> 
+                        
+                        <div style=" margin:5px;"> 
+                            <button id="apply_range" type="button" class="btn btn-primary btn-md">Apply</button>
+                        </div> 
+                    </li>  
                     <li role="presentation" class="divider"></li>
-                    <li><a> +500K </a></li>
-                    <li role="presentation" class="divider"></li>
-                    <li><a> +800K </a></li>
+                    <li><a> 200,000+ </a></li> 
+                    <li><a> 300,000+ </a></li> 
+                    <li><a> 400,000+ </a></li> 
+                    <li><a> 500,000+ </a></li> 
+                    <li><a> 600,000+ </a></li>
+                    <li><a> 700,000+ </a></li>
                 </ul>  
             </div>
             <div class="dropdown" id="filter-item" >  
                 <a id="num_bed" class="btn" type="button" data-toggle="dropdown">Bed <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a> +1</a></li>
-                    <li role="presentation" class="divider"></li>
-                    <li><a> +2</a></li>
-                    <li role="presentation" class="divider"></li>
-                    <li><a> +3</a></li>
+                <ul id="num_bed_menu" class="dropdown-menu">
+                    <li><a> 1+</a></li> 
+                    <li><a> 2+</a></li> 
+                    <li><a> 3+</a></li>
                 </ul> 
             </div> 
 
             <div class="dropdown" id="filter-item" >  
                 <a id="num_bath" class="btn" type="button" data-toggle="dropdown">Baths <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a> +0 </a></li>
-                    <li role="presentation" class="divider"></li>
-                    <li><a> +1 </a></li>
-                    <li role="presentation" class="divider"></li>
-                    <li><a> +2 </a></li>
+                <ul id="num_bath_menu" class="dropdown-menu">
+                    <li><a> 1+ </a></li> 
+                    <li><a> 2+ </a></li> 
+                    <li><a> 3+ </a></li>
                 </ul>  
             </div>
             <div id="filter_search">
@@ -228,6 +236,8 @@ include('php/signup.php');
     $(".dropdown-menu li a").click(function(){ 
         $(this).parent().parent().prev().html($(this).text() + ' <span class="caret"></span>'); 
     });
+    
+    $("#apply_range")
     
     $("#autocomplete").bind("keypress", function(event) {
         if(event.which == 13) {
