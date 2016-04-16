@@ -1,17 +1,22 @@
 <?php 
 // Create database connection 
-include("connectToDatabase.php");
+include("connectToDatabase.php");  
+
+$city = $_GET['city'];  
+$min_price = $_GET['min_price'];
+$max_price = $_GET['max_price'];
+$num_bed = $_GET['num_bed'];
+$num_bath = $_GET['num_bath'];
+   
+//Get price range 
+if($max_price >= 0) 
+    $price_range = "CurrentPrice >= $min_price And CurrentPrice <= $max_price";
+else
+    $price_range = "CurrentPrice >= $min_price";  
  
-$error=''; // Variable To Store Error Message
-
-$city =  $_GET['city'];  
-$price_range =$_GET['price_range'];
-$num_bed =$_GET['num_bed'];
-$num_bath =$_GET['num_bath']; 
-
 // SQL query to fetch information of registerd users and finds user match.
-$sql ="select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat from house where city ='$city' AND CurrentPrice >= $price_range AND BathsTotal >= $num_bath AND BedsTotal >= $num_bed"; 
-
+$sql = "select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat from house where city ='$city' AND BathsTotal >= $num_bath AND BedsTotal >= $num_bed AND $price_range" ; 
+     
 //Execute the query      
 $stmt = db2_prepare($conn, $sql);
 $result = db2_execute($stmt);

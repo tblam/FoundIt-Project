@@ -24,7 +24,7 @@ var schools = [];
 var heatmap;
 
 //for flood zone
-var flood = [];
+var flood = []; 
 
 function init () { 
     //Initialize the map
@@ -106,68 +106,42 @@ function init () {
     });    
     
      //Add listener for filter search
-    $("#submit_filter").on('click', function(){
-        //Get text such as +100K
-        $price = $("#price_range").text().trim(); 
-        //Reformat the string
-        $price = $price.slice(0, $price.length - 1); 
-        //Convert to number
-        $price = parseInt($price) * 1000;
+    $("#submit_filter").on('click', function(){ 
+        //Get number of beds
+        var beds = get_num_bed();
+
+        //Get number of baths
+        var baths = get_num_bath();
          
-        //Get pure text for number of bed such as +2
-        $bed = $("#num_bed").text().trim();
-        //Reformat the number
-        $bed = $bed.slice(0, $bed.length - 1);
-
-        //Get pure text for number of bath such as +1
-        $bath = $("#num_bath").text().trim();
-        //Reformat the number
-        $bath = $bath.slice(0, $bath.length - 1);
-
-        //Check if any of the filter has not been selected 
-        if(!$.isNumeric($price))
-            $price = 0;
-        if(!$.isNumeric($bed))
-            $bed = 0;
-        if(!$.isNumeric($bath))
-            $bath = 0;
-
-        var a_url="php/filter_query.php?city=" + localStorage.getItem("storeddata") + "&price_range=" + $price + "&num_bed=" + $bed + "&num_bath=" + $bath;   
-        
-        $.get(a_url, function(data, status){   
-            var count = 0; 
-            //Remove all current displayed houses
-            for (var i = 0; i < houses.length; i++)
-                houses[i].setMap(null);
-
-            houses = []; 
-            for(count in data)  {
-                var house = new google.maps.Marker({
-                    map: map,
-                    position: new google.maps.LatLng(data[count].lat, data[count].long),
-                    animation:google.maps.Animation.DROP, 
-                });  
-
-                //Create infobox content
-                var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
-                    'Beds: ' + data[count].BedsTotal + '<br>' +
-                    'Baths: ' + data[count].BathsTotal + '<br>' + 
-                    'Area: ' + data[count].SqftTotal + ' sqft<br>' +
-                    'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
-                    'Age: ' + data[count].Age + ' year(s)<br>' +
-                    'Price: $' + data[count].CurrentPrice + '<br>'; 
-
-                //Create infobox
-                setInfoBox(house_content, house);
-
-                //Add house to list
-                houses.push(house);
-            } 
-            count++;
-            alert("Houses found: " + count);
-        }, "json"); 
+        //Check if price range is bounded
+        var min = $("#min_range").val();
+        var max = $("#max_range").val();
+        if(min != "" || max != ""){   
+            min = parseInt(min);
+            max = parseInt(max);
+            console.log(min + "-" + max);
+            //Go search
+            filter_search(min, max, beds, baths);
+        }
+        else{
+            //Get text for price range
+            var price = $("#price_range").text().trim(); 
+            
+            //Reformat the string 
+            price = price.slice(0, price.length - 1); 
+            
+            //Convert to number
+            price = parseInt(price) * 1000;
+            
+            //Check if any of the filter has not been selected 
+            if(!$.isNumeric(price))
+                price = 0; 
+            
+            //Go search
+            filter_search(price, -1, beds, baths);
+        }  
     });
-    
+        
     //Display earthquake data in California within 10 years 
 	var script = document.createElement('script');
 	script.src = 'earthquake_data.js';
@@ -196,6 +170,65 @@ function init () {
     });
     
 }   
+
+function get_num_bed(){
+        //Get pure text for number of bed such as +2
+        $bed = $("#num_bed").text().trim();
+        //Reformat the number
+        $bed = $bed.slice(0, $bed.length - 1);
+        
+        //Check if num_bed is numeric
+        if(!$.isNumeric($bed))
+            $bed = 0;
+        return $bed;
+}
+    
+function get_num_bath(){
+    //Get pure text for number of bath such as +1
+    $bath = $("#num_bath").text().trim();
+    //Reformat the number
+    $bath = $bath.slice(0, $bath.length - 1);
+    //Check if num_bed is numeric
+    if(!$.isNumeric($bath))
+            $bath = 0;
+    return $bath;
+}
+    
+function filter_search(min_price, max_price, beds, baths){
+    var a_url = "php/filter_query.php?city=" + localStorage.getItem("storeddata") + "&min_price=" + min_price + "&max_price=" + max_price + "&num_bed=" + beds + "&num_bath=" + baths;   
+    $.get(a_url, function(data, status){  
+        console.log(a_url);
+        var count = 0; 
+        //Remove all current displayed houses
+        for (var i = 0; i < houses.length; i++)
+            houses[i].setMap(null);
+
+        houses = []; 
+        for(count in data)  { 
+            var house = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(data[count].lat, data[count].long),
+                animation:google.maps.Animation.DROP, 
+            });  
+
+            //Create infobox content
+            var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
+                'Beds: ' + data[count].BedsTotal + '<br>' +
+                'Baths: ' + data[count].BathsTotal + '<br>' + 
+                'Area: ' + data[count].SqftTotal + ' sqft<br>' +
+                'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
+                'Age: ' + data[count].Age + ' year(s)<br>' +
+                'Price: $' + data[count].CurrentPrice + '<br>'; 
+
+            //Create infobox
+            setInfoBox(house_content, house);
+
+            //Add house to list
+            houses.push(house);
+        }  
+        alert("Houses found: " + count);
+    }, "json"); 
+}
 
 function getCircle(magnitude) {  
     var earthquake = {
@@ -337,16 +370,16 @@ function getHouse(){
             });  
                 
             //Create infobox content
-            var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
+             var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
                 'Beds: ' + data[count].BedsTotal + '<br>' +
                 'Baths: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + data[count].CurrentPrice + '<br>'; 
+                'Price: $ ' + data[count].CurrentPrice + '<br>';
             
             //Create infobox
-            setInfoBox(house_content, house);
+            setInfoBox('House information', house_content, house);
             
             //Add house to list
             houses.push(house);
@@ -358,13 +391,13 @@ function getHouse(){
 
 function getSchool(){
     //PHP calling 
-    var a_url="php/getSchool.php?city=" + selected_city; 
+    var a_url="php/getSchool.php?city=" + selected_city;  
     $.get(a_url, function(data, status){  
         var count = 0;
         for(count in data)  {
             //Create icon for school
             var icon = {
-            url: 'images/school.png',
+            url: 'icons/school.png',
 //				size: new google.maps.Size(50, 50),
             origin: new google.maps.Point(0, 0),
 //				anchor: new google.maps.Point(17, 34),
@@ -378,15 +411,20 @@ function getSchool(){
             });  
             
             //Create infobox content
-            var infobox_content = "This is a school";
+            var school_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + ",CA" + data[count].zipcode + '<b></div>' +
+                'Type: ' + data[count].type + '<br>' +
+                'Average Performance Index: ' + data[count].api + '<br>' + 
+                'State rank: ' + data[count].staterank + '/10 <br>';  
             
             //Create infobox
-            setInfoBox(infobox_content, school);
+            setInfoBox('School information', school_content, school);
             
             //Add school to list
             schools.push(school);
         } 
+         console.log("Number of school: " + count);
      }, "json");   
+   
 }
 
 function getData(city) {  
@@ -413,7 +451,7 @@ function getData(city) {
           getCityBoundary();
           
           //Display flood zone
-          getFloodZone(); 
+//          getFloodZone(); 
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
@@ -465,17 +503,16 @@ function displayFloodZone(check){
         flood[i].setMap(check);
 }
 
-function setInfoBox(message, marker){   
+function setInfoBox(tab_name, message, marker){   
      //Create info window for each marker
 //    var infowindow = new google.maps.InfoWindow();
-    var infowindow = new InfoBubble({
-        maxWidth: 700, 
-        minWidth: 50,
-        minHeight: 50
+    var infowindow = new InfoBubble({ 
+        minWidth: 250,
+        minHeight: 150
     });   
     
-    infowindow.addTab('House infomation', message); 
-    infowindow.addTab('Search around', "empty");  
+    infowindow.addTab(tab_name, message); 
+//    infowindow.addTab('Search around', "empty");  
     google.maps.event.addListener(marker, 'click', function(){
         if(previous_infox != null)
             previous_infox.close();

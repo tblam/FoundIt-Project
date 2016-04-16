@@ -148,15 +148,11 @@ include('php/signup.php');
             <div class="dropdown" id="filter-item" >  
                 <a id="price_range" class="btn" type="button" data-toggle="dropdown">Price range <span class="caret"></span></a>
                 <ul id="price_range_menu" class="dropdown-menu">
-                    <li >     
+                    <li>     
                         <div class = "range">
                             <input id="min_range" placeholder="Min" class="form-control" type="text"> 
                             <input id="max_range" placeholder="Max" class="form-control" type="text"> 
-                        </div> 
-                        
-                        <div style=" margin:5px;"> 
-                            <button id="apply_range" type="button" class="btn btn-primary btn-md">Apply</button>
-                        </div> 
+                        </div>  
                     </li>  
                     <li role="presentation" class="divider"></li>
                     <li><a> 200,000+ </a></li> 
@@ -235,9 +231,61 @@ include('php/signup.php');
      
     $(".dropdown-menu li a").click(function(){ 
         $(this).parent().parent().prev().html($(this).text() + ' <span class="caret"></span>'); 
+        $("#min_range").val("");
+        $("#max_range").val("");
+    }); 
+    
+    //Change as you type for min price
+    $("#min_range").on('keyup', function(){
+        var max = $("#max_range").val().trim(); 
+        var currentText = $("#min_range").val().trim();
+        var message; 
+        
+        if(max.length > 0){
+            message = " - $" + max; 
+            if(currentText.length == 0){
+                $(this).parent().parent().parent().prev().html("Up to $" + max);
+                return;
+            }  
+        }
+            
+        else{ 
+            message = "+ <span class='caret'></span>";
+            if(currentText.length == 0){
+                $(this).parent().parent().parent().prev().html("Price Range");
+                return;
+            } 
+        }  
+        var final_message = '$' + currentText + message; 
+        
+        $(this).parent().parent().parent().prev().html(final_message);   
     });
     
-    $("#apply_range")
+    //Change as you type for max price
+    $("#max_range").on('keyup', function(){
+        var min = $("#min_range").val().trim(); 
+        var currentText = $("#max_range").val().trim();
+        var message; 
+        
+        if(min.length > 0){
+            message = "$" + min + " - $"; 
+            if(currentText.length == 0){
+                $(this).parent().parent().parent().prev().html("$" + min + "+");
+                return;
+            }  
+        }
+            
+        else{
+            message = "Up to $";
+            if(currentText.length == 0){
+                $(this).parent().parent().parent().prev().html("Price Range");
+                return;
+            }  
+        } 
+        var final_message = message + currentText; 
+        
+        $(this).parent().parent().parent().prev().html(final_message);   
+    });
     
     $("#autocomplete").bind("keypress", function(event) {
         if(event.which == 13) {

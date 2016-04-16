@@ -4,8 +4,7 @@
 --create system temporary tablespace tmpsys8k pagesize 8 k bufferpool bp8k^
 --db2se enable_db cs174^
 
-drop table restaurant^
-drop table school^
+drop table restaurant^ 
 drop table user^
 drop table forum^
 drop table forumpost^
@@ -15,19 +14,6 @@ drop table message^
 drop table sex_offenders^
 
 create table restaurant 
-(
-	name varchar(50), 
-	street varchar (50),
-	city varchar (40),
-	state char(2),
-	zip char(5),
-	county varchar(40),
-	long double,
-	lat double,
-	loc DB2GSE.ST_POINT
-)^
-
-create table school 
 (
 	name varchar(50), 
 	street varchar (50),

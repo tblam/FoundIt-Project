@@ -1,9 +1,5 @@
 --db2 -td"^" -f createhouse.sql
 
---create bufferpool bp8k pagesize 8 k^
---create system temporary tablespace tmpsys8k pagesize 8 k bufferpool bp8k^
---db2 connect to sample^
-
 drop table house^
 
 
@@ -28,6 +24,6 @@ create table house
 	loc DB2GSE.ST_POINT
 )^
 
-import from house_data_full.csv of del insert into house (status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat)^ 
+import from houses.csv of del insert into house (status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat)^ 
 
 update house set loc = db2gse.ST_Point(long, lat, 1)^
