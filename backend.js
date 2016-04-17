@@ -119,6 +119,12 @@ function init () {
         if(min != "" || max != ""){   
             min = parseInt(min);
             max = parseInt(max);
+            
+            if(!$.isNumeric(min))
+                min = 0;
+             if(!$.isNumeric(max))
+                max = 0;
+            
             console.log(min + "-" + max);
             //Go search
             filter_search(min, max, beds, baths);
@@ -212,16 +218,16 @@ function filter_search(min_price, max_price, beds, baths){
             });  
 
             //Create infobox content
-            var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
+             var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
                 'Beds: ' + data[count].BedsTotal + '<br>' +
                 'Baths: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $' + data[count].CurrentPrice + '<br>'; 
-
+                'Price: $ ' + data[count].CurrentPrice + '<br>';
+            
             //Create infobox
-            setInfoBox(house_content, house);
+            setInfoBox('House information', house_content, house);
 
             //Add house to list
             houses.push(house);
