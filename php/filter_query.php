@@ -9,7 +9,7 @@ $num_bed = $_GET['num_bed'];
 $num_bath = $_GET['num_bath'];
    
 //Get price range 
-if($max_price >= 0) 
+if($max_price > 0) 
     $price_range = "CurrentPrice >= $min_price And CurrentPrice <= $max_price";
 else
     $price_range = "CurrentPrice >= $min_price";  
