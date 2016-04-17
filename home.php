@@ -286,12 +286,6 @@ include('php/signup.php');
         
         $(this).parent().parent().parent().prev().html(final_message);   
     });
-    
-    $("#autocomplete").bind("keypress", function(event) {
-        if(event.which == 13) {
-            localStorage.setItem("storeddata", $('#autocomplete').val()); 
-        }
-    }); 
-    
+        
 </script>
 </html>

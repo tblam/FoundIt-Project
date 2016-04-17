@@ -16,7 +16,7 @@ create table school
 	loc DB2GSE.ST_POINT
 )^
 
-import from schools.csv of del insert into school1 (name, type, API, staterank, address, city, county, zipcode, state, long, lat)^
+import from schools.csv of del insert into school (name, type, API, staterank, address, city, county, zipcode, state, long, lat)^
 update school set loc = db2gse.ST_Point(long, lat, 1)^
 
 --import from AlamedaCountySchools.csv of del insert into school (name, staterank, address, api, type)^

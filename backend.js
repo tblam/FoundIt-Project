@@ -2,6 +2,7 @@
 var map;
 var geocoder; 
 var previous_infox;
+var current_location;
 
 //for 
 var list_circle = []; 
@@ -30,8 +31,24 @@ function init () {
     //Initialize the map
     geocoder = new google.maps.Geocoder(); 
     map = new google.maps.Map(document.getElementById("map"), { 
-        zoom: 15
+        zoom: 11,
+        panControl:true,
+        zoomControl:true,
+        zoomControlOptions: {
+          style:google.maps.ZoomControlStyle.SMALL
+        },
+        mapTypeControl:true,
+        scaleControl:true,
+        streetViewControl:true,
+        overviewMapControl:true,
+        rotateControl:true, 
     });  
+    
+    // Create a DIV to hold the control and call HomeControl()
+    var homeControlDiv = document.createElement('div');
+    var homeControl = new HomeControl(homeControlDiv, map);
+    homeControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
     
     //Get selected city from index page
     selected_city = localStorage.getItem("storeddata");
@@ -39,11 +56,11 @@ function init () {
     //Set the starting point as user request
     if (typeof(Storage) !== "undefined") { 
         $('#autocomplete').val(selected_city);
-        var a = getData(selected_city); 
+        getData(selected_city); 
     }
-    else{
+    else
         alert("Sorry, your browser does not support web storage..."); 
-    }  
+    
       
     //Create customized autocomplete
     var input = document.getElementById('autocomplete'); 
@@ -51,7 +68,9 @@ function init () {
     //Add listener to autocomplete
     $("#autocomplete").bind("keypress", function(event) {
         if(event.which == 13) {
+            localStorage.setItem("storeddata", $('#autocomplete').val()); 
             selected_city = $('#autocomplete').val();   
+            clearMarkers();
             getData(selected_city + ", California");  
         }
     });     
@@ -176,6 +195,30 @@ function init () {
     });
     
 }   
+
+// Add a Home control that returns the user to current position
+function HomeControl(controlDiv, map) {
+  controlDiv.style.padding = '5px';
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'yellow';
+  controlUI.style.border='1px solid';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Set map to center of current selected city';
+  controlDiv.appendChild(controlUI);
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily='Arial,sans-serif';
+  controlText.style.fontSize='12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<b>City center<b>'
+  controlUI.appendChild(controlText);
+
+  // Setup click-event listener: simply set the map to London
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+      map.setCenter(current_location);
+  });
+}
 
 function get_num_bed(){
         //Get pure text for number of bed such as +2
@@ -398,6 +441,7 @@ function getHouse(){
 function getSchool(){
     //PHP calling 
     var a_url="php/getSchool.php?city=" + selected_city;  
+    console.log(a_url);
     $.get(a_url, function(data, status){  
         var count = 0;
         for(count in data)  {
@@ -441,10 +485,11 @@ function getData(city) {
           clearMarkers();  
           
           //Get the new position and set it as center of the map
-          var startingPoint = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};  
-          map.setCenter(startingPoint);
-          map.setZoom(13);
+          current_location = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};  
+          map.setCenter(current_location);
+          map.setZoom(12); 
           
+          //Clear all markers on map
           clearMarkers();
           
           //Display houses
@@ -524,6 +569,11 @@ function setInfoBox(tab_name, message, marker){
             previous_infox.close();
         infowindow.open(map, this);    
         previous_infox = infowindow;
+    }); 
+    
+    // Listen for user click on map to close any open info bubbles
+    google.maps.event.addListener(map, "click", function () { 
+        infowindow.close(); 
     }); 
     
 //    var content = document.createElement("DIV"); 

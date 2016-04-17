@@ -5,9 +5,7 @@ include("connectToDatabase.php");
 $city =  $_GET['city']; 
 
 $sql = "select name, type, api, staterank, address, city, county, zipcode, state, long, lat from school where city = '$city'";  
-
-//select name, type, api, staterank, address, city, county, state, long, lat from school where city = 'Milpitas'
-
+ 
 //Execute the query      
 $stmt = db2_prepare($conn, $sql);
 $result = db2_execute($stmt);
