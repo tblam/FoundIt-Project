@@ -8,13 +8,12 @@ session_start();
 $error=''; // Variable To Store Error Message
 
 if (isset($_POST['submit_login'])) {
-    if (empty($_POST['username']) || empty($_POST['password'])) {
+    if (empty($_POST['username']) || empty($_POST['password'])) 
         $error = "Username or Password is invalid";
-    }else{ 
+    else{ 
         // Get username & password
         $username=$_POST['username'];
-        $password=$_POST['password']; 
-         
+        $password=$_POST['password'];  
         // SQL query to fetch information of registerd users and finds user match.
         $sql = "SELECT firstname, lastname FROM user WHERE email='$username' AND password='$password'";   
 
@@ -23,23 +22,19 @@ if (isset($_POST['submit_login'])) {
         $result = db2_execute($stmt);
         
         if ($result == true) { 
-            if(db2_fetch_array($stmt) != null)
-            {
-                while($row = db2_fetch_array($stmt)){ 
-                    $_SESSION['username']=$username; // Initializing Session 
-                    $_SESSION['firstname'] = $row[0];
-                    $_SESSION['lastname'] = $row[1];  
-                    header('Location: profile.php'); 
-                } 
+            if(($row = db2_fetch_array($stmt)) != null)
+            { 
+                $_SESSION['username'] = $username; // Initializing Session 
+                $_SESSION['firstname'] = $row[0];
+                $_SESSION['lastname'] = $row[1];    
+                header('Location: profile.php'); 
             }
             else{   
-//                $message = "Username and/or Password incorrect.";
-//                echo "<script type='text/javascript'>alert('$message');</script>";
+                $message = "Username and/or Password incorrect.";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                header("Refresh:0");
             } 
         }
-        else{
-            $error = "Database error!";
-        } 
          
         // Closing Connection
         db2_close($conn);

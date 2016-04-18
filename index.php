@@ -94,14 +94,14 @@ include('php/signup.php');
                                             </div>
 
                                             <div class="field-wrap"> 
-                                                <input type="password" name="signup_password" placeholder="Password..." required autocomplete="off"/>
+                                                <input id="password" type="password" name="signup_password" placeholder="Password..." required autocomplete="off"/>
                                             </div>
 
                                             <div class="field-wrap"> 
-                                                <input type="password" placeholder="Re-type password..." required autocomplete="off"/>
+                                                <input id="password1" type="password" placeholder="Re-type password..." required autocomplete="off"/>
                                             </div>
 
-                                            <button type="submit" name="submit_signup" class="button button-block">Get Started</button>
+                                            <button id="submit_signup" type="submit" name="submit_signup" class="button button-block">Get Started</button>
                                         </form>
                                     </div>
                                 </div><!--Tab content---->
@@ -250,6 +250,14 @@ include('php/signup.php');
 
     $(target).fadeIn(600);
 
+    });
+    
+    $('#submit_signup').on('click', function(){ 
+        if($('#password').val() != $('#password1').val()){
+            alert("Passwords don't match. Please re-enter!");
+            $('#password').val("");
+            $('#password1').val("");
+        } 
     });
     
     $('#search-icon').on('click', function (e){

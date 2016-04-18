@@ -92,7 +92,7 @@ include('php/signup.php');
                                                 <div id="signup">   
                                                     <h1>Sign Up for Free</h1>
 
-                                                    <form action="" method="post"> 
+                                                    <form method="post"> 
                                                         <div class="top-row">
                                                             <div class="field-wrap">
                                                                 <input type="text" name="signup_firstname" placeholder="First name..." required autocomplete="off" />
@@ -108,15 +108,15 @@ include('php/signup.php');
                                                         </div>
 
                                                         <div class="field-wrap"> 
-                                                            <input type="password" name="signup_password" placeholder="Password..." required autocomplete="off"/>
+                                                            <input id="password" type="password" name="signup_password" placeholder="Password..." required autocomplete="off"/>
                                                         </div>
 
                                                         <div class="field-wrap"> 
-                                                            <input type="password" placeholder="Re-type password..." required autocomplete="off"/>
-                                                        </div>
-
-                                                        <button type="submit" name="submit_signup" class="button button-block">Get Started</button>
+                                                            <input id="password1" type="password" placeholder="Re-type password..." required autocomplete="off"/>
+                                                        </div> 
+                                                        <button id="submit_signup" type="submit" name="submit_signup" class="button button-block">Get Started</button>
                                                     </form>
+                                                    
                                                 </div>
                                             </div><!--Tab content---->
                                         </div> <!--Modal body---->
@@ -182,12 +182,16 @@ include('php/signup.php');
             </div>
             <div id="filter_search">
                 <button id="submit_filter" type="button" class="btn btn-link">Filter search</button>
+                <button style="float:right;" class="btn-success" data-toggle="collapse" id="menu-toggle-2"> 
+                    <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                </button>
             </div>
         </div>
     
         <div id="map">   
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg&libraries=visualization&callback=init" async defer></script> 
         </div>   
+        
     </body> 
 
 <script>
@@ -219,6 +223,14 @@ include('php/signup.php');
     }
 
 });
+    
+    $('#submit_signup').on('click', function(){ 
+        if($('#password').val() != $('#password1').val()){
+            alert("Passwords don't match. Please re-enter!");
+            $('#password').val("");
+            $('#password1').val("");
+        } 
+    });
 
     $('.tab a').on('click', function (e) {
         e.preventDefault(); 
@@ -286,6 +298,5 @@ include('php/signup.php');
         
         $(this).parent().parent().parent().prev().html(final_message);   
     });
-        
 </script>
 </html>

@@ -198,26 +198,26 @@ function init () {
 
 // Add a Home control that returns the user to current position
 function HomeControl(controlDiv, map) {
-  controlDiv.style.padding = '5px';
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'yellow';
-  controlUI.style.border='1px solid';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Set map to center of current selected city';
-  controlDiv.appendChild(controlUI);
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily='Arial,sans-serif';
-  controlText.style.fontSize='12px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<b>City center<b>'
-  controlUI.appendChild(controlText);
+    controlDiv.style.padding = '5px';
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = 'yellow';
+    controlUI.style.border='1px solid';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to re-center the map';
+    controlDiv.appendChild(controlUI);
+    var controlText = document.createElement('div');
+    controlText.style.fontFamily='Arial,sans-serif';
+    controlText.style.fontSize='12px';
+    controlText.style.paddingLeft = '4px';
+    controlText.style.paddingRight = '4px';
+    controlText.innerHTML = '<b>Re-center the map<b>' 
+    controlUI.appendChild(controlText);
 
-  // Setup click-event listener: simply set the map to London
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-      map.setCenter(current_location);
-  });
+    // Setup click-event listener: simply set the map to London
+    google.maps.event.addDomListener(controlUI, 'click', function() {
+        map.setCenter(current_location);
+    });
 }
 
 function get_num_bed(){

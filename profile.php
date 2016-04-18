@@ -67,14 +67,7 @@
     <div id="search-background">
         <div id="custom-search-input">
             <div class="input-group col-md-12">
-                <input id="autocomplete" type="text" class="form-control input-lg" placeholder="Where would you like to live?" />
-<!--
-                <span class="input-group-btn">
-                    <a href="home.php" class="btn btn-info btn-lg" type="button">
-                        <i id="search-icon" class="glyphicon glyphicon-search"></i>
-                    </a>
-                </span>
--->
+                <input id="autocomplete" type="text" class="form-control input-lg" placeholder="Where would you like to live?" /> 
             </div>
         </div>
     </div>
@@ -83,13 +76,13 @@
         <div id="profile">
             <img src="images/profile.jpg">
         </div>
-        <div id="list"><p>Name: <?php
-					echo "<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong>";
-			?></p>
-               <p>Phone number: 408-123-4545</p>
-               <p>Email: <a href=""><?php
-					echo "<strong>".$_SESSION['username']."</strong>";
-			?></a></p>
+        <div id="list">
+            <p>Name: 
+                <?php echo "<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong>";?>
+            </p> 
+            <p>Email: 
+                <?php echo "<strong>".$_SESSION['username']."</strong>"; ?>
+            </p>
         </div>
     </div>
     <div class="col-xs-12 col-sm-8 col-md-8" id="mainContent">
