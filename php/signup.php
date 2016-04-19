@@ -30,6 +30,7 @@ if (isset($_POST['submit_signup'])) {
         // Generate sql for creating an account
         $sql = "insert into user (firstname, lastname, email, password) values ('$firstname', '$lastname', '$email', '$password')";   
 
+<<<<<<< Updated upstream
         //Execute the query      
         $stmt = db2_prepare($conn, $sql);
         $result = db2_execute($stmt);
@@ -41,6 +42,19 @@ if (isset($_POST['submit_signup'])) {
         }
             
     }  
+=======
+    if ($result == true) {  
+		$message = "Signup succeeded. Please log in.";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+		//echo 'alert("Signup succeeded. Please log in");';  
+		//header('Location: home.php');
+    } else{
+
+		$message = "Cannot sign up";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+	}
+//        echo "Cannot sign up";
+>>>>>>> Stashed changes
 
     // Closing Connection
     db2_close($conn);

@@ -22,6 +22,7 @@ if (isset($_POST['submit_login'])) {
         $result = db2_execute($stmt);
         
         if ($result == true) { 
+<<<<<<< Updated upstream
             if(($row = db2_fetch_array($stmt)) != null)
             { 
                 $_SESSION['username'] = $username; // Initializing Session 
@@ -34,6 +35,22 @@ if (isset($_POST['submit_login'])) {
                 echo "<script type='text/javascript'>alert('$message');</script>";
                 header("Refresh:0");
             } 
+=======
+            //if(db2_fetch_array($stmt) != null)
+            //{
+                while($row = db2_fetch_array($stmt)){ 
+                    $_SESSION['username']=$username; // Initializing Session 
+                    $_SESSION['firstname'] = $row[0];
+                    $_SESSION['lastname'] = $row[1];  
+                    header('Location: profile.php'); 
+				} 
+				// if the array is empty
+				if(db2_fetch_array($stmt) == null)
+				{
+					$message = "Username and/or Password incorrect. Try Again";
+					echo "<script type='text/javascript'>alert('$message');</script>";
+				}
+>>>>>>> Stashed changes
         }
          
         // Closing Connection

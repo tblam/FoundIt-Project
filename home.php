@@ -134,10 +134,11 @@ include('php/signup.php');
         </div>
     
         <div id="map-filter" class="controls"> 
-            <label><input id="displayCityBoundary" type="checkbox" checked="true"> City Boundary</label>  
+            <label><input id="displayCityBoundary" type="checkbox" checked="true"> City Boundary</label> 
+			<label><input id="displaySchool" type="checkbox"> Schools</label>
+			<label><input id="displayCrime" type="checkbox"> Crimes</label>
             <label><input id="displayEarthquake-heatmap" type="checkbox" > Earthquake zone</label>
             <label><input id="displayEarthquake" type="checkbox" > Earthquake points</label>
-            <label><input id="displaySchool" type="checkbox"> Schools</label> 
             <label><input id="displayFloodZone" type="checkbox"> Floodzone</label> 
         </div> 
         
@@ -172,7 +173,7 @@ include('php/signup.php');
                 </ul> 
             </div> 
 
-            <div class="dropdown" id="filter-item" >  
+            <div class="dropdown" id="filter-item" >  	
                 <a id="num_bath" class="btn" type="button" data-toggle="dropdown">Baths <span class="caret"></span></a>
                 <ul id="num_bath_menu" class="dropdown-menu">
                     <li><a> 1+ </a></li> 

@@ -76,6 +76,7 @@
         <div id="profile">
             <img src="images/profile.jpg">
         </div>
+<<<<<<< Updated upstream
         <div id="list">
             <p>Name: 
                 <?php echo "<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong>";?>
@@ -83,6 +84,14 @@
             <p>Email: 
                 <?php echo "<strong>".$_SESSION['username']."</strong>"; ?>
             </p>
+=======
+        <div id="list"><p>Name: <?php
+					echo "<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong>";
+			?></p>
+               <p>Email: <a href=""><?php
+					echo "<strong>".$_SESSION['username']."</strong>";
+			?></a></p>
+>>>>>>> Stashed changes
         </div>
     </div>
     <div class="col-xs-12 col-sm-8 col-md-8" id="mainContent">
@@ -92,15 +101,15 @@
         <div id="bodyContent">
             <div class="houseInfo">
                 <a href="forum.php"><img src="images/sample.jpg" alt="sample"> </a>
-                    <p>Price: $700,000</p>
-                    <p>Address: 870 E Empire St, San Jose, CA 95112</p>
+                    <p>Price: $1,888,000</p>
+                    <p>Address: 2117 Ashley Ridge Ct, San Jose, CA 95138</p>
                     <div class="remove"><button type="button" class="btn btn-warning">Remove</button></div>
                 </div>
             <br>
             <div class="houseInfo">
                 <a href="forum.php"><img src="images/sample1.jpg" alt="sample" ></a>
-                    <p>Price: $700,000</p>
-                    <p>Address: 870 E Empire St, San Jose, CA 95112</p>
+                    <p>Price: $1,250,000</p>
+                    <p>Address: 4015 Higuera Highland Lane, San Jose</p>
                     <div class="remove"><button type="button" class="btn btn-warning">Remove</button></div>
                 </div>
             <br>
