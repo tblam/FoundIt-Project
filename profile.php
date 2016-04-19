@@ -75,23 +75,14 @@
     <div class="col-xs-12 col-sm-4 col-md-4" id="sidebar">
         <div id="profile">
             <img src="images/profile.jpg">
-        </div>
-<<<<<<< Updated upstream
+        </div> 
         <div id="list">
             <p>Name: 
                 <?php echo "<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong>";?>
             </p> 
             <p>Email: 
                 <?php echo "<strong>".$_SESSION['username']."</strong>"; ?>
-            </p>
-=======
-        <div id="list"><p>Name: <?php
-					echo "<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong>";
-			?></p>
-               <p>Email: <a href=""><?php
-					echo "<strong>".$_SESSION['username']."</strong>";
-			?></a></p>
->>>>>>> Stashed changes
+            </p> 
         </div>
     </div>
     <div class="col-xs-12 col-sm-8 col-md-8" id="mainContent">
