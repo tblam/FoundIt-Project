@@ -25,12 +25,11 @@ if (isset($_POST['submit_signup'])) {
     
     if (db2_fetch_both($stmt) != null) {    
         echo "<script type='text/JavaScript'>alert('This email has already created an account');</script>";   
-        header("Refresh:0");
+//        header("Refresh:0");
     } else{
         // Generate sql for creating an account
         $sql = "insert into user (firstname, lastname, email, password) values ('$firstname', '$lastname', '$email', '$password')";   
 
-<<<<<<< Updated upstream
         //Execute the query      
         $stmt = db2_prepare($conn, $sql);
         $result = db2_execute($stmt);
@@ -38,23 +37,20 @@ if (isset($_POST['submit_signup'])) {
             $_SESSION['username']= $email; 
             $_SESSION['firstname'] = $firstname;
             $_SESSION['lastname'] = $lastname; 
+            
+            //Display popup
+            $message = "Signup succeeded";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            
+            //direct to profile page
             header('Location: profile.php');  
+        }
+        else{
+            $message = "Cannot sign up";
+            echo "<script type='text/javascript'>alert('$message');</script>";
         }
             
     }  
-=======
-    if ($result == true) {  
-		$message = "Signup succeeded. Please log in.";
-        echo "<script type='text/javascript'>alert('$message');</script>";
-		//echo 'alert("Signup succeeded. Please log in");';  
-		//header('Location: home.php');
-    } else{
-
-		$message = "Cannot sign up";
-        echo "<script type='text/javascript'>alert('$message');</script>";
-	}
-//        echo "Cannot sign up";
->>>>>>> Stashed changes
 
     // Closing Connection
     db2_close($conn);
