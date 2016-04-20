@@ -214,7 +214,7 @@ function HomeControl(controlDiv, map) {
     controlText.innerHTML = '<b>Re-center the map<b>' 
     controlUI.appendChild(controlText);
 
-    // Setup click-event listener: simply set the map to London
+    // Setup click-event listener: simply set the map
     google.maps.event.addDomListener(controlUI, 'click', function() {
         map.setCenter(current_location);
     });
@@ -412,8 +412,14 @@ function getHouse(){
     $.get(a_url, function(data, status){  
         var count = 0; 
         for(count in data)  {
+			var icon = {
+            url: 'icons/house.png',
+            origin: new google.maps.Point(0, 0),
+            scaledSize: new google.maps.Size(15, 20)
+            } 
             var house = new google.maps.Marker({
                 map: map,
+				icon: icon,
                 position: new google.maps.LatLng(data[count].lat, data[count].long),
                 animation:google.maps.Animation.DROP, 
             });  
@@ -447,11 +453,9 @@ function getSchool(){
         for(count in data)  {
             //Create icon for school
             var icon = {
-            url: 'icons/school.png',
-//				size: new google.maps.Size(50, 50),
+            url: 'icons/school_blue.png',
             origin: new google.maps.Point(0, 0),
-//				anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
+            scaledSize: new google.maps.Size(20, 20)
             } 
 
             var school = new google.maps.Marker({ 
