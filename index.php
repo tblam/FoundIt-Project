@@ -141,38 +141,39 @@ include('php/signup.php');
             </a>   
         </div>
         <div id="custom-image">
-            <a onclick="storedata('San Francisco')" class="img-wrap"><img class="img-responsive" src="images/cities/san-francisco.jpg" alt="img03"/>
-                <div id="description-text"> San Francisco </div>
+            <a onclick="storedata('South San Francisco')" class="img-wrap"><img class="img-responsive" src="images/cities/san-francisco.jpg" alt="img03"/>
+                <div id="description-text"> South San Francisco </div>
+            </a>   
+        </div> 
+		
+        <div id="custom-image">
+            <a onclick="storedata('Redwood City')" class="img-wrap"><img class="img-responsive" src="images/cities/RedwoodCity.jpg" alt="img06"/>
+                <div id="description-text"> Redwood City</div>
             </a>   
         </div> 
         <div id="custom-image">
-            <a onclick="storedata('Los Angeles')" class="img-wrap"><img class="img-responsive" src="images/cities/los-angeles.jpg" alt="img06"/>
-                <div id="description-text"> Los Angeles </div>
+            <a onclick="storedata('Mountain View')" class="img-wrap"><img class="img-responsive" src="images/cities/MountainView.jpg" alt="img06"/>
+                <div id="description-text"> Mountain View </div>
             </a>   
         </div> 
-        <div id="custom-image">
-            <a onclick="storedata('San Diego')" class="img-wrap"><img class="img-responsive" src="images/cities/san-diego.jpg" alt="img06"/>
-                <div id="description-text"> San Diego </div>
-            </a>   
-        </div> 
-        <div id="custom-image">
-            <a onclick="storedata('Sacramento')" class="img-wrap"><img class="img-responsive" src="images/cities/sacramento.jpg" alt="img01"/>
-                <div id="description-text"> Sacramento </div>
-            </a>   
-        </div>
-        <div id="custom-image">
-            <a onclick="storedata('Irvine')" class="img-wrap"><img class="img-responsive" src="images/cities/irvine.jpg" alt="img01"/>
-                <div id="description-text"> Irvine </div>
-            </a>   
-        </div>
-        <div id="custom-image">
+		<div id="custom-image">
             <a onclick="storedata('Palo Alto')" class="img-wrap"><img class="img-responsive" src="images/cities/palo-alt.jpg" alt="img01"/>
                 <div id="description-text"> Palo Alto </div>
             </a>   
         </div>
         <div id="custom-image">
-            <a onclick="storedata('Berkeley')" class="img-wrap"><img class="img-responsive" src="images/cities/berkeley.jpg" alt="img01"/>
-                <div id="description-text"> Berkeley </div>
+            <a onclick="storedata('Los Gatos')" class="img-wrap"><img class="img-responsive" src="images/cities/LosGatos.jpeg" alt="img01"/>
+                <div id="description-text"> Los Gatos </div>
+            </a>   
+        </div>
+        <div id="custom-image">
+            <a onclick="storedata('Oakland')" class="img-wrap"><img class="img-responsive" src="images/cities/Oakland.jpg" alt="img01"/>
+                <div id="description-text"> Oakland </div>
+            </a>   
+        </div>
+        <div id="custom-image">
+            <a onclick="storedata('Santa Clara')" class="img-wrap"><img class="img-responsive" src="images/cities/SantaClara.jpg" alt="img01"/>
+                <div id="description-text"> Santa Clara </div>
             </a>   
         </div>
     </div>
