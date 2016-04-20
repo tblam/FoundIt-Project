@@ -465,7 +465,8 @@ function getSchool(){
             });  
             
             //Create infobox content
-            var school_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + ",CA" + data[count].zipcode + '<b></div>' +
+            var school_content = '<div style="font-size:14px;"><b>' + data[count].name + '</b></div>' + 
+				'Address: ' + data[count].address + ", " + data[count].city + ",CA" + data[count].zipcode + '<br>' +
                 'Type: ' + data[count].type + '<br>' +
                 'Average Performance Index: ' + data[count].api + '<br>' + 
                 'State rank: ' + data[count].staterank + '/10 <br>';  

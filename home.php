@@ -55,7 +55,7 @@ include('php/signup.php');
                             <?php
                             if(isset($_SESSION['username']))
                                 echo "<a href='profile.php'>Welcome! "."<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong></a></li>
-                                <li><a href='php/logout.php?page=../home.php'>Log out!</a></li>"; 
+                                <li><a href='php/logout.php?page=../home.php'>Log out</a></li>"; 
                             else{
                             ?>
                             <a href="#myModal" data-toggle="modal" data-target="#myModal">Login / Sign Up</a>
