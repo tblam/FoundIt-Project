@@ -176,6 +176,11 @@ include('php/signup.php');
                 <div id="description-text"> Santa Clara </div>
             </a>   
         </div>
+		<div id="custom-image">
+            <a onclick="storedata('Milpitas')" class="img-wrap"><img class="img-responsive" src="images/cities/Milpitas.jpg" alt="img01"/>
+                <div id="description-text"> Milpitas </div>
+            </a>   
+        </div>
     </div>
     
     <div id="third">
