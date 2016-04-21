@@ -1,4 +1,4 @@
---db2 -td"^" -f createhouse.sql
+--db2 -td"^" -f create_house_table.sql
 
 drop table house^
 
@@ -7,7 +7,7 @@ create table house
 (
 	status varchar(10), 
 	AdditionalListingInfo varchar (70),
-	MLSNumber varchar (15),
+	MLSNumber varchar (10) not null primary key,
 	address varchar(70),
 	CurrentPrice integer,
 	DOM integer,

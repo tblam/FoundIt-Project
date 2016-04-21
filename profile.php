@@ -56,7 +56,8 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="top-navbar-1"> 
                         <ul id="nav_text" class="nav navbar-nav navbar-right">   
-                            <li> <a href="contact.php">Contact</a></li> 
+                            <li> <a href="contact.php">Contact</a></li>
+							<li><a href='php/logout.php?page=../home.php'>Log out</a></li>
                         </ul> 
                     </div> <!-- Collapsed bar --> 
                 </div> 
@@ -90,33 +91,46 @@
             <p>Favorite Houses | Contact List | House Collections </p>
         </div>
         <div id="bodyContent">
-            <div class="houseInfo">
-                <a href="forum.php"><img src="images/sample.jpg" alt="sample"> </a>
-                    <p>Price: $1,888,000</p>
-                    <p>Address: 2117 Ashley Ridge Ct, San Jose, CA 95138</p>
-                    <div class="remove"><button type="button" class="btn btn-warning">Remove</button></div>
-                </div>
-            <br>
-            <div class="houseInfo">
-                <a href="forum.php"><img src="images/sample1.jpg" alt="sample" ></a>
-                    <p>Price: $1,250,000</p>
-                    <p>Address: 4015 Higuera Highland Lane, San Jose</p>
-                    <div class="remove"><button type="button" class="btn btn-warning">Remove</button></div>
-                </div>
-            <br>
-            <div class="houseInfo">
-                <a href="forum.php"><img src="images/sample1.jpg" alt="sample" ></a>
-                    <p>Price: $700,000</p>
-                    <p>Address: 870 E Empire St, San Jose, CA 95112</p>
-                    <div class="remove"><button type="button" class="btn btn-warning">Remove</button></div>
-                </div>
-            <br>
-            <div class="houseInfo">
-                <a href="forum.php"><img src="images/sample1.jpg" alt="sample"></a>
-                    <p>Price: $700,000</p>
-                    <p>Address: 870 E Empire St, San Jose, CA 95112</p>
-                    <div class="remove"><button type="button" class="btn btn-warning">Remove</button></div>
-                </div> 
+		<?php
+			include("php/connectToDatabase.php");
+			$userID = (int) $_SESSION['userID'];
+			//setlocale(LC_MONETARY, 'en_US');
+			$sql = "SELECT address, city, BedsTotal, BathsTotal, SqftTotal, LotSizeArea_Min, Age, CurrentPrice, Status FROM favoriteHouse, house WHERE userID = $userID AND id_house = MLSNumber";  
+			 
+			//Execute the query      
+			$stmt = db2_prepare($conn, $sql);
+			$result = db2_execute($stmt);
+
+			if ($result == true) {   
+				while ($row = db2_fetch_array($stmt)){  
+						echo '<div class="houseInfo">
+						<a href="forum.php"><img src="images/sample.jpg" alt="sample"> </a><b>'.
+						'Address:' . $row[0] . ', '.$row[1]. '</b><br>'.
+						'BedsTotal: ' . $row[2] . '<br>'.
+						'BathsTotal: ' . $row[3] . '<br>'.
+						'SqftTotal: '  . $row[4] . '<br>'.
+						'LotSizeArea_Min: ' .  $row[5] . '<br>'.
+						'Age: ' . $row[6]. '<br>'.
+						'<b>'.'CurrentPrice: $'. number_format($row[7]). '<br>'.
+						'Status: ' . $row[8]. '</b><br>
+						<div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></div><br>';
+					//$json[] = array(
+						//'address' => $row[0], 
+						//'BedsTotal' => $row[1],
+						//'BathsTotal' => $row[2],
+						//'SqftTotal' => $row[3],
+						//'LotSizeArea_Min' => $row[4],
+						//'Age' => $row[5],
+						//'CurrentPrice' => $row[6], 
+				} 
+					//echo json_encode($json); 
+			}
+			else
+				echo "Excution error!";
+
+			//Close connection
+			db2_close($conn);
+		?>
         </div>
     </div>
      

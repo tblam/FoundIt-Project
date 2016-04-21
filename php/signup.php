@@ -2,9 +2,6 @@
 // Create database connection 
 include("connectToDatabase.php");
 
-// Starting Session
-session_start(); 
-
 $error=''; // Variable To Store Error Message
 if (isset($_POST['submit_signup'])) {   
     // Get username & password

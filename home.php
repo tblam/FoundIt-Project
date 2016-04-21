@@ -133,7 +133,7 @@ include('php/signup.php');
             </nav> 
         </div>
     
-        <div id="map-filter" class="controls"> 
+        <div id="map-filter" class="controls" style = "z-index: 0"> 
             <label><input id="displayCityBoundary" type="checkbox" checked="true"> City Boundary</label> 
 			<label><input id="displaySchool" type="checkbox"> Schools</label>
 			<label><input id="displayCrime" type="checkbox"> Crimes</label>

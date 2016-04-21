@@ -4,6 +4,7 @@ var geocoder;
 var previous_infox;
 var current_location;
 
+
 //for 
 var list_circle = []; 
 var range = 5; 
@@ -108,7 +109,7 @@ function init () {
             heatmap.setMap(null);
     });
     
-    //Add listener for displaying earthquake zone
+    //Add listener for displaying school
     $("#displaySchool").change(function(){
         if(this.checked)
             displaySchools(map);
@@ -267,7 +268,7 @@ function filter_search(min_price, max_price, beds, baths){
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + data[count].CurrentPrice + '<br>';
+                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>';
             
             //Create infobox
             setInfoBox('House information', house_content, house);
@@ -431,7 +432,8 @@ function getHouse(){
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + data[count].CurrentPrice + '<br>';
+                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+
+				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite()"> Save </button>';
             
             //Create infobox
             setInfoBox('House information', house_content, house);
@@ -442,6 +444,10 @@ function getHouse(){
 //        count ++;
 //        alert("Houses on market: " + count);
      }, "json"); 
+}
+
+function addFavorite() {
+    window.location.href = 'profile.php';
 }
 
 function getSchool(){
@@ -563,10 +569,9 @@ function setInfoBox(tab_name, message, marker){
      //Create info window for each marker
 //    var infowindow = new google.maps.InfoWindow();
     var infowindow = new InfoBubble({ 
-        minWidth: 250,
+        minWidth: 300,
         minHeight: 150
     });   
-    
     infowindow.addTab(tab_name, message); 
 //    infowindow.addTab('Search around', "empty");  
     google.maps.event.addListener(marker, 'click', function(){
@@ -574,7 +579,9 @@ function setInfoBox(tab_name, message, marker){
             previous_infox.close();
         infowindow.open(map, this);    
         previous_infox = infowindow;
+		//infowindow.setZIndex(100);
     }); 
+	
     
     // Listen for user click on map to close any open info bubbles
     google.maps.event.addListener(map, "click", function () { 
@@ -601,4 +608,8 @@ function setInfoBox(tab_name, message, marker){
 //            position: marker.getPosition()
 //        });
 //    });
+}
+// add thousand separator for current price
+function numberWithThousandSep(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

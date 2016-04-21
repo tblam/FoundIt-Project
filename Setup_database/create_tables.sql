@@ -65,10 +65,7 @@ create table profile
 create table favoriteHouse
 (
 	userID int not null references user(userID) on delete cascade,
-	id_house integer not null references forum(id_house) on delete cascade,
-	favoriteHouse varchar(200),
-	addingTime timeStamp
-
+	id_house integer not null references house(MLSNumber) on delete cascade,
 )^
 
 create table message 
@@ -94,6 +91,8 @@ CREATE TABLE  sex_offenders(
 	)^
 
 list tables^
-
+--test user log in
 insert into user (firstname, lastname, email, password) values ('Luan', 'Bui', 'mluan1110@gmail.com', 'pass')^
+insert into user (firstname, lastname, email, password) values ('Tran', 'Lam', 'tblam55@gmail.com', 'tran')^
+
 select * from user^

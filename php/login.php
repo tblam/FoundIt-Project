@@ -15,7 +15,7 @@ if (isset($_POST['submit_login'])) {
         $username=$_POST['username'];
         $password=$_POST['password'];  
         // SQL query to fetch information of registerd users and finds user match.
-        $sql = "SELECT firstname, lastname FROM user WHERE email='$username' AND password='$password'";   
+        $sql = "SELECT firstname, lastname, userID FROM user WHERE email='$username' AND password='$password'";   
 
         //Execute the query      
         $stmt = db2_prepare($conn, $sql);
@@ -26,7 +26,8 @@ if (isset($_POST['submit_login'])) {
             { 
                 $_SESSION['username'] = $username; // Initializing Session 
                 $_SESSION['firstname'] = $row[0];
-                $_SESSION['lastname'] = $row[1];    
+                $_SESSION['lastname'] = $row[1];
+				$_SESSION['userID']= $row[2];		
                 header('Location: profile.php'); 
             }
             else{   
