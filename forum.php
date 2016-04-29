@@ -25,27 +25,24 @@ include('php/signup.php');
     <!-- Custom CSS -->
     <link href="css/forum.css" rel="stylesheet">
     
-    <!-- Custom CSS for sign up / sign in model-->
+    <!-- Customized CSS for sign up / sign in model-->
     <link href="css/signup_login/normalize.css" rel="stylesheet"/>  
     <link href="css/signup_login/style.css" rel="stylesheet"/>   
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	
-	 <!-- Custom JS for auto complete--> 
+	 <!-- Customized JS for auto complete--> 
     <script type="text/javascript" src="js/city-autocomplete.js"></script> 
     <link rel="stylesheet" href="css/jquery.autocomplete.css">
     <script src="js/jquery.autocomplete.js"></script>
 	
-    <!-- Customed CSS for home page -->
+    <!-- Customized CSS for home page -->
     <link rel="stylesheet" href="css/home.css"/>
     <script src="backend.js"></script> 
     <script src="js/infobubble.js"></script> 
     
     <!-- Lightgallery for lightbox gallery -->
     <link type="text/css" rel="stylesheet" href="lib/lightgallery/css/lightgallery.css" /> 
-    <script src="lib/lightgallery/js/lightgallery.min.js"></script>
-    <script src="lib/lightgallery/js/lg-thumbnail.min.js"></script>
-    <script src="lib/lightgallery/js/lg-fullscreen.min.js"></script>
 	
     <!-- Social icons--> 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
@@ -161,12 +158,28 @@ include('php/signup.php');
         
 
     <div id="gallery">
-    <a href="images/sampleHouse/outside.jpg"><img src="images/sampleHouse/outside.jpg" height="10%" width="10%" /></a>
-    <a href="images/sampleHouse/living.jpg"><img src="images/sampleHouse/living.jpg" height="10%" width="10%" /></a>
-    <a href="images/sampleHouse/livingroom.jpg"><img src="images/sampleHouse/livingroom.jpg" height="10%" width="10%" /></a>
-    <a href="images/sampleHouse/backyard.jpg"><img src="images/sampleHouse/backyard.jpg" height="10%" width="10%" /></a>
-    <a href="images/sampleHouse/television.jpg"><img src="images/sampleHouse/television.jpg" height="10%" width="10%" /></a>
-    <a href="images/sampleHouse/swimmingpool.jpg"><img src="images/sampleHouse/swimmingpool.jpg" height="10%" width="10%" /></a>
+        <a href="images/sampleHouse/outside.jpg">
+            <img src="images/sampleHouse/outside.jpg" height="10%" width="10%" />
+        </a>
+        <a href="images/sampleHouse/living.jpg">
+            <img src="images/sampleHouse/living.jpg" height="10%" width="10%" />
+        </a>
+
+        <a href="images/sampleHouse/livingroom.jpg">
+            <img src="images/sampleHouse/livingroom.jpg" height="10%" width="10%" />
+        </a>
+
+        <a href="images/sampleHouse/backyard.jpg">
+            <img src="images/sampleHouse/backyard.jpg" height="10%" width="10%" />
+        </a>
+
+        <a href="images/sampleHouse/television.jpg">
+            <img src="images/sampleHouse/television.jpg" height="10%" width="10%" />
+        </a>
+
+        <a href="images/sampleHouse/swimmingpool.jpg">
+            <img src="images/sampleHouse/swimmingpool.jpg" height="10%" width="10%" />
+        </a>
     </div>
 
         <br><h2 style="padding-left: 1cm"><b>5 beds, 4 baths, 4,079 sqft - built in 1998</b></h2><br>
@@ -226,6 +239,11 @@ include('php/signup.php');
             </ul>
         </div>
     </div>
+
+    <script src="lib/lightgallery/js/lightgallery.min.js"></script>
+    <script src="lib/lightgallery/js/lg-thumbnail.min.js"></script>
+    <script src="lib/lightgallery/js/lg-fullscreen.min.js"></script>
+
     <!-- lightGallery script -->
     <script type="text/javascript">
     $(document).ready(function() {
