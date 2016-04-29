@@ -21,14 +21,6 @@ include('php/signup.php');
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="js/jquery.js"></script>
-	<style>
-	  .carousel-inner > .item > img,
-	  .carousel-inner > .item > a > img {
-		  width: 80%;
-		  margin: 0 auto;
-	  }
-	  </style>
 
     <!-- Custom CSS -->
     <link href="css/forum.css" rel="stylesheet">
@@ -48,6 +40,12 @@ include('php/signup.php');
     <link rel="stylesheet" href="css/home.css"/>
     <script src="backend.js"></script> 
     <script src="js/infobubble.js"></script> 
+    
+    <!-- Lightgallery for lightbox gallery -->
+    <link type="text/css" rel="stylesheet" href="lib/lightgallery/css/lightgallery.css" /> 
+    <script src="lib/lightgallery/js/lightgallery.min.js"></script>
+    <script src="lib/lightgallery/js/lg-thumbnail.min.js"></script>
+    <script src="lib/lightgallery/js/lg-fullscreen.min.js"></script>
 	
     <!-- Social icons--> 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
@@ -161,61 +159,22 @@ include('php/signup.php');
         <h1 style="background-color:#c6ecd9; color:  #ff8000"><b>2117 Ashley Ridge Ct,
             San Jose, CA 95138<br>For sale: $1,888,000</b></center></h1>
         
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-	
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-        <li data-target="#myCarousel" data-slide-to="4"></li>
-		<li data-target="#myCarousel" data-slide-to="5"></li>
-      </ol>
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img src="images/sampleHouse/outside.jpg" alt="Chania">
-        </div>
-
-        <div class="item">
-          <img src="images/sampleHouse/living.jpg" alt="Chania">
-        </div>
-
-        <div class="item">
-          <img src="images/sampleHouse/livingroom.jpg" alt="Flower">
-        </div>
-		
-		 <div class="item">
-          <img src="images/sampleHouse/swimmingpool.jpg" alt="Flower">
-        </div>
-		
-        <div class="item">
-          <img src="images/sampleHouse/backyard.jpg" alt="Flower">
-        </div>
-          
-        <div class="item">
-          <img src="images/sampleHouse/television.jpg">
-        </div>
-      </div>
-        
-      <!-- Left and right controls -->
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+    <div id="gallery">
+    <a href="images/sampleHouse/outside.jpg"><img src="images/sampleHouse/outside.jpg" height="10%" width="10%" /></a>
+    <a href="images/sampleHouse/living.jpg"><img src="images/sampleHouse/living.jpg" height="10%" width="10%" /></a>
+    <a href="images/sampleHouse/livingroom.jpg"><img src="images/sampleHouse/livingroom.jpg" height="10%" width="10%" /></a>
+    <a href="images/sampleHouse/backyard.jpg"><img src="images/sampleHouse/backyard.jpg" height="10%" width="10%" /></a>
+    <a href="images/sampleHouse/television.jpg"><img src="images/sampleHouse/television.jpg" height="10%" width="10%" /></a>
+    <a href="images/sampleHouse/swimmingpool.jpg"><img src="images/sampleHouse/swimmingpool.jpg" height="10%" width="10%" /></a>
     </div>
+
         <br><h2 style="padding-left: 1cm"><b>5 beds, 4 baths, 4,079 sqft - built in 1998</b></h2><br>
         <p1 style="padding-left: 1cm">This is a prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1>
-        
+
         <div id="map">   
             <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 
-        </div> 
+        </div>
         
         <script>
         function toggleByClass(className) {
@@ -267,18 +226,14 @@ include('php/signup.php');
             </ul>
         </div>
     </div>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <!-- <script>
-    $('.carousel').carousel({
-        interval: 2000 //changes the speed
-    })
-    </script> -->
+    <!-- lightGallery script -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#gallery").lightGallery({
+            thumbnail: true
+        }); 
+    });
+    </script>
 
 </body>
 
