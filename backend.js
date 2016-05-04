@@ -3,7 +3,7 @@ var map;
 var geocoder; 
 var previous_infox;
 var current_location;
-
+var MLSN;
 
 //for 
 var list_circle = []; 
@@ -410,6 +410,7 @@ function getFloodZone(){
 function getHouse(){
     //PHP calling  
     var a_url="php/getHouse.php?city=" + selected_city; 
+	var store_MLSN;
     $.get(a_url, function(data, status){  
         var count = 0; 
         for(count in data)  {
@@ -424,17 +425,20 @@ function getHouse(){
                 position: new google.maps.LatLng(data[count].lat, data[count].long),
                 animation:google.maps.Animation.DROP, 
             });  
-                
+			//console.log(data[count].MLSNumber);
+            store_MLSN = (data[count].MLSNumber).substring(0);
+			//console.log(store_MLSN);
             //Create infobox content
-             var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
+            var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
                 'Beds: ' + data[count].BedsTotal + '<br>' +
                 'Baths: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+
-				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite()"> Save </button>';
-            
+                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber+
+				//'<button type="button" id="mybutton" class="btn btn-success pull-right" style="height:30px; width:55px"> Save </button>';
+				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
+			
             //Create infobox
             setInfoBox('House information', house_content, house);
             
@@ -446,14 +450,25 @@ function getHouse(){
      }, "json"); 
 }
 
-function addFavorite() {
-    window.location.href = 'profile.php';
+function addFavorite(MLSNumber) {
+	//console.log(MLSNumber);
+
+	$.post("php/addHouse.php", {id_house: MLSNumber},function(data, status){
+		alert("The house is added to your favorite list");
+		//alert("Adding a house status: " + status);
+       //console.log(data);
+	   //console.log(status);
+    });	
+	$("button").remove();
+	
+	//console.log("MLSN: " + test);
+    //window.location.href = 'profile.php';
 }
 
 function getSchool(){
     //PHP calling 
     var a_url="php/getSchool.php?city=" + selected_city;  
-    console.log(a_url);
+    //console.log(a_url);
     $.get(a_url, function(data, status){  
         var count = 0;
         for(count in data)  {

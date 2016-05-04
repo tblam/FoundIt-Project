@@ -62,7 +62,7 @@ include('php/signup.php');
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.php"></a>
+                        <a class="navbar-brand" href="home.php"></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->

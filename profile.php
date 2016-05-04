@@ -16,7 +16,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <!-- Custom CSS -->
@@ -94,16 +94,19 @@
 		<?php
 			include("php/connectToDatabase.php");
 			$userID = (int) $_SESSION['userID'];
+			
 			//setlocale(LC_MONETARY, 'en_US');
-			$sql = "SELECT address, city, BedsTotal, BathsTotal, SqftTotal, LotSizeArea_Min, Age, CurrentPrice, Status FROM favoriteHouse, house WHERE userID = $userID AND id_house = MLSNumber";  
+			$sql = "SELECT address, city, BedsTotal, BathsTotal, SqftTotal, LotSizeArea_Min, Age, CurrentPrice, Status, MLSNumber FROM favoriteHouse, house WHERE userID = $userID AND id_house = MLSNumber";  
 			 
 			//Execute the query      
 			$stmt = db2_prepare($conn, $sql);
 			$result = db2_execute($stmt);
 
 			if ($result == true) {   
-				while ($row = db2_fetch_array($stmt)){  
-						echo '<div class="houseInfo">
+				while ($row = db2_fetch_array($stmt)){
+						$id_house = $row[9];
+						echo $id_house;
+						echo '<div id=" houseInfo" class="houseInfo">
 						<a href="forum.php"><img src="images/sample.jpg" alt="sample"> </a><b>'.
 						'Address:' . $row[0] . ', '.$row[1]. '</b><br>'.
 						'BedsTotal: ' . $row[2] . '<br>'.
@@ -113,7 +116,11 @@
 						'Age: ' . $row[6]. '<br>'.
 						'<b>'.'CurrentPrice: $'. number_format($row[7]). '<br>'.
 						'Status: ' . $row[8]. '</b><br>
-						<div class="remove"><button type="button" class="btn btn-warning">Remove</button></div></div><br>';
+						<div class="remove"><button type="submit" class="btn btn-warning" onclick="remove(\''.$id_house.'\')">Remove</button></div></div>';
+						//<div class="remove"><button type="submit" class="btn btn-warning"><a href= "remove.php?MLSNumber={\''.$row[9].'\'}">Remove</a></button></div></div>';
+						
+						//$result1 = db2_exec($conn, "DELETE from favoriteHouse WHERE id_house = $id_house AND userID = $userID");							
+					
 					//$json[] = array(
 						//'address' => $row[0], 
 						//'BedsTotal' => $row[1],
@@ -127,7 +134,8 @@
 			}
 			else
 				echo "Excution error!";
-
+			
+			//$result1 = db2_exec($conn, "DELETE from favoriteHouse WHERE id_house = $id_house AND userID = $userID");
 			//Close connection
 			db2_close($conn);
 		?>
@@ -136,12 +144,26 @@
      
 </body>
 
-<script>       
+
+<script> 
+	
     $(document).ready(function(){
-        $(".remove").on("click", function(){
-            $(this).closest("li").remove();
+		//$("#houseInfo").remove();
+        $(".houseInfo").on("click", function(e){
+			alert("The house is removed from your favorite list");
+			console.log(MLSNumber)
+			/*$.post("php/removeHouse.php", {id_house: MLSNumber},function(data, status){
+				alert("The house is removed from your favorite list");
+		//alert("Adding a house status: " + status);
+				//console.log(data);*/
+			console.log(status);
+			//});
+			
         });
+		
     });
+	
+	 
     
     $('.form').find('input, textarea').on('keyup blur focus', function (e) {
     var $this = $(this),
