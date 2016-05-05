@@ -153,37 +153,60 @@ include('php/signup.php');
         </div>
 		
     <div class="info">
-        <h1 style="background-color:#c6ecd9; color:  #ff8000"><b>2117 Ashley Ridge Ct,
-            San Jose, CA 95138<br>For sale: $1,888,000</b></center></h1>
-        
+<!--        <h1 style="background-color:#c6ecd9; color:  #ff8000"><b>2117 Ashley Ridge Ct,
+            San Jose, CA 95138<br>For sale: $1,888,000</b></center></h1> -->
+    
 
     <div id="gallery">
         <a href="images/sampleHouse/outside.jpg">
-            <img src="images/sampleHouse/outside.jpg" height="10%" width="10%" />
+            <img src="images/sampleHouse/outside.jpg" height="15%" width="15%" />
         </a>
         <a href="images/sampleHouse/living.jpg">
-            <img src="images/sampleHouse/living.jpg" height="10%" width="10%" />
+            <img src="images/sampleHouse/living.jpg" height="15%" width="15%" />
         </a>
 
         <a href="images/sampleHouse/livingroom.jpg">
-            <img src="images/sampleHouse/livingroom.jpg" height="10%" width="10%" />
+            <img src="images/sampleHouse/livingroom.jpg" height="15%" width="15%" />
         </a>
 
         <a href="images/sampleHouse/backyard.jpg">
-            <img src="images/sampleHouse/backyard.jpg" height="10%" width="10%" />
+            <img src="images/sampleHouse/backyard.jpg" height="15%" width="15%" />
         </a>
 
         <a href="images/sampleHouse/television.jpg">
-            <img src="images/sampleHouse/television.jpg" height="10%" width="10%" />
+            <img src="images/sampleHouse/television.jpg" height="15%" width="15%" />
         </a>
 
         <a href="images/sampleHouse/swimmingpool.jpg">
-            <img src="images/sampleHouse/swimmingpool.jpg" height="10%" width="10%" />
+            <img src="images/sampleHouse/swimmingpool.jpg" height="15%" width="15%" />
         </a>
     </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                2117 Ashley Ridge Ct.
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul id="addressPriceList">
+                            <li>San Jose, CA 95138</li>
+                            <li>$1,888,000</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <br><h2 style="padding-left: 1cm"><b>5 beds, 4 baths, 4,079 sqft - built in 1998</b></h2><br>
-        <p1 style="padding-left: 1cm">This is a prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1>
+    <div class="container" id="houseInfo">
+        <div class="row">
+            <div class="col-sm-1">5 beds</div>
+            <div class="col-sm-1">4 baths</div>
+            <div class="col-sm-2">4,079 sq ft</div>
+        </div>
+    </div>
+        
+    <p1 style="padding-left: 1cm">House Description</p1>
 
         <div id="map">   
             <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 

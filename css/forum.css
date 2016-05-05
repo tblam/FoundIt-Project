@@ -147,6 +147,11 @@ body{
     margin: 0;
     padding: 0;
 }
+
+#addressPriceList {
+    list-style-type: none;
+    display: inline;
+}
  
 .social {
     margin: 0;
