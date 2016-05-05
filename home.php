@@ -32,7 +32,8 @@ include('php/signup.php');
     
     </head>
     
-    <body>          
+    <body>   
+		<h3 id="successMessage">Add house successfully</h3>
         <div id="navigation" class="container-fluid"> 
             <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
                 <div  class="container">

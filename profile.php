@@ -105,8 +105,8 @@
 			if ($result == true) {   
 				while ($row = db2_fetch_array($stmt)){
 						$id_house = $row[9];
-						echo $id_house;
-						echo '<div id=" houseInfo" class="houseInfo">
+						//echo $id_house;
+						echo '<div id="houseInfo" class="houseInfo">
 						<a href="forum.php"><img src="images/sample.jpg" alt="sample"> </a><b>'.
 						'Address:' . $row[0] . ', '.$row[1]. '</b><br>'.
 						'BedsTotal: ' . $row[2] . '<br>'.
@@ -116,7 +116,7 @@
 						'Age: ' . $row[6]. '<br>'.
 						'<b>'.'CurrentPrice: $'. number_format($row[7]). '<br>'.
 						'Status: ' . $row[8]. '</b><br>
-						<div class="remove"><button type="submit" class="btn btn-warning" onclick="remove(\''.$id_house.'\')">Remove</button></div></div>';
+						<div class="remove"><button class="btn btn-warning" onclick="removeHouse(\''.$id_house.'\')">Remove</button></div></div>';
 						//<div class="remove"><button type="submit" class="btn btn-warning"><a href= "remove.php?MLSNumber={\''.$row[9].'\'}">Remove</a></button></div></div>';
 						
 						//$result1 = db2_exec($conn, "DELETE from favoriteHouse WHERE id_house = $id_house AND userID = $userID");							
@@ -146,24 +146,39 @@
 
 
 <script> 
-	
     $(document).ready(function(){
-		//$("#houseInfo").remove();
-        $(".houseInfo").on("click", function(e){
-			alert("The house is removed from your favorite list");
-			console.log(MLSNumber)
-			/*$.post("php/removeHouse.php", {id_house: MLSNumber},function(data, status){
-				alert("The house is removed from your favorite list");
-		//alert("Adding a house status: " + status);
-				//console.log(data);*/
-			console.log(status);
-			//});
+		// //$("#houseInfo").remove();
+        // $(".houseInfo").on("click", function(e){
+			// alert("The house is removed from your favorite list");
+			// console.log(e);
+			// /*$.post("php/removeHouse.php", {id_house: MLSNumber},function(data, status){
+				// alert("The house is removed from your favorite list");
+		// //alert("Adding a house status: " + status);
+				// //console.log(data);*/
+			// console.log(status);
+			// //});
 			
-        });
+        // });
 		
     });
 	
-	 
+	function removeHouse(id_house) {
+		$('.houseInfo .remove').each(function () {
+			if($(this).html().indexOf(id_house) >= 0) {
+				$.post("php/removeHouse.php", {id_house: id_house},function(data, status) {
+					if (status = 200 && data == "remove") {
+						$('.houseInfo .remove').each(function () {
+							if($(this).html().indexOf(id_house) >= 0) {
+								$(this).parent().fadeOut(1000, function(){
+									$(this).remove();
+								});
+							}
+						});
+					}
+				});
+			}
+		});
+	}
     
     $('.form').find('input, textarea').on('keyup blur focus', function (e) {
     var $this = $(this),

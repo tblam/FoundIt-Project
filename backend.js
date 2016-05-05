@@ -454,7 +454,7 @@ function addFavorite(MLSNumber) {
 	//console.log(MLSNumber);
 
 	$.post("php/addHouse.php", {id_house: MLSNumber},function(data, status){
-		alert("The house is added to your favorite list");
+		$('#successMessage').slideDown(1000, function(){ $('h3').fadeOut(2000)})
 		//alert("Adding a house status: " + status);
        //console.log(data);
 	   //console.log(status);
