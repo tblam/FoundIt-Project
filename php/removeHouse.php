@@ -19,7 +19,9 @@ $error=''; // Variable To Store Error Message
         //Execute the query      
         $stmt = db2_prepare($conn, $sql);
         $result = db2_execute($stmt);
-        
+        if ($result == true) { 
+			echo 'remove';
+		}
         /*if ($result == true) { 
             if(($row = db2_fetch_array($stmt)) != null)
             { 	

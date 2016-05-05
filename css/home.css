@@ -2,6 +2,19 @@ html, body{
     height: 100%;
 }
 
+#successMessage{		
+	position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    padding: 10px;
+    border-radius: 6px;
+    opacity: 0.9;
+    color: white;
+    display: none;
+    background-color: steelblue;
+}
+
 .controls {
 margin-top: 10px;
 border: 1px solid transparent;
