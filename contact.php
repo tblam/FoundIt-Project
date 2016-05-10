@@ -102,7 +102,7 @@
                                         <label class="sr-only" for="form-message">Message</label>
                                         <textarea type="text" name="message" id="message" placeholder="Message..." class="form-message form-control"></textarea>
 			                        </div>
-			                        <button type="submit" onClick="contact.php" class="btn">Send the message</button>
+			                        <button id="MyButton" type="submit" class="btn">Send the message</button>
 			                    </form>
 		                    </div>
                         </div>
@@ -124,7 +124,15 @@
 			function validateEmail($email) {
 				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 				return emailReg.test($email );
-			}
+			}		
+			$(document).ready(function(){
+				$('#MyButton').click(function(){
+				  //$('<div>Thank you for sending the message. FoundIt will reply your message soon.</div>').insertBefore('#MyButton').fadeOut(10000);
+					confirm("Thank you for sending the message. FoundIt will reply your message soon.");
+			   });
+			 });
+			
+			
 		</script>	
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>

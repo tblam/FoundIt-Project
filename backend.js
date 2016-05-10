@@ -255,20 +255,28 @@ function filter_search(min_price, max_price, beds, baths){
 
         houses = []; 
         for(count in data)  { 
+			var icon = {
+				url: 'icons/house.png',
+				origin: new google.maps.Point(0, 0),
+				scaledSize: new google.maps.Size(15, 20)
+			} 
             var house = new google.maps.Marker({
                 map: map,
+				icon: icon,
                 position: new google.maps.LatLng(data[count].lat, data[count].long),
                 animation:google.maps.Animation.DROP, 
             });  
+			store_MLSN = (data[count].MLSNumber).substring(0);
 
             //Create infobox content
-             var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
+             var house_content = '<div style="font-size:14px;"><b><a href="forum.php">' + data[count].address + ", " + data[count].city + '</a><b></div>' +
                 'Beds: ' + data[count].BedsTotal + '<br>' +
                 'Baths: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>';
+                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber+
+				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
             
             //Create infobox
             setInfoBox('House information', house_content, house);
@@ -425,11 +433,10 @@ function getHouse(){
                 position: new google.maps.LatLng(data[count].lat, data[count].long),
                 animation:google.maps.Animation.DROP, 
             });  
-			//console.log(data[count].MLSNumber);
+			
             store_MLSN = (data[count].MLSNumber).substring(0);
-			//console.log(store_MLSN);
-            //Create infobox content
-            var house_content = '<div style="font-size:14px;"><b>' + data[count].address + ", " + data[count].city + '<b></div>' +
+
+            var house_content = '<div style="font-size:14px;"><b><a onclick="javascript:getForum(\''+ store_MLSN +'\');">' + data[count].address + ", " + data[count].city + '</a><b></div>' +
                 'Beds: ' + data[count].BedsTotal + '<br>' +
                 'Baths: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
@@ -437,7 +444,7 @@ function getHouse(){
                 'Age: ' + data[count].Age + ' year(s)<br>' +
                 'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber+
 				//'<button type="button" id="mybutton" class="btn btn-success pull-right" style="height:30px; width:55px"> Save </button>';
-				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
+				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="getForum(\''+ store_MLSN +'\')"> Save </button>';
 			
             //Create infobox
             setInfoBox('House information', house_content, house);
@@ -450,19 +457,19 @@ function getHouse(){
      }, "json"); 
 }
 
+function getForum(MLSNumber)
+{
+	$.post("forum.php", {id_house: MLSNumber},function(data, status){
+	});
+	window.location('forum.php');
+}
+
 function addFavorite(MLSNumber) {
-	//console.log(MLSNumber);
 
 	$.post("php/addHouse.php", {id_house: MLSNumber},function(data, status){
 		$('#successMessage').slideDown(1000, function(){ $('h3').fadeOut(2000)})
-		//alert("Adding a house status: " + status);
-       //console.log(data);
-	   //console.log(status);
     });	
 	$("button").remove();
-	
-	//console.log("MLSN: " + test);
-    //window.location.href = 'profile.php';
 }
 
 function getSchool(){
@@ -602,27 +609,6 @@ function setInfoBox(tab_name, message, marker){
     google.maps.event.addListener(map, "click", function () { 
         infowindow.close(); 
     }); 
-    
-//    var content = document.createElement("DIV"); 
-//    var streetview = document.createElement("DIV");
-//    streetview.style.width = "200px";
-//    streetview.style.height = "200px";
-//    content.appendChild(streetview);
-//    var infowindow = new google.maps.InfoWindow({
-//        content: content
-//    });
-//    
-//    //Adding street view
-//    google.maps.event.addListenerOnce(infowindow, "domready", function() {
-//        var panorama = new google.maps.StreetViewPanorama(streetview, {
-//            navigationControl: false,
-//            enableCloseButton: false,
-//            addressControl: false,
-//            linksControl: false,
-//            visible: true,
-//            position: marker.getPosition()
-//        });
-//    });
 }
 // add thousand separator for current price
 function numberWithThousandSep(x) {

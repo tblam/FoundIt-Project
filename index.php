@@ -133,7 +133,7 @@ include('php/signup.php');
     </div>
     
     <div class="container" id="second">        
-        <h1>Select the largest selection of rentals nationwide, updated in real time.</h1>  
+        <h1>Select the largest selection of real estate listings in Bay Area, updated in real time.</h1>  
         
         <div id="custom-image">
             <a onclick="storedata('San Jose')" class="img-wrap"><img class="img-responsive" src="images/cities/san-jose.jpg" alt="img01"/>
