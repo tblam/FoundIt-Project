@@ -132,6 +132,13 @@ h3{
     min-height: 25%; 
 }
 
+hr {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
 #description-text{ 
     display: block;
     width: inherit;

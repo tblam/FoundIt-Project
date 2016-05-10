@@ -197,8 +197,44 @@ include('php/signup.php');
           <img src="images/sampleHouse/outside.jpg" alt="Chania">
         </div>
 
+<<<<<<< HEAD
         <div class="item">
           <img src="images/sampleHouse/living.jpg" alt="Chania">
+=======
+        <a href="images/sampleHouse/swimmingpool.jpg">
+            <img src="images/sampleHouse/swimmingpool.jpg" height="15%" width="15%" />
+        </a>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4" id="addressLine">
+                <h3 class="lead" style="margin-bottom:5px;"><strong>2117 Ashley Ridge Ct.</strong></h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <hr style="margin-top:5px;">
+                        <ul id="addressPriceList">
+                            <li><strong>San Jose, CA 95138</strong></li>
+                            <li><strong>$1,888,000</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8" style="margin-top:20px;">
+                <div class="col-sm-4">
+                    <h4>Schools</h4>
+                    <p>Evergreen School District, James Franklin Smith Elementary School, Evergreen Valley College</p>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Attractions</h4>
+                    <p>The Ranch Golf Club, Montgomery Hill Park, Evergreen Park</p>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Local Crime</h4>
+                    <p>1 Registered Sex Offenders in 1 mile radius</p>
+                </div>
+            </div>
+>>>>>>> origin/master
         </div>
 
         <div class="item">
@@ -253,10 +289,19 @@ include('php/signup.php');
         
         <p1 style="padding-left: 1cm">This is a prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1>
         
+<<<<<<< HEAD
         <div id="map">   
             <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 
         </div> 
         
+=======
+    <p1 style="padding-left: 1cm">House Description</p1>
+<!--
+        <div id="map">   
+            <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 
+        </div> -->
+        <!--
+>>>>>>> origin/master
         <script>
         function toggleByClass(className) {
             $("."+className).toggle();
@@ -269,7 +314,7 @@ include('php/signup.php');
 			<div class="attractions" id="information" style="padding-left: 1cm">The Ranch Golf Club, Montgomery Hill Park, Evergreen Park</div>
             <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('crime');">Crime Alerts</button>
             <div class="crime" id="information" style="padding-left: 1cm">1 Registered Sex Offenders in 1 mile radius.</div>
-        </ul>
+        </ul>-->
 
         <h1>Features</h1>
         <ul id="list">
