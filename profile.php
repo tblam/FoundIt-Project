@@ -88,7 +88,7 @@
     </div>
     <div class="col-xs-12 col-sm-8 col-md-8" id="mainContent">
         <div id="topContent">
-            <p>Favorite Houses | Contact List | House Collections </p>
+            <p>Favorite Houses</p>
         </div>
         <div id="bodyContent">
 		<?php
