@@ -13,19 +13,19 @@ session_start();
 		$userID = (int) $_SESSION['userID'];
 		$houseID = $_POST['id_house'];
 		
-		//$sql = "select * from favoriteHouse where useID = $userID and id_house = '$houseID'";
+		$sql = "select * from favoriteHouse where useID = $userID and id_house = '$houseID'";
     
 		//echo $userID;
 		//echo $sql;
 	
 		// //Execute the query      
-		//$stmt = db2_prepare($conn, $sql);
-		//$result = db2_execute($stmt);
+		$stmt = db2_prepare($conn, $sql);
+		$result = db2_execute($stmt);
 		//echo $result;
-		//if (db2_fetch_array($stmt) != null) {    
+		if (db2_fetch_array($stmt) != null) {    
 		//	echo "<script type='text/JavaScript'>alert('The house is saved in your favorite list');</script>";   
-		//} 
-		//else{
+		} 
+		else{
 			// // Generate sql for creating an account
 			$sql1 = "insert into favoriteHouse (userID, id_house) values ($userID, '$houseID')";
 			//echo $sql;
@@ -40,7 +40,7 @@ session_start();
 				// $message = "Cannot sign up";
 				// echo "<script type='text/javascript'>alert('$message');</script>";
 			// }
-		//}
+		}
 		
             
     //}

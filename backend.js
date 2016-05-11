@@ -436,7 +436,7 @@ function getHouse(){
 			
             store_MLSN = (data[count].MLSNumber).substring(0);
 
-            var house_content = '<div style="font-size:14px;"><b><a onclick="javascript:getForum(\''+ store_MLSN +'\');">' + data[count].address + ", " + data[count].city + '</a><b></div>' +
+            var house_content = '<div style="font-size:14px;"><b><a href="forum.php" onclick="return getForum(\''+ store_MLSN +'\');">' + data[count].address + ", " + data[count].city + '</a><b></div>' +
                 'Beds: ' + data[count].BedsTotal + '<br>' +
                 'Baths: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
@@ -444,7 +444,7 @@ function getHouse(){
                 'Age: ' + data[count].Age + ' year(s)<br>' +
                 'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber+
 				//'<button type="button" id="mybutton" class="btn btn-success pull-right" style="height:30px; width:55px"> Save </button>';
-				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="getForum(\''+ store_MLSN +'\')"> Save </button>';
+				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
 			
             //Create infobox
             setInfoBox('House information', house_content, house);
@@ -459,15 +459,16 @@ function getHouse(){
 
 function getForum(MLSNumber)
 {
-	$.post("forum.php", {id_house: MLSNumber},function(data, status){
+	$.post("php/getForum.php", {house_id: MLSNumber},function(data, status){
+		console.log(MLSNumber);
 	});
-	window.location('forum.php');
+	
 }
 
 function addFavorite(MLSNumber) {
 
 	$.post("php/addHouse.php", {id_house: MLSNumber},function(data, status){
-		$('#successMessage').slideDown(1000, function(){ $('h3').fadeOut(2000)})
+		$('#successMessage').slideDown(1000, function(){ $('h3').fadeOut(2000)})	
     });	
 	$("button").remove();
 }
@@ -505,7 +506,7 @@ function getSchool(){
             //Add school to list
             schools.push(school);
         } 
-         console.log("Number of school: " + count);
+         //console.log("Number of school: " + count);
      }, "json");   
    
 }
