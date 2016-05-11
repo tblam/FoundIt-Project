@@ -75,7 +75,7 @@
     
     <div class="col-xs-12 col-sm-4 col-md-4" id="sidebar">
         <div id="profile">
-            <img src="images/profile.jpg">
+            <img src="images/default_profile.jpg">
         </div> 
         <div id="list">
             <p>Name: 
