@@ -1,8 +1,8 @@
 <?php
 //Create connection to db2 for LUW
 $database = "foundit";
-$user= "tran";
-$password = "db2admin";
+$user= "Luan Bui";
+$password = "Saigon20162";
 
 $conn = db2_connect($database, $user, $password);
 ?>

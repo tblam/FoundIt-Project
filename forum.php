@@ -11,8 +11,6 @@ include('php/signup.php');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="FoundIt" content="">
 
     <title>Found It</title>
 
@@ -21,8 +19,7 @@ include('php/signup.php');
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="js/jquery.js"></script>
-	<style>
+    <style>
 	  .carousel-inner > .item > img,
 	  .carousel-inner > .item > a > img {
 		  width: 80%;
@@ -39,14 +36,8 @@ include('php/signup.php');
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	
-	 <!-- Custom JS for auto complete--> 
-    <!-- <script type="text/javascript" src="js/city-autocomplete.js"></script> 
-    <link rel="stylesheet" href="css/jquery.autocomplete.css">
-    <script src="js/jquery.autocomplete.js"></script> -->
-	
     <!-- Customed CSS for home page -->
     <link rel="stylesheet" href="css/home.css"/>
-    <!-- <script src="backend.js"></script> --> 
     <script src="js/infobubble.js"></script> 
 	
     <!-- Social icons--> 
@@ -173,7 +164,7 @@ include('php/signup.php');
 			if ($result == true) {   
 				while ($row = db2_fetch_array($stmt)){	
 					echo '<div class="info"><h1 style="background-color:#c6ecd9; color:  #ff8000"><b>'.
-					$row[0].', '.$row[1].'<br>For sale: $'.number_format($row[7]).'</b></center></h1>';
+					$row[0].', '.$row[1].'<br>For sale: $'.number_format($row[7]).'- MLSNumber: '.$row[9].'</b></center></h1>';
 					$city = $row[1];
 				}
 			}
@@ -231,72 +222,72 @@ include('php/signup.php');
         <span class="sr-only">Next</span>
       </a>
     </div>
-	<br>
-	<?php 
-		$result1 = db2_execute($stmt);
-		if ($result1 == true) {   
-				while ($row = db2_fetch_array($stmt)){	
-					echo '<h2 style="padding-left: 1cm"><b>'.$row[2].' bedrooms, '.$row[3]. ' bathrooms - Total: '.
-						number_format($row[4]). ' square feet - Age: '. $row[6].' year(s)</b></h2><br>';
-					echo '<ul id="list"><b>
-							<li>Lot Size Area: '.number_format($row[5]).' square feet</li>
-							<li>Bathrooms Full: '.$row[10].'</li>
-							<li>Bathrooms Half: '.$row[11].'</li>
-							<li>MLSNumber: '.$row[9].'</li>
-							<li>Status: '.$row[8].'</li>
-							<li>Day(s) on Market (DOM): '.$row[12].'</li><b>
-						</ul> ';
-				}
-			}
-			else
-				echo "Excution error!";
-			//<h2 style="padding-left: 1cm"><b>5 beds, 4 baths, 4,079 sqft - built in 1998</b></h2><br>
-	?>
-        
-        <p1 style="padding-left: 1cm">This is a prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1>
-        
-        <!-- <div id="map">   
-            <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 
-        </div> --> 
-        
-        <script>
-        function toggleByClass(className) {
-            $("."+className).toggle();
-        }
-        </script>
-        <ul id="list">
-            <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('schools');">Nearby Schools in <?php
-				echo $city; ?></button>
-            <div class="schools" id="information" style="padding-left: 1cm">  
-				<?php
-					$sql1 = "select name, staterank from school where city = '$city' order by staterank"; 
-					$stmt1 = db2_prepare($conn, $sql1);
-					$result2 = db2_execute($stmt1);
-					echo '<table border="1" style="width:50%"><tr>
-							<th style="text-align: center; color: blue">School name</th>
-							<th style="text-align: center; color: blue">State Ranking</th></tr>';
-					if ($result2 == true) {   
-						while ($row = db2_fetch_array($stmt1)){
-							echo  '<tr><td style="padding-left: 1cm">'.$row[0].'</td><td style="text-align: center">'.$row[1].'</td></tr>';
-						}
+	<div class="container">
+		<div class="row">
+			<h2 style="padding-left: 1cm"><b>Description</b></h2>
+			<?php 
+				$result1 = db2_execute($stmt);
+				if ($result1 == true) {   
+					while ($row = db2_fetch_array($stmt)){	
+						echo '<div class="col-md-4"><ul id="list">
+								<li>Total Area: '.number_format($row[4]).' square feet</li>
+								<li>Lot Size Area: '.number_format($row[5]).' square feet</li>
+								<li>Bedroom(s): '.$row[2].'</li></ul></div>';
+						echo '<div class="col-md-4"><ul id="list">							
+								<li>Total Bathroom(s): '.$row[3].'</li>	
+								<li>Bathroom(s) Full: '.$row[10].'</li>
+								<li>Bathroom(s) Half: '.$row[11].'</li></ul></div>';
+						echo '<div class="col-md-4"><ul id="list">
+								<li>Age: '.$row[10].' year(s)</li>
+								<li>Status: '.$row[8].'</li>
+								<li>Day(s) on Market (DOM): '.$row[12].'</li></ul></div>';
 					}
-					echo '</table></br>';
-				?>
+				}
+				else
+					echo "Excution error!";
+				
+			?>
+		</div>
+	</div>
+	
+	<hr>
+	<div class="container">	
+		<div class="row">
+			<div class="col-md-6">
+				<ul id="list">
+					<h2>Schools in <?php
+						echo $city; ?></h2>
+					<div class="schools" id="information"> 
+						<?php
+							$sql1 = "select name, staterank from school where city = '$city' order by staterank"; 
+							$stmt1 = db2_prepare($conn, $sql1);
+							$result2 = db2_execute($stmt1);
+							echo '<table border="1px;" style="width:100%; padding-left: 0px"><tr>
+									<th style="text-align: center; color: blue">School name</th>
+									<th style="text-align: center; color: blue">State Ranking</th></tr>';
+							if ($result2 == true) {   
+								while ($row = db2_fetch_array($stmt1)){
+									echo  '<tr><td style="padding-left: 1cm">'.$row[0].'</td><td style="text-align: center">'.$row[1].'</td></tr>';
+								}
+							}
+							echo '</table></br>';
+						?>
+					</div>
+					<h2>Crime Alerts<h2>
+					<!--<div class="crime" id="information" style="padding-left: 1cm">1 Registered Sex Offenders in 5 miles radius.</div>-->
+				</ul>
 			</div>
-            <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('attractions');">Nearby Attractions</button>             
-			<div class="attractions" id="information" style="padding-left: 1cm">The Ranch Golf Club, Montgomery Hill Park, Evergreen Park</div>
-            <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('crime');">Crime Alerts</button>
-            <div class="crime" id="information" style="padding-left: 1cm">1 Registered Sex Offenders in 5 miles radius.</div>
-        </ul>
-
-        <h1>Features</h1>
-        <ul id="list">
-            <li>Security System</li>
-            <li>Fireplace</li>
-            <li>Hot Tub / Spa</li>
-            <li>Pool and Garden</li>
-        </ul>
-		<?php 
+			
+			<div class="col-sm-6">
+				<h2>Search your own attractions<h2>
+				<div id="map" style="width: 300px; height: 300px;">   
+					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg&libraries=visualization&callback=init" async defer></script> 
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<?php 
 			//echo $houseID;
 			echo '<center><button id="button1" type="button" class="btn btn-success navbar-btn" onclick="addFavorite(\''.$houseID.'\')">Add to my list</button></center>';
 		?>
@@ -309,6 +300,7 @@ include('php/signup.php');
             <input type='submit' value='Post' style='margin-left:19cm'/>
         </form>
     </div>
+	
 	<?php 
 		$sql2 = "select contentPost, email, timePost from comment, user where id_house = '$houseID' and user.userID = comment.userID"; 
 		$stmt2 = db2_prepare($conn, $sql2);
@@ -348,6 +340,20 @@ include('php/signup.php');
 			});	
 			$("#button1").replaceWith("<h3><b>Saved!</b></h3>");
 			}
+		
+		function init() {
+			map = new google.maps.Map(document.getElementById('map'), {
+			  center: {lat: -34.397, lng: 150.644},
+			  zoom: 8
+			});
+		}
+
+			
+		
+		
+		function toggleByClass(className) {
+            $("."+className).toggle();
+        }
 			
     </script>
 

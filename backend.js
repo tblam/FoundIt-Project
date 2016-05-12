@@ -2,12 +2,7 @@
 var map;
 var geocoder; 
 var previous_infox;
-var current_location;
-var MLSN;
-
-//for 
-var list_circle = []; 
-var range = 5; 
+var current_location; 
 
 //store selected city from index page
 var selected_city;
@@ -18,9 +13,13 @@ var cityBoundary =[];
 
 //for houses
 var houses = [];
+var MLSN;
 
 //for school
 var schools = [];
+
+//for crime
+var crimes = [];
 
 //for earthquake
 var heatmap;
@@ -117,6 +116,14 @@ function init () {
             displaySchools(null);
     });
      
+    //Add listener for displaying crime
+    $("#displayCrime").change(function(){
+        if(this.checked)
+            displayCrime(map);
+        else
+            displayCrime(null);
+    });
+    
     //Add listener for displaying flood zone
     $("#displayFloodZone").change(function(){
         if(this.checked)
@@ -194,7 +201,6 @@ function init () {
         infowindow.open(map, this);    
         previous_infox = infowindow; 
     });
-    
 }   
 
 // Add a Home control that returns the user to current position
@@ -442,33 +448,33 @@ function getHouse(){
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot Size Area: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber+
-				//'<button type="button" id="mybutton" class="btn btn-success pull-right" style="height:30px; width:55px"> Save </button>';
-				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
-			
+                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber;
+            
+            if(display_saveButton != "")
+				house_content += '<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
+
             //Create infobox
             setInfoBox('House information', house_content, house);
             
             //Add house to list
             houses.push(house);
         } 
-//        count ++;
-//        alert("Houses on market: " + count);
      }, "json"); 
 }
 
-function addFavorite(MLSNumber) {
-
-	$.post("php/addHouse.php", {id_house: MLSNumber},function(data, status){
-		$('#successMessage').slideDown(1000, function(){ $('h3').fadeOut(2000)})	
-    });	
-	$("button").remove();
+function addFavorite(MLSNumber) { 
+	 $.get("php/addHouse.php?id_house=" + MLSNumber, function(data, status){ 
+        if(data == "")
+            $('#successMessage').slideDown(1000, function(){ $('h3').fadeOut(2000)});
+        else
+            alert(data);
+    });     
 }
 
 function getSchool(){
     //PHP calling 
-    var a_url="php/getSchool.php?city=" + selected_city;  
-    //console.log(a_url);
+    var a_url="php/getSchool.php?city=" + selected_city;   
+    
     $.get(a_url, function(data, status){  
         var count = 0;
         for(count in data)  {
@@ -503,6 +509,41 @@ function getSchool(){
    
 }
 
+function getCrime(){
+     //PHP calling  
+    var a_url="php/getCrime.php?city=" + selected_city; 
+    $.get(a_url, function(data, status){  
+        var count = 0;  
+        for(count in data)  {   
+            //Create icon for crime
+            var icon = {
+                url: 'icons/crime.png',
+                origin: new google.maps.Point(0, 0),
+                scaledSize: new google.maps.Size(20, 20)
+            } 
+
+            var crime = new google.maps.Marker({ 
+                position: new google.maps.LatLng(data[count].lat, data[count].long),
+                animation:google.maps.Animation.DROP,
+                icon: icon
+            });  
+            
+//            //Create infobox content
+//            var crime_content = '<div style="font-size:14px;">Criminal name: ' + data[count].first_name + " " + data[count].last_name + '</div>' + 
+//				'Address: ' + data[count].street + ", " + data[count].city + ",CA" + data[count].zip + '<br>' +
+//                'Date of birth: ' + data[count].dob + '<br>' + 
+//                'Gender: ' + data[count].gender + '<br>';  
+//            
+//            //Create infobox
+//            setInfoBox('Sexsual assult', crime_content, crime);
+            
+            //Add school to list
+            crimes.push(crime);
+        }
+        
+    });
+}
+
 function getData(city) {  
     geocoder.geocode({'address': city}, function(results, status) { 
       if (status == google.maps.GeocoderStatus.OK) 
@@ -524,6 +565,9 @@ function getData(city) {
           //Display schools 
           getSchool();  
            
+          //Display crime zone
+          getCrime();
+          
           //Display city boundary
           getCityBoundary();
           
@@ -534,23 +578,20 @@ function getData(city) {
       }
     }); 
 }
-
-// Sets the map on all markers in the array.
+ 
 function clearMarkers() {
     //Clear all markers
     displaySchools(null);
     schools = [];
     
+    //Clear crime
+    displayCrime(null);
+    crimes = [];
+    
     //Clear city boundary
     displayCityBoundary (null);
     cityBoundary = [];
-    
-    //Clear all circle
-    for (var i = 0; i < list_circle.length; i++)  {
-        list_circle[i].setMap(null);
-        list_circle.shift(); 
-    }     
-    
+     
     //Clear houses
     for (var i = 0; i < houses.length; i++)  {
         houses[i].setMap(null); 
@@ -567,6 +608,12 @@ function displayCityBoundary (check){
 function displaySchools (check){ 
     for (var i = 0; i < schools.length; i++) { 
         schools[i].setMap(check);
+    }   
+}
+
+function displayCrime (check){  
+    for (var i = 0; i < crimes.length; i++) { 
+        crimes[i].setMap(check);
     }   
 }
 

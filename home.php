@@ -184,8 +184,7 @@ include('php/signup.php');
             </div>
             <div id="filter_search">
                 <button id="submit_filter" type="button" class="btn btn-link">Filter search</button>
-                <button style="float:right;" class="btn-success" data-toggle="collapse" id="menu-toggle-2"> 
-                    <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                <button style="float:right;" class="btn btn-link" data-toggle="collapse"> Schools 
                 </button>
             </div>
         </div>
@@ -197,34 +196,34 @@ include('php/signup.php');
     </body> 
 
 <script>
-    $('.form').find('input, textarea').on('keyup blur focus', function (e) {
-  
-  var $this = $(this),
-      label = $this.prev('label');
+    var display_saveButton = '<?php echo $_SESSION['username']; ?>' ;  
+    
+    $('.form').find('input, textarea').on('keyup blur focus', function (e) { 
+        var $this = $(this),
+            label = $this.prev('label');
 
-	  if (e.type === 'keyup') {
-			if ($this.val() === '') {
-          label.removeClass('active highlight');
-        } else {
-          label.addClass('active highlight');
+        if (e.type === 'keyup') {
+            if ($this.val() === '') {
+                label.removeClass('active highlight');
+            } else {
+    label.addClass('active highlight');
+            }
+        } else if (e.type === 'blur') {
+            if( $this.val() === '' ) {
+                label.removeClass('active highlight'); 
+            } else {
+                label.removeClass('highlight');   
+            }   
+        } else if (e.type === 'focus') {
+
+            if( $this.val() === '' ) {
+                label.removeClass('highlight'); 
+            } 
+            else if( $this.val() !== '' ) {
+                label.addClass('highlight');
+            }
         }
-    } else if (e.type === 'blur') {
-    	if( $this.val() === '' ) {
-    		label.removeClass('active highlight'); 
-			} else {
-		    label.removeClass('highlight');   
-			}   
-    } else if (e.type === 'focus') {
-      
-      if( $this.val() === '' ) {
-    		label.removeClass('highlight'); 
-			} 
-      else if( $this.val() !== '' ) {
-		    label.addClass('highlight');
-			}
-    }
-
-});
+    });
     
     $('#submit_signup').on('click', function(){ 
         if($('#password').val() != $('#password1').val()){
