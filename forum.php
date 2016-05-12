@@ -40,13 +40,13 @@ include('php/signup.php');
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	
 	 <!-- Custom JS for auto complete--> 
-    <script type="text/javascript" src="js/city-autocomplete.js"></script> 
+    <!-- <script type="text/javascript" src="js/city-autocomplete.js"></script> 
     <link rel="stylesheet" href="css/jquery.autocomplete.css">
-    <script src="js/jquery.autocomplete.js"></script>
+    <script src="js/jquery.autocomplete.js"></script> -->
 	
     <!-- Customed CSS for home page -->
     <link rel="stylesheet" href="css/home.css"/>
-    <script src="backend.js"></script> 
+    <!-- <script src="backend.js"></script> --> 
     <script src="js/infobubble.js"></script> 
 	
     <!-- Social icons--> 
@@ -97,7 +97,7 @@ include('php/signup.php');
 												<div id="login">   
 													<h1>Welcome Back!</h1>
 
-													<form action="/" method="post">
+													<form action="" method="post">
 
 														<div class="field-wrap"> 
 															<input type="email" placeholder="Email..." required autocomplete="off"/>
@@ -108,15 +108,16 @@ include('php/signup.php');
 														</div>
 
 														<p class="forgot"><a href="#">Forgot Password?</a></p> 
-														<button type="submit" class="button button-block"/>Log In</button> 
-													
+														<button name="submit_login" type="submit" class="button button-block">Log In</button>  
+                                                        <span><?php echo $error; ?></span>
 													</form> 
 												</div>
 											
 												<div id="signup">   
+
 													<h1>Sign Up for Free</h1>
 
-													<form action="/" method="post">
+													<form action="" method="post">
 
 														<div class="top-row">
 															<div class="field-wrap">
@@ -140,7 +141,8 @@ include('php/signup.php');
 															<input type="password" placeholder="Re-type password..." required autocomplete="off"/>
 														</div>
 
-														<button type="submit" class="button button-block"/>Get Started</button>
+														<button id="submit_signup" type="submit" name="submit_signup" class="button button-block">Get Started</button>
+													</div>
 												</div>
 											</div><!--Tab content---->
 										</div> <!--Modal body---->
@@ -158,9 +160,8 @@ include('php/signup.php');
         </div>
 	<?php
 			include("php/connectToDatabase.php");
-			//$houseID = $_POST['houseID'];
+			$houseID = $_GET["house"];
 			//echo $houseID;
-			$houseID = 'ML81561225';
 			
 			$sql = "SELECT address, city, BedsTotal, BathsTotal, SqftTotal, LotSizeArea_Min, Age, CurrentPrice, Status, MLSNumber, BathsFull,
 					BathsHalf, DOM FROM house WHERE MLSNumber = '$houseID'";  
@@ -173,6 +174,7 @@ include('php/signup.php');
 				while ($row = db2_fetch_array($stmt)){	
 					echo '<div class="info"><h1 style="background-color:#c6ecd9; color:  #ff8000"><b>'.
 					$row[0].', '.$row[1].'<br>For sale: $'.number_format($row[7]).'</b></center></h1>';
+					$city = $row[1];
 				}
 			}
 			else
@@ -232,31 +234,30 @@ include('php/signup.php');
 	<br>
 	<?php 
 		$result1 = db2_execute($stmt);
-		if ($result == true) {   
+		if ($result1 == true) {   
 				while ($row = db2_fetch_array($stmt)){	
-					echo '<h2 style="padding-left: 1cm"><b>'.$row[2].' bedrooms, '.$row[3]. ' bathrooms - Total'.
-						number_format($row[4]). ' square feet - Age: '. $row[6].' years</b></h2><br>';
+					echo '<h2 style="padding-left: 1cm"><b>'.$row[2].' bedrooms, '.$row[3]. ' bathrooms - Total: '.
+						number_format($row[4]). ' square feet - Age: '. $row[6].' year(s)</b></h2><br>';
 					echo '<ul id="list"><b>
 							<li>Lot Size Area: '.number_format($row[5]).' square feet</li>
 							<li>Bathrooms Full: '.$row[10].'</li>
 							<li>Bathrooms Half: '.$row[11].'</li>
 							<li>MLSNumber: '.$row[9].'</li>
 							<li>Status: '.$row[8].'</li>
-							<li>Day on Market (DOM): '.$row[12].'</li><b>
+							<li>Day(s) on Market (DOM): '.$row[12].'</li><b>
 						</ul> ';
 				}
 			}
 			else
 				echo "Excution error!";
-			db2_close($conn);
 			//<h2 style="padding-left: 1cm"><b>5 beds, 4 baths, 4,079 sqft - built in 1998</b></h2><br>
 	?>
         
         <p1 style="padding-left: 1cm">This is a prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1>
         
-        <div id="map">   
+        <!-- <div id="map">   
             <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 
-        </div> 
+        </div> --> 
         
         <script>
         function toggleByClass(className) {
@@ -264,12 +265,28 @@ include('php/signup.php');
         }
         </script>
         <ul id="list">
-            <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('schools');">Schools</button>
-            <div class="schools" id="information" style="padding-left: 1cm">Nearby schools: Evergreen School District, James Franklin Smith Elementary School, Evergreen Valley College </div>
+            <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('schools');">Nearby Schools in <?php
+				echo $city; ?></button>
+            <div class="schools" id="information" style="padding-left: 1cm">  
+				<?php
+					$sql1 = "select name, staterank from school where city = '$city' order by staterank"; 
+					$stmt1 = db2_prepare($conn, $sql1);
+					$result2 = db2_execute($stmt1);
+					echo '<table border="1" style="width:50%"><tr>
+							<th style="text-align: center; color: blue">School name</th>
+							<th style="text-align: center; color: blue">State Ranking</th></tr>';
+					if ($result2 == true) {   
+						while ($row = db2_fetch_array($stmt1)){
+							echo  '<tr><td style="padding-left: 1cm">'.$row[0].'</td><td style="text-align: center">'.$row[1].'</td></tr>';
+						}
+					}
+					echo '</table></br>';
+				?>
+			</div>
             <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('attractions');">Nearby Attractions</button>             
 			<div class="attractions" id="information" style="padding-left: 1cm">The Ranch Golf Club, Montgomery Hill Park, Evergreen Park</div>
             <button style="background-color:#c6ecd9" class="btn btn-lg btn-block" onclick="toggleByClass('crime');">Crime Alerts</button>
-            <div class="crime" id="information" style="padding-left: 1cm">1 Registered Sex Offenders in 1 mile radius.</div>
+            <div class="crime" id="information" style="padding-left: 1cm">1 Registered Sex Offenders in 5 miles radius.</div>
         </ul>
 
         <h1>Features</h1>
@@ -285,16 +302,24 @@ include('php/signup.php');
 		?>
     <hr>
     <div class="comment">
-        <form method='post' style='padding-left: 1cm'>
+        <form method='post' action='php/forumPost.php?house=<?php echo $houseID; ?>' style='padding-left: 1cm'>
         
-            Comment:<br />
-            <textarea name='comment' id='comment' style="width:20cm;"></textarea><br />
-            
-            <input type='hidden' name='articleid' id='articleid' value='<? echo $_GET["id"]; ?>' />
-            
-            <input type='submit' value='Post' style="margin-left:19cm"/>
+            Comment:<br/>
+            <textarea name='comment' id='comment' class ='text' style='width:20cm;'></textarea><br/> 			
+            <input type='submit' value='Post' style='margin-left:19cm'/>
         </form>
     </div>
+	<?php 
+		$sql2 = "select contentPost, email, timePost from comment, user where id_house = '$houseID' and user.userID = comment.userID"; 
+		$stmt2 = db2_prepare($conn, $sql2);
+		$result3 = db2_execute($stmt2);
+		if ($result3 == true) {   
+			while ($row = db2_fetch_array($stmt2)){
+				echo '<hr><h4 id="commentLine" style="padding-left: 2cm; font: 12px;">'.$row[0].'<h5 style="padding-left: 15cm">'.$row[1].'  '.substr($row[2],0, 16).'</h5></h4>';
+			}
+		}
+		db2_close($conn);
+	?>
 
     <div id="fourth"> 
         <div id="footer">
@@ -323,6 +348,7 @@ include('php/signup.php');
 			});	
 			$("#button1").replaceWith("<h3><b>Saved!</b></h3>");
 			}
+			
     </script>
 
 </body>

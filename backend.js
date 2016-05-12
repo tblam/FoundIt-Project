@@ -269,9 +269,9 @@ function filter_search(min_price, max_price, beds, baths){
 			store_MLSN = (data[count].MLSNumber).substring(0);
 
             //Create infobox content
-             var house_content = '<div style="font-size:14px;"><b><a href="forum.php">' + data[count].address + ", " + data[count].city + '</a><b></div>' +
-                'Beds: ' + data[count].BedsTotal + '<br>' +
-                'Baths: ' + data[count].BathsTotal + '<br>' + 
+             var house_content = '<div style="font-size:14px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a><b></div>' +
+                'Bedrooms: ' + data[count].BedsTotal + '<br>' +
+                'Bathrooms: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
                 'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
@@ -436,11 +436,11 @@ function getHouse(){
 			
             store_MLSN = (data[count].MLSNumber).substring(0);
 
-            var house_content = '<div style="font-size:14px;"><b><a href="forum.php" onclick="return getForum(\''+ store_MLSN +'\');">' + data[count].address + ", " + data[count].city + '</a><b></div>' +
-                'Beds: ' + data[count].BedsTotal + '<br>' +
-                'Baths: ' + data[count].BathsTotal + '<br>' + 
+            var house_content = '<div style="font-size:14px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a><b></div>' +
+                'Bedrooms: ' + data[count].BedsTotal + '<br>' +
+                'Bathrooms: ' + data[count].BathsTotal + '<br>' + 
                 'Area: ' + data[count].SqftTotal + ' sqft<br>' +
-                'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
+                'Lot Size Area: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 'Age: ' + data[count].Age + ' year(s)<br>' +
                 'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber+
 				//'<button type="button" id="mybutton" class="btn btn-success pull-right" style="height:30px; width:55px"> Save </button>';
@@ -455,14 +455,6 @@ function getHouse(){
 //        count ++;
 //        alert("Houses on market: " + count);
      }, "json"); 
-}
-
-function getForum(MLSNumber)
-{
-	$.post("php/getForum.php", {house_id: MLSNumber},function(data, status){
-		console.log(MLSNumber);
-	});
-	
 }
 
 function addFavorite(MLSNumber) {

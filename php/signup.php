@@ -14,7 +14,7 @@ if (isset($_POST['submit_signup'])) {
     $email = strtolower(trim($email));
     
     //Check for duplicate email
-    $sql = "select * from user where email ='$email'";
+    $sql = "select userID from user where email ='$email'";
     
     //Execute the query      
     $stmt = db2_prepare($conn, $sql);
@@ -25,20 +25,23 @@ if (isset($_POST['submit_signup'])) {
 //        header("Refresh:0");
     } else{
         // Generate sql for creating an account
-        $sql = "insert into user (firstname, lastname, email, password) values ('$firstname', '$lastname', '$email', '$password')";   
+        $sql1 = "insert into user (firstname, lastname, email, password) values ('$firstname', '$lastname', '$email', '$password')";   
 
         //Execute the query      
-        $stmt = db2_prepare($conn, $sql);
-        $result = db2_execute($stmt);
-        if ($result == true)  {
+        $stmt1 = db2_prepare($conn, $sql1);
+        $result1 = db2_execute($stmt1);
+        if ($result1 == true)  {
             $_SESSION['username']= $email; 
             $_SESSION['firstname'] = $firstname;
             $_SESSION['lastname'] = $lastname; 
-            
             //Display popup
             $message = "Signup succeeded";
             echo "<script type='text/javascript'>alert('$message');</script>";
             
+			$result2 = db2_execute($stmt);	
+			if ($result2 = true) {
+				$_SESSION['userID']= $row[0];
+			}
             //direct to profile page
             header('Location: profile.php');  
         }

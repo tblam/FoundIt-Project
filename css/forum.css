@@ -5,8 +5,9 @@ html{
 body{  
     margin: 0;
     height: 100%;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Arial', sans-serif;
 	-webkit-font-smoothing: antialiased;
+	font-size: 17px;
 } 
 h3{
 	padding: 10px;
@@ -15,6 +16,7 @@ h3{
     color: white;
 	background-color: steelblue;
 }
+
 #successSaved{		
 	position: absolute;
     z-index: 1;
@@ -26,6 +28,11 @@ h3{
     color: white;
     display: none;
     background-color: steelblue;
+}
+
+#comment{
+	color: black;
+	font-size: 15px;
 }
 
 #first{ 
@@ -247,4 +254,14 @@ h3{
 
 .social .fa-google-plus:hover { /* round google plus icon*/
     background: #e64522;
+}
+
+#commentLine {
+	font-size: 16px;
+	margin: 5px 0px 5px 0px;
+}
+
+hr {
+	margin: 0px;
+	
 }
