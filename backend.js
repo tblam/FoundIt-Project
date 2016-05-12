@@ -118,10 +118,11 @@ function init () {
      
     //Add listener for displaying crime
     $("#displayCrime").change(function(){
-        if(this.checked)
-            displayCrime(map);
-        else
-            displayCrime(null);
+        
+        if(this.checked) 
+            displayCrime(map); 
+        else  
+            displayCrime(null); 
     });
     
     //Add listener for displaying flood zone
@@ -252,8 +253,7 @@ function get_num_bath(){
     
 function filter_search(min_price, max_price, beds, baths){
     var a_url = "php/filter_query.php?city=" + localStorage.getItem("storeddata") + "&min_price=" + min_price + "&max_price=" + max_price + "&num_bed=" + beds + "&num_bath=" + baths;   
-    $.get(a_url, function(data, status){  
-        console.log(a_url);
+    $.get(a_url, function(data, status){   
         var count = 0; 
         //Remove all current displayed houses
         for (var i = 0; i < houses.length; i++)
@@ -262,10 +262,9 @@ function filter_search(min_price, max_price, beds, baths){
         houses = []; 
         for(count in data)  { 
 			var icon = {
-				url: 'icons/house.png',
-				origin: new google.maps.Point(0, 0),
-				scaledSize: new google.maps.Size(15, 20)
-			} 
+                url: 'icons/house.png', 
+                scaledSize: new google.maps.Size(30, 30)
+            } 
             var house = new google.maps.Marker({
                 map: map,
 				icon: icon,
@@ -274,15 +273,17 @@ function filter_search(min_price, max_price, beds, baths){
             });  
 			store_MLSN = (data[count].MLSNumber).substring(0);
 
-            //Create infobox content
-             var house_content = '<div style="font-size:14px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a><b></div>' +
-                'Bedrooms: ' + data[count].BedsTotal + '<br>' +
-                'Bathrooms: ' + data[count].BathsTotal + '<br>' + 
-                'Area: ' + data[count].SqftTotal + ' sqft<br>' +
-                'Lot size: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
-                'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber+
-				'<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
+            var house_content = '<div style="text-align:center; font-size:17px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a></b></div>' +
+                '<div style="font-size:14px;"><b>Bedrooms: </b>' + data[count].BedsTotal + '<br>' +
+                '<b>Bathrooms: </b>' + data[count].BathsTotal + '<br>' + 
+                '<b>Area: </b>' + data[count].SqftTotal + ' sqft<br>' +
+                '<b>Lot Size Area: </b>' + data[count].LotSizeArea_Min + ' sqft<br>' +
+                '<b>Age: </b>' + data[count].Age + ' year(s)<br>' +
+                '<b>Price: </b>$ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>' +
+                '<b>MLSNumber: </b>' + data[count].MLSNumber + "</div>";
+            
+            if(display_saveButton != "")
+				house_content += '<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
             
             //Create infobox
             setInfoBox('House information', house_content, house);
@@ -429,9 +430,8 @@ function getHouse(){
         var count = 0; 
         for(count in data)  {
 			var icon = {
-            url: 'icons/house.png',
-            origin: new google.maps.Point(0, 0),
-            scaledSize: new google.maps.Size(15, 20)
+            url: 'icons/house.png', 
+            scaledSize: new google.maps.Size(30, 30)
             } 
             var house = new google.maps.Marker({
                 map: map,
@@ -442,13 +442,14 @@ function getHouse(){
 			
             store_MLSN = (data[count].MLSNumber).substring(0);
 
-            var house_content = '<div style="font-size:14px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a><b></div>' +
-                'Bedrooms: ' + data[count].BedsTotal + '<br>' +
-                'Bathrooms: ' + data[count].BathsTotal + '<br>' + 
-                'Area: ' + data[count].SqftTotal + ' sqft<br>' +
-                'Lot Size Area: ' + data[count].LotSizeArea_Min + ' sqft<br>' +
-                'Age: ' + data[count].Age + ' year(s)<br>' +
-                'Price: $ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>'+ data[count].MLSNumber;
+            var house_content = '<div style="text-align:center; font-size:17px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a></b></div>' +
+                '<div style="font-size:14px;"><b>Bedrooms: </b>' + data[count].BedsTotal + '<br>' +
+                '<b>Bathrooms: </b>' + data[count].BathsTotal + '<br>' + 
+                '<b>Area: </b>' + data[count].SqftTotal + ' sqft<br>' +
+                '<b>Lot Size Area: </b>' + data[count].LotSizeArea_Min + ' sqft<br>' +
+                '<b>Age: </b>' + data[count].Age + ' year(s)<br>' +
+                '<b>Price: </b>$ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>' +
+                '<b>MLSNumber: </b>' + data[count].MLSNumber + "</div>";
             
             if(display_saveButton != "")
 				house_content += '<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
@@ -480,9 +481,8 @@ function getSchool(){
         for(count in data)  {
             //Create icon for school
             var icon = {
-            url: 'icons/school_blue.png',
-            origin: new google.maps.Point(0, 0),
-            scaledSize: new google.maps.Size(20, 20)
+            url: 'icons/school.png', 
+            scaledSize: new google.maps.Size(40, 40)
             } 
 
             var school = new google.maps.Marker({ 
@@ -492,69 +492,62 @@ function getSchool(){
             });  
             
             //Create infobox content
-            var school_content = '<div style="font-size:14px;"><b>' + data[count].name + '</b></div>' + 
-				'Address: ' + data[count].address + ", " + data[count].city + ",CA" + data[count].zipcode + '<br>' +
-                'Type: ' + data[count].type + '<br>' +
-                'Average Performance Index: ' + data[count].api + '<br>' + 
-                'State rank: ' + data[count].staterank + '/10 <br>';  
+            var school_content = '<div style="text-align:center; font-size:17px;"><b>' + data[count].name + '</b></div>' + 
+				'<div style="font-size:15px;"><b>Address: </b>' + data[count].address + ", " + data[count].city + ",CA" + data[count].zipcode + '<br>' +
+                '<b>Type: </b>' + data[count].type + '<br>' +
+                '<b>Average Performance Index: </b>' + data[count].api + '<br>' + 
+                '<b>State rank: </b>' + data[count].staterank + '/10</div>';  
             
             //Create infobox
             setInfoBox('School information', school_content, school);
             
             //Add school to list
             schools.push(school);
-        } 
-         //console.log("Number of school: " + count);
+        }  
      }, "json");   
    
 }
 
 function getCrime(){
-     //PHP calling  
+    //PHP calling  
     var a_url="php/getCrime.php?city=" + selected_city; 
     $.get(a_url, function(data, status){  
         var count = 0;  
-        for(count in data)  {   
+        for(count in data)  { 
             //Create icon for crime
             var icon = {
-                url: 'icons/crime.png',
-                origin: new google.maps.Point(0, 0),
-                scaledSize: new google.maps.Size(20, 20)
-            } 
-
+                url: 'icons/crime.png', 
+                scaledSize: new google.maps.Size(25, 25)
+            }  
             var crime = new google.maps.Marker({ 
                 position: new google.maps.LatLng(data[count].lat, data[count].long),
-                animation:google.maps.Animation.DROP,
+                animation:google.maps.Animation.DROP,  
                 icon: icon
             });  
             
-//            //Create infobox content
-//            var crime_content = '<div style="font-size:14px;">Criminal name: ' + data[count].first_name + " " + data[count].last_name + '</div>' + 
-//				'Address: ' + data[count].street + ", " + data[count].city + ",CA" + data[count].zip + '<br>' +
-//                'Date of birth: ' + data[count].dob + '<br>' + 
-//                'Gender: ' + data[count].gender + '<br>';  
-//            
-//            //Create infobox
-//            setInfoBox('Sexsual assult', crime_content, crime);
+            //Create infobox content
+            var crime_content = '<div style="font-size:15px;"><b>Criminal name: </b>' + data[count].firstname + " " + data[count].lastname + "<br>" + 
+				'<b>Location of crime: </b>' + data[count].street + ", " + data[count].city + ",CA" + data[count].zip + '<br>' +
+                '<b>Date of birth: </b>' + data[count].dob + '<br>' + 
+                '<b>Gender: </b>' + data[count].gender + "</div>";  
+            
+            //Create infobox
+            setInfoBox('Sexsual assult', crime_content, crime);
             
             //Add school to list
             crimes.push(crime);
-        }
-        
-    });
+        } 
+    }, "json");
 }
 
 function getData(city) {  
     geocoder.geocode({'address': city}, function(results, status) { 
       if (status == google.maps.GeocoderStatus.OK) 
-      { 
-          //Clear everything on map
-          clearMarkers();  
-          
+      {   
           //Get the new position and set it as center of the map
           current_location = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};  
           map.setCenter(current_location);
-          map.setZoom(12); 
+          map.setZoom(13); 
           
           //Clear all markers on map
           clearMarkers();
@@ -606,15 +599,13 @@ function displayCityBoundary (check){
 }
 
 function displaySchools (check){ 
-    for (var i = 0; i < schools.length; i++) { 
-        schools[i].setMap(check);
-    }   
+    for (var i = 0; i < schools.length; i++)  
+        schools[i].setMap(check); 
 }
 
-function displayCrime (check){  
-    for (var i = 0; i < crimes.length; i++) { 
+function displayCrime (check){   
+    for (var i = 0; i < crimes.length; i++) 
         crimes[i].setMap(check);
-    }   
 }
 
 function displayEarthquake (check){
@@ -631,11 +622,12 @@ function setInfoBox(tab_name, message, marker){
      //Create info window for each marker
 //    var infowindow = new google.maps.InfoWindow();
     var infowindow = new InfoBubble({ 
-        minWidth: 300,
-        minHeight: 150
+        minWidth: 400,
+        minHeight: 'auto',
+        disableAutoPan: false
     });   
-    infowindow.addTab(tab_name, message); 
-//    infowindow.addTab('Search around', "empty");  
+    infowindow.addTab(tab_name, message);  
+    
     google.maps.event.addListener(marker, 'click', function(){
         if(previous_infox != null)
             previous_infox.close();

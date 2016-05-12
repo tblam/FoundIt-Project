@@ -4,49 +4,43 @@ include('php/signup.php');
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html> 
+    <head> 
+        <meta charset="utf-8">  
+        <title>Found It</title>
 
-<head>
+        <!-- Bootstrap Core CSS -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <style>
+          .carousel-inner > .item > img,
+          .carousel-inner > .item > a > img {
+              width: 80%;
+              margin: 0 auto;
+          }
+          </style>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Custom CSS -->
+        <link href="css/forum.css" rel="stylesheet">
 
-    <title>Found It</title>
+        <!-- Custom CSS for sign up / sign in model-->
+        <link href="css/signup_login/normalize.css" rel="stylesheet"/>  
+        <link href="css/signup_login/style.css" rel="stylesheet"/>   
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 
-    <!-- Bootstrap Core CSS -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <style>
-	  .carousel-inner > .item > img,
-	  .carousel-inner > .item > a > img {
-		  width: 80%;
-		  margin: 0 auto;
-	  }
-	  </style>
+        <!-- Customed CSS for home page -->
+        <link rel="stylesheet" href="css/home.css"/>
+        <script src="js/infobubble.js"></script> 
 
-    <!-- Custom CSS -->
-    <link href="css/forum.css" rel="stylesheet">
+        <!-- Social icons--> 
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+    </head> 
     
-    <!-- Custom CSS for sign up / sign in model-->
-    <link href="css/signup_login/normalize.css" rel="stylesheet"/>  
-    <link href="css/signup_login/style.css" rel="stylesheet"/>   
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
-	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-	
-    <!-- Customed CSS for home page -->
-    <link rel="stylesheet" href="css/home.css"/>
-    <script src="js/infobubble.js"></script> 
-	
-    <!-- Social icons--> 
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
-
-</head>
-
 <body>
-	
     <div id="navigation" class="container-fluid"> 
             <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
                 <div  class="container">
@@ -58,7 +52,7 @@ include('php/signup.php');
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="home.php"></a>
+                        <a class="navbar-brand" href="index.php"></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -66,84 +60,81 @@ include('php/signup.php');
                         <ul id="nav_text" class="nav navbar-nav navbar-right">   
                             <li> <a href="contact.php">Contact</a></li>
                             <li>
-						<?php
-							if(isset($_SESSION['username']))
-								echo "<a href='profile.php'>Welcome! "."<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong></a></li>
-								<li><a href='php/logout.php?page=../home.php'>Log out</a></li>"; 
-							else{
-						?>
-							<a href="#myModal" data-toggle="modal" data-target="#myModal">Login / Sign Up</a> 
-							
-							<div class="modal fade" id="myModal" role="dialog">
-								<div class="modal-dialog modal-lg" >
-									<!-- Modal content-->
-									<div class="modal-content" style="background: rgba(19, 35, 47, 0.9);">  
-										<div class="modal-body">
-											<ul class="tab-group">
-												<li class="tab active"><a href="#login">Log In</a></li>
-												<li class="tab"><a href="#signup">Sign Up</a></li>
-											</ul>
-										   
-											<div class="tab-content"> 
-												<div id="login">   
-													<h1>Welcome Back!</h1>
+                            <?php
+                            if(isset($_SESSION['username']))
+                                echo "<a href='profile.php'>Welcome! "."<strong>".$_SESSION['firstname']." ".$_SESSION['lastname']."</strong></a></li>
+                                <li><a href='php/logout.php?page=../home.php'>Log out</a></li>"; 
+                            else{
+                            ?>
+                            <a href="#myModal" data-toggle="modal" data-target="#myModal">Login / Sign Up</a>
 
-													<form action="" method="post">
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog modal-lg" >
+                                    <!-- Modal content-->
+                                    <div class="modal-content" style="background: rgba(19, 35, 47, 0.9);">  
+                                        <div class="modal-body">
+                                            <ul class="tab-group">
+                                                <li class="tab active"><a href="#login">Log In</a></li>
+                                                <li class="tab"><a href="#signup">Sign Up</a></li>
+                                            </ul>
 
-														<div class="field-wrap"> 
-															<input type="email" placeholder="Email..." required autocomplete="off"/>
-														</div>
+                                            <div class="tab-content"> 
+                                                <div id="login">   
+                                                    <h1>Welcome Back!</h1>
 
-														<div class="field-wrap">
-															<input type="password" placeholder="Password..." required autocomplete="off"/>
-														</div>
+                                                    <form action="" method="post"> 
+                                                        <div class="field-wrap"> 
+                                                            <input type="email" name="username" placeholder="Email..." required autocomplete="off"/>
+                                                        </div>
 
-														<p class="forgot"><a href="#">Forgot Password?</a></p> 
-														<button name="submit_login" type="submit" class="button button-block">Log In</button>  
+                                                        <div class="field-wrap">
+                                                            <input type="password" name="password" placeholder="Password..." required autocomplete="off"/>
+                                                        </div>
+
+                                                        <p class="forgot"><a href="#">Forgot Password?</a></p> 
+                                                        <button name="submit_login" type="submit" class="button button-block">Log In</button>  
                                                         <span><?php echo $error; ?></span>
-													</form> 
-												</div>
-											
-												<div id="signup">   
+                                                    </form> 
+                                                </div>
 
-													<h1>Sign Up for Free</h1>
+                                                <div id="signup">   
+                                                    <h1>Sign Up for Free</h1>
 
-													<form action="" method="post">
+                                                    <form method="post"> 
+                                                        <div class="top-row">
+                                                            <div class="field-wrap">
+                                                                <input type="text" name="signup_firstname" placeholder="First name..." required autocomplete="off" />
+                                                            </div>
 
-														<div class="top-row">
-															<div class="field-wrap">
-																<input type="text" placeholder="First name..." required autocomplete="off" />
-															</div>
+                                                            <div class="field-wrap"> 
+                                                                <input type="text" name="signup_lastname" placeholder="Last name..." required autocomplete="off"/>
+                                                            </div>
+                                                        </div>
 
-															<div class="field-wrap"> 
-																<input type="text" placeholder="Last name..." required autocomplete="off"/>
-															</div>
-														</div>
+                                                        <div class="field-wrap"> 
+                                                            <input type="email" name="signup_email" placeholder="Email..." required autocomplete="off"/>
+                                                        </div>
 
-														<div class="field-wrap"> 
-															<input type="email" placeholder="Email..." required autocomplete="off"/>
-														</div>
+                                                        <div class="field-wrap"> 
+                                                            <input id="password" type="password" name="signup_password" placeholder="Password..." required autocomplete="off"/>
+                                                        </div>
 
-														<div class="field-wrap"> 
-															<input type="password" placeholder="Password..." required autocomplete="off"/>
-														</div>
-														
-														<div class="field-wrap"> 
-															<input type="password" placeholder="Re-type password..." required autocomplete="off"/>
-														</div>
-
-														<button id="submit_signup" type="submit" name="submit_signup" class="button button-block">Get Started</button>
-													</div>
-												</div>
-											</div><!--Tab content---->
-										</div> <!--Modal body---->
-									</div>
-								</div>
-							</div> 
-						<?php
-							}
-						?>
-						    </li>
+                                                        <div class="field-wrap"> 
+                                                            <input id="password1" type="password" placeholder="Re-type password..." required autocomplete="off"/>
+                                                        </div> 
+                                                        <button id="submit_signup" type="submit" name="submit_signup" class="button button-block">Get Started</button>
+                                                    </form>
+                                                    
+                                                </div>
+                                            </div><!--Tab content---->
+                                        </div> <!--Modal body---->
+                                    </div>
+                                </div>
+                            </div> <!-- End modal ---->
+                            <?php
+                            }
+                            ?>
+                                </li>
                         </ul> 
                     </div> <!-- Collapsed bar --> 
                 </div> 
