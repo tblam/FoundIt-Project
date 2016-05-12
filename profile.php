@@ -107,13 +107,13 @@
 						$id_house = $row[9];
 						//echo $id_house;
 						echo '<div id="houseInfo" class="houseInfo">
-						<a href="forum.php"><img src="images/sample.jpg" alt="sample"> </a><b>'.
-						'Address:' . $row[0] . ', '.$row[1]. '</b><br>'.
-						'BedsTotal: ' . $row[2] . '<br>'.
-						'BathsTotal: ' . $row[3] . '<br>'.
-						'SqftTotal: '  . $row[4] . '<br>'.
-						'LotSizeArea_Min: ' .  $row[5] . '<br>'.
-						'Age: ' . $row[6]. '<br>'.
+						<a href="forum.php?house='.$id_house.'"><img src="images/sample.jpg" alt="sample"> </a><b>'.
+						'Address: <a href="forum.php?house='.$id_house.'">' . $row[0] . ', '.$row[1]. '</a></b><br>'.
+						'Bedrooms Total: ' . $row[2] . '<br>'.
+						'Bathrooms Total: ' . $row[3] . '<br>'.
+						'Area Total: '  . number_format($row[4]) . ' sqft<br>'.
+						'Lot Size Area: ' .  number_format($row[5]) . ' sqft<br>'.
+						'Age: ' . $row[6]. ' year(s)<br>'.
 						'<b>'.'CurrentPrice: $'. number_format($row[7]). '<br>'.
 						'Status: ' . $row[8]. '</b><br>
 						<div class="remove"><button class="btn btn-warning" onclick="removeHouse(\''.$id_house.'\')">Remove</button></div></div>';
