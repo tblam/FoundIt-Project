@@ -19,6 +19,7 @@ include('php/signup.php');
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
     <style>
 	  .carousel-inner > .item > img,
 	  .carousel-inner > .item > a > img {
@@ -27,6 +28,10 @@ include('php/signup.php');
 	  }
 	  </style>
 
+=======
+    <script src="js/jquery.js"></script>
+    
+>>>>>>> lyderic
     <!-- Custom CSS -->
     <link href="css/forum.css" rel="stylesheet">
     
@@ -42,6 +47,9 @@ include('php/signup.php');
 	
     <!-- Social icons--> 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+    
+    <!-- Lightgallery for lightbox gallery -->
+    <link type="text/css" rel="stylesheet" href="lib/lightgallery/css/lightgallery.css" /> 
 
 </head>
 
@@ -149,7 +157,7 @@ include('php/signup.php');
                 </div> 
             </nav> 
         </div>
-	<?php
+<!--	<?php
 			include("php/connectToDatabase.php");
 			$houseID = $_GET["house"];
 			//echo $houseID;
@@ -171,57 +179,73 @@ include('php/signup.php');
 			else
 				echo "Excution error!";
 			//db2_close($conn);
-		?>
-        
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-	
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-        <li data-target="#myCarousel" data-slide-to="4"></li>
-		<li data-target="#myCarousel" data-slide-to="5"></li>
-      </ol>
+		?>-->
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img src="images/sampleHouse/outside.jpg" alt="Chania">
-        </div>
+    <div id="gallery">
+        <a href="images/sampleHouse/outside.jpg">
+            <img src="images/sampleHouse/outside.jpg" height="15%" width="15%" />
+        </a>
+        <a href="images/sampleHouse/living.jpg">
+            <img src="images/sampleHouse/living.jpg" height="15%" width="15%" />
+        </a>
 
-        <div class="item">
-          <img src="images/sampleHouse/living.jpg" alt="Chania">
-        </div>
+        <a href="images/sampleHouse/livingroom.jpg">
+            <img src="images/sampleHouse/livingroom.jpg" height="15%" width="15%" />
+        </a>
 
-        <div class="item">
-          <img src="images/sampleHouse/livingroom.jpg" alt="Flower">
-        </div>
-		
-		 <div class="item">
-          <img src="images/sampleHouse/swimmingpool.jpg" alt="Flower">
-        </div>
-		
-        <div class="item">
-          <img src="images/sampleHouse/backyard.jpg" alt="Flower">
-        </div>
-          
-        <div class="item">
-          <img src="images/sampleHouse/television.jpg">
-        </div>
-      </div>
-        
-      <!-- Left and right controls -->
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+        <a href="images/sampleHouse/backyard.jpg">
+            <img src="images/sampleHouse/backyard.jpg" height="15%" width="15%" />
+        </a>
+
+        <a href="images/sampleHouse/television.jpg">
+            <img src="images/sampleHouse/television.jpg" height="15%" width="15%" />
+        </a>
+
+        <a href="images/sampleHouse/swimmingpool.jpg">
+            <img src="images/sampleHouse/swimmingpool.jpg" height="15%" width="15%" />
+        </a>
     </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4" id="addressLine">
+                <h3 class="lead" style="margin-bottom:5px;"><strong>2117 Ashley Ridge Ct.</strong></h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <hr style="margin-top:5px;">
+                        <ul id="addressPriceList">
+                            <li><strong>San Jose, CA 95138</strong></li>
+                            <li><strong>$1,888,000</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8" style="margin-top:20px;">
+                <div class="col-sm-4">
+                    <h4>Schools</h4>
+                    <p>Evergreen School District, James Franklin Smith Elementary School, Evergreen Valley College</p>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Attractions</h4>
+                    <p>The Ranch Golf Club, Montgomery Hill Park, Evergreen Park</p>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Local Crime</h4>
+                    <p>1 Registered Sex Offenders in 1 mile radius</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="houseInfo">
+        <div class="row">
+            <div class="col-sm-1">5 beds</div>
+            <div class="col-sm-1">4 baths</div>
+            <div class="col-sm-2">4,079 sq ft</div>
+        </div>
+    </div>
+    <br>
+<!--
 	<div class="container">
 		<div class="row">
 			<h2 style="padding-left: 1cm"><b>Description</b></h2>
@@ -275,9 +299,9 @@ include('php/signup.php');
 					</div>
 					<h2>Crime Alerts<h2>
 					<!--<div class="crime" id="information" style="padding-left: 1cm">1 Registered Sex Offenders in 5 miles radius.</div>-->
-				</ul>
-			</div>
-			
+<!--				</ul>
+			</div>-->
+<!--			
 			<div class="col-sm-6">
 				<h2>Search your own attractions<h2>
 				<div id="map" style="width: 300px; height: 300px;">   
@@ -285,9 +309,39 @@ include('php/signup.php');
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	
 	<?php 
+	<br>
+<!--	<?php 
+		$result1 = db2_execute($stmt);
+		if ($result == true) {   
+				while ($row = db2_fetch_array($stmt)){	
+					echo '<h2 style="padding-left: 1cm"><b>'.$row[2].' bedrooms, '.$row[3]. ' bathrooms - Total'.
+						number_format($row[4]). ' square feet - Age: '. $row[6].' years</b></h2><br>';
+					echo '<ul id="list"><b>
+							<li>Lot Size Area: '.number_format($row[5]).' square feet</li>
+							<li>Bathrooms Full: '.$row[10].'</li>
+							<li>Bathrooms Half: '.$row[11].'</li>
+							<li>MLSNumber: '.$row[9].'</li>
+							<li>Status: '.$row[8].'</li>
+							<li>Day on Market (DOM): '.$row[12].'</li><b>
+						</ul> ';
+				}
+			}
+			else
+				echo "Excution error!";
+			db2_close($conn);
+			//<h2 style="padding-left: 1cm"><b>5 beds, 4 baths, 4,079 sqft - built in 1998</b></h2><br>
+	?>
+        
+<!--        <p1 style="padding-left: 1cm">This is a prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1> -->
+        
+        <div id="map">   
+            <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 
+        </div> 
+
+		<?php 
 			//echo $houseID;
 			echo '<center><button id="button1" type="button" class="btn btn-success navbar-btn" onclick="addFavorite(\''.$houseID.'\')">Add to my list</button></center>';
 		?>
@@ -332,7 +386,7 @@ include('php/signup.php');
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!-- Script to Activate the Carousel -->
+    <!-- Script to favorite house -->
     <script>
 		function addFavorite(MLSNumber) {
 			$.post("php/addHouse.php", {id_house: MLSNumber},function(data, status){
@@ -355,6 +409,18 @@ include('php/signup.php');
             $("."+className).toggle();
         }
 			
+    </script>
+
+    <!-- lightGallery script -->
+    <script src="lib/lightgallery/js/lightgallery.min.js"></script>
+    <script src="lib/lightgallery/js/lg-thumbnail.min.js"></script>
+    <script src="lib/lightgallery/js/lg-fullscreen.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#gallery").lightGallery({
+            thumbnail: true
+        }); 
+    });
     </script>
 
 </body>

@@ -138,9 +138,9 @@ include('php/signup.php');
             <label><input id="displayCityBoundary" type="checkbox" checked="true"> City Boundary</label> 
 			<label><input id="displaySchool" type="checkbox"> Schools</label>
 			<label><input id="displayCrime" type="checkbox"> Crimes</label>
-            <label><input id="displayEarthquake-heatmap" type="checkbox" > Earthquake zone</label>
+            <label><input id="displayEarthquake-heatmap" type="checkbox" > Earthquake zones</label>
             <label><input id="displayEarthquake" type="checkbox" > Earthquake points</label>
-            <label><input id="displayFloodZone" type="checkbox"> Floodzone</label> 
+            <label><input id="displayFloodZone" type="checkbox"> Flood zones</label> 
         </div> 
         
         <div id="searcharea" class="container">   
@@ -184,8 +184,7 @@ include('php/signup.php');
             </div>
             <div id="filter_search">
                 <button id="submit_filter" type="button" class="btn btn-link">Filter search</button>
-                <button style="float:right;" class="btn btn-link" data-toggle="collapse"> Schools 
-                </button>
+                <button style="float:right;" class="btn btn-link" data-toggle="collapse"> Schools </button>
             </div>
         </div>
     
