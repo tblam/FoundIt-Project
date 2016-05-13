@@ -1,0 +1,235 @@
+html, body{ 
+    height: 100%;
+}
+
+#successMessage{		
+	position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    padding: 10px;
+    border-radius: 6px;
+    opacity: 0.9;
+    color: white;
+    display: none;
+    background-color: steelblue;
+}
+
+.controls {
+margin-top: 10px;
+border: 1px solid transparent;
+border-radius: 2px 0 0 2px;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+height: 32px;
+outline: none;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+.pac-container {
+    font-family: Roboto;
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+ 
+.navbar-brand { 
+    margin-top: 10px;
+	background: url(../icons/logo.png) left center no-repeat;
+    background-size: cover; 
+    width: 200px; 
+}
+
+.navbar.navbar-no-bg {
+background: none;
+    border: none;  
+}
+ 
+
+.navbar-toggle{
+    margin-top: 15px;
+    background:forestgreen;
+    border: none;
+}
+
+#map{    
+    min-height: 85%; 
+}
+ 
+#navigation{ 
+    min-height: 5%;
+}
+
+#nav_text>li>a{    
+    margin-top: 10px;
+    color: forestgreen;
+    font-size: 17px; 
+    font-family: Montserrat;
+}
+
+#nav_text>li>a:hover{    
+    color: orange;
+}
+
+#searcharea{  
+    width: 100%;
+    background-color: LightSteelBlue ;    
+    box-shadow: 0px 2px 7px 2px gray;
+    font-size: 15px;  
+    margin-bottom: 5px; 
+}
+   
+.btn{
+    text-align: left;
+    font-size: 15px; 
+}
+
+#searchbox{
+    padding: 5px; 
+    width: 500px;  
+    float: left; 
+} 
+
+#filter-item{
+    padding: 5px;   
+    border-right: thin solid white;
+    float:left;
+    font-family: Montserrat; 
+}
+
+#filter-item>a:hover{
+    color: darkorange;
+}
+
+#filter-item>a{
+    color: forestgreen;
+}
+
+#filter-item li: hover a{
+    color: darkorange;
+}
+ 
+.range{  
+    margin: 5px; 
+    height: 40px; 
+}
+
+#min_range{ 
+    text-align: center;
+    float: left; 
+    width: 45%;
+}
+
+#max_range{ 
+    text-align: center;
+    width: 45%;
+    float: right; 
+}
+
+#apply_range{
+    width: 100%;
+    background-color: LightSteelBlue;
+    color: green;
+    text-align: center;
+    border-color: LightSteelBlue; 
+}
+
+#apply_range:hover{
+    background-color: darkorange;
+    border-color: darkorange; 
+}
+
+
+.stylish-input-group .input-group-addon{    
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+#price_range_menu{ 
+    border: 0 !important;.  /*Removes border*/
+    -webkit-appearance: none;  /*Removes default chrome and safari style*/
+    -moz-appearance: none;  /*Removes default style Firefox*/ 
+    min-width: 220px;
+}   
+
+#num_bed_menu, #num_bath_menu{
+    min-width: 100px;
+}
+
+#filter_search{
+    padding: 5px;  
+    text-align: center; 
+    overflow: hidden;
+}
+
+#filter_search>button{ 
+    color: green; 
+    font-family: Montserrat;
+    outline: none;
+    text-decoration: none;
+}
+
+#filter_search>button:active:focus{
+    color: yellow;
+}
+
+#filter_search>button:hover{
+    color: darkorange;
+    text-decoration: none;
+}
+
+ .controls {
+     margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#map-filter {
+    color: #fff;
+/*    background-color: #4d90fe;*/
+    background-color: lightskyblue;
+    padding: 5px 11px 0px 11px;
+}
+
+#map-filter label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+} 
