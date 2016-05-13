@@ -3,10 +3,10 @@ include('php/login.php');
 include('php/signup.php'); 
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html> 
     <head> 
-        <meta charset="utf-8">  
+        <meta charset="UTF-8">  
         <title>Found It</title>
 
         <!-- Bootstrap Core CSS -->
@@ -14,14 +14,7 @@ include('php/signup.php');
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <style>
-          .carousel-inner > .item > img,
-          .carousel-inner > .item > a > img {
-              width: 80%;
-              margin: 0 auto;
-          }
-          </style>
-
+              
         <!-- Custom CSS -->
         <link href="css/forum.css" rel="stylesheet">
 
@@ -30,17 +23,124 @@ include('php/signup.php');
         <link href="css/signup_login/style.css" rel="stylesheet"/>   
         <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
         <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
- 
+
         <!-- Customed CSS for home page -->
         <link rel="stylesheet" href="css/home.css"/>
         <script src="js/infobubble.js"></script> 
 
         <!-- Social icons--> 
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/> 
+        
+        <script>  
+        var current_location; 
+        var map;
+        var markers = []; 
+         
+        function init() {  
+            current_location = {lat: current_lat, lng: current_long}; 
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: current_location,
+                zoom: 12
+            });
+            
+            var house = new google.maps.Marker({
+                map: map,
+				icon: {
+                    url: 'icons/house.png', 
+                    scaledSize: new google.maps.Size(40, 40)
+                },
+                position: current_location,
+                animation: google.maps.Animation.DROP, 
+            });  
+            
+            var panorama = new google.maps.StreetViewPanorama(
+                document.getElementById('pano'), {
+                    position: current_location,
+                    pov: {
+                        heading: 34,
+                        pitch: 10
+                    }
+                }); 
+            
+//            var url = "https://maps.googleapis.com/maps/api/streetview?size=400x300&location=" + current_lat + "," + current_long+"&fov=90 &pitch=10&key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg";
+//            console.log(url); 
+        }
+         
+        function getAttractions(){
+            //Get user input
+            var keyword = $("#place_input").val();
+             
+            if(keyword == "")
+                alert("Please enter your attraction!");
+            else{
+                
+                //Clear old markers
+                for(var i = 0 ; i < markers.length; i++)
+                    markers[i].setMap(null);
+                markers = []; 
+                
+                //Get locations 
+                getNearby(keyword);  
+                
+                //Zoom map
+//                var bounds = new google.maps.LatLngBounds(); 
+//                for (var i = 0; i < markers.length; i++) {
+//                    bounds.extend(markers[i].getPosition());
+//                } 
+//                map.fitBounds(bounds);
+            }
+                
+        }
+        
+        function getNearby(keyword){ 
+            var service = new google.maps.places.PlacesService(map);
+                service.nearbySearch({
+                    location: current_location, 
+                    rankBy: google.maps.places.RankBy.DISTANCE,
+                    keyword: keyword 
+                }, placesCallback);
+        }
 
-    </head> 
-    
-<body>
+        function placesCallback(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    createMarker(results[i]);   
+                }
+            }  
+        }
+
+        function createMarker(place) { 
+            var placeLoc = place.geometry.location;
+            var infowindow = new google.maps.InfoWindow();
+            
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+             
+            markers.push(marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                var name;
+                if(place.name == "")
+                    name = $("#place_input").val();
+                else
+                    name = place.name;
+                infowindow.setContent(name);
+                infowindow.open(map, this);
+            }); 
+        }
+        
+        function addFavorite(MLSNumber) { 
+            $.get("php/addHouse.php?id_house=" + MLSNumber, function(data, status){ 
+                if(data == "")
+                   $("#save_button").replaceWith("<h3 class='container'><b>Saved!</b></h3>");
+                else
+                    alert(data);
+            });     
+        }
+    </script>
+    </head>  
+<body>   
     <div id="navigation" class="container-fluid"> 
             <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
                 <div  class="container">
@@ -52,7 +152,7 @@ include('php/signup.php');
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.php"></a>
+                        <a class="navbar-brand" href="home.php"></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -139,14 +239,20 @@ include('php/signup.php');
                     </div> <!-- Collapsed bar --> 
                 </div> 
             </nav> 
-        </div>
-<!--	<?php
+        </div> 
+        
+    <div id="top_picture" class="container-fluid"> 
+        <div id="pano" style="height:500px; width:100%;"></div>  
+    </div>
+    
+	<div id="housing_info" class="container">
+        <?php
 			include("php/connectToDatabase.php");
 			$houseID = $_GET["house"];
 			//echo $houseID;
 			
 			$sql = "SELECT address, city, BedsTotal, BathsTotal, SqftTotal, LotSizeArea_Min, Age, CurrentPrice, Status, MLSNumber, BathsFull,
-					BathsHalf, DOM FROM house WHERE MLSNumber = '$houseID'";  
+					BathsHalf, DOM, long, lat FROM house WHERE MLSNumber = '$houseID'";  
 			 
 			//Execute the query      
 			$stmt = db2_prepare($conn, $sql);
@@ -154,82 +260,18 @@ include('php/signup.php');
 
 			if ($result == true) {   
 				while ($row = db2_fetch_array($stmt)){	
-					echo '<div class="info"><h1 style="background-color:#c6ecd9; color:  #ff8000"><b>'.
-					$row[0].', '.$row[1].'<br>For sale: $'.number_format($row[7]).'- MLSNumber: '.$row[9].'</b></center></h1>';
+					echo '<div class="lead"><h3><strong><center>'.
+					$row[0].', '.$row[1].'<br>For sale: $'.number_format($row[7]).'</strong></center></h3></div>';
 					$city = $row[1];
+                    echo "<script>var current_long = $row[13]; current_lat = $row[14]</script>";
 				}
 			}
 			else
 				echo "Excution error!";
 			//db2_close($conn);
-		?>-->
-
-    <div id="gallery">
-        <a href="images/sampleHouse/outside.jpg">
-            <img src="images/sampleHouse/outside.jpg" height="15%" width="15%" />
-        </a>
-        <a href="images/sampleHouse/living.jpg">
-            <img src="images/sampleHouse/living.jpg" height="15%" width="15%" />
-        </a>
-
-        <a href="images/sampleHouse/livingroom.jpg">
-            <img src="images/sampleHouse/livingroom.jpg" height="15%" width="15%" />
-        </a>
-
-        <a href="images/sampleHouse/backyard.jpg">
-            <img src="images/sampleHouse/backyard.jpg" height="15%" width="15%" />
-        </a>
-
-        <a href="images/sampleHouse/television.jpg">
-            <img src="images/sampleHouse/television.jpg" height="15%" width="15%" />
-        </a>
-
-        <a href="images/sampleHouse/swimmingpool.jpg">
-            <img src="images/sampleHouse/swimmingpool.jpg" height="15%" width="15%" />
-        </a>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4" id="addressLine">
-                <h3 class="lead" style="margin-bottom:5px;"><strong>2117 Ashley Ridge Ct.</strong></h3>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <hr style="margin-top:5px;">
-                        <ul id="addressPriceList">
-                            <li><strong>San Jose, CA 95138</strong></li>
-                            <li><strong>$1,888,000</strong></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8" style="margin-top:20px;">
-                <div class="col-sm-4">
-                    <h4>Schools</h4>
-                    <p>Evergreen School District, James Franklin Smith Elementary School, Evergreen Valley College</p>
-                </div>
-                <div class="col-sm-4">
-                    <h4>Attractions</h4>
-                    <p>The Ranch Golf Club, Montgomery Hill Park, Evergreen Park</p>
-                </div>
-                <div class="col-sm-4">
-                    <h4>Local Crime</h4>
-                    <p>1 Registered Sex Offenders in 1 mile radius</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container" id="houseInfo">
-        <div class="row">
-            <div class="col-sm-1">5 beds</div>
-            <div class="col-sm-1">4 baths</div>
-            <div class="col-sm-2">4,079 sq ft</div>
-        </div>
-    </div>
-    <br>
-<!--
-	<div class="container">
+		?>
+        <hr>
+        
 		<div class="row">
 			<h2 style="padding-left: 1cm"><b>Description</b></h2>
 			<?php 
@@ -239,7 +281,8 @@ include('php/signup.php');
 						echo '<div class="col-md-4"><ul id="list">
 								<li>Total Area: '.number_format($row[4]).' square feet</li>
 								<li>Lot Size Area: '.number_format($row[5]).' square feet</li>
-								<li>Bedroom(s): '.$row[2].'</li></ul></div>';
+								<li>Bedroom(s): '.$row[2].'</li>
+                                <li>MLSNumber(s): '.$row[9].'</li></ul></div>';
 						echo '<div class="col-md-4"><ul id="list">							
 								<li>Total Bathroom(s): '.$row[3].'</li>	
 								<li>Bathroom(s) Full: '.$row[10].'</li>
@@ -256,9 +299,9 @@ include('php/signup.php');
 			?>
 		</div>
 	</div>
-	
 	<hr>
-	<div class="container">	
+    
+	<div id="school_attractions" class="container">	
 		<div class="row">
 			<div class="col-md-6">
 				<ul id="list">
@@ -279,77 +322,69 @@ include('php/signup.php');
 							}
 							echo '</table></br>';
 						?>
-					</div>
-					<h2>Crime Alerts<h2>
-					<!--<div class="crime" id="information" style="padding-left: 1cm">1 Registered Sex Offenders in 5 miles radius.</div>-->
-<!--				</ul>
-			</div>-->
-<!--			
-			<div class="col-sm-6">
-				<h2>Search your own attractions<h2>
-				<div id="map" style="width: 300px; height: 300px;">   
-					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg&libraries=visualization&callback=init" async defer></script> 
-				</div>
+					</div> 
+				</ul>
+			</div>
+			
+			<div class="col-md-6">
+                <h2><b>Search your own attractions</b></h2>
+				<div id="map" style="width: 100%; height: 350px;"> 
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg&libraries=places&callback=init" async defer></script>
+                </div>   
+                
+                <div class="input-group stylish-input-group" style="margin-top:1%;">  
+                    <input type="text" id="place_input" class="form-control input-lg"  value="Attractions" >
+                    <span class="input-group-addon">
+                        <button onclick="getAttractions();">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>  
+                    </span> 
+                </div> 
 			</div>
 		</div>
-	</div> -->
-	
-	<?php 
-	<br>
-<!--	<?php 
-		$result1 = db2_execute($stmt);
-		if ($result == true) {   
-				while ($row = db2_fetch_array($stmt)){	
-					echo '<h2 style="padding-left: 1cm"><b>'.$row[2].' bedrooms, '.$row[3]. ' bathrooms - Total'.
-						number_format($row[4]). ' square feet - Age: '. $row[6].' years</b></h2><br>';
-					echo '<ul id="list"><b>
-							<li>Lot Size Area: '.number_format($row[5]).' square feet</li>
-							<li>Bathrooms Full: '.$row[10].'</li>
-							<li>Bathrooms Half: '.$row[11].'</li>
-							<li>MLSNumber: '.$row[9].'</li>
-							<li>Status: '.$row[8].'</li>
-							<li>Day on Market (DOM): '.$row[12].'</li><b>
-						</ul> ';
-				}
-			}
-			else
-				echo "Excution error!";
-			db2_close($conn);
-			//<h2 style="padding-left: 1cm"><b>5 beds, 4 baths, 4,079 sqft - built in 1998</b></h2><br>
-	?>
-        
-<!--        <p1 style="padding-left: 1cm">This is a prestigious and exclusive Hillstone home. Luxurious master suite. Outdoor oasis includes the large pool, spa and professionally installed Koi pond, gazebo and a 500 sq/ft guest house.</p1> -->
-        
-        <div id="map">   
-            <script src="https://maps.googleapis.com/maps/api/js?v3key=AIzaSyAaUks5Vq08xS53CAuS2LzakJMlDlk2Nb8&sign_in&libraries=places&callback=init" async defer></script> 
-        </div> 
-
-		<?php 
-			//echo $houseID;
-			echo '<center><button id="button1" type="button" class="btn btn-success navbar-btn" onclick="addFavorite(\''.$houseID.'\')">Add to my list</button></center>';
-		?>
+	</div> 
+	<?php
+        if(isset($_SESSION['username'])){ 
+            echo '<center><button id="save_button" type="button" class="btn-lg btn-success navbar-btn" onclick="addFavorite(\''.$houseID.'\')">Add this house to my list</button></center>';
+        }
+    ?> 
     <hr>
-    <div class="comment">
-        <form method='post' action='php/forumPost.php?house=<?php echo $houseID; ?>' style='padding-left: 1cm'>
-        
-            Comment:<br/>
-            <textarea name='comment' id='comment' class ='text' style='width:20cm;'></textarea><br/> 			
-            <input type='submit' value='Post' style='margin-left:19cm'/>
-        </form>
+    
+    <div class="container">  
+        <?php
+            if(isset($_SESSION['username'])){
+        ?>
+        <form method='post' action='php/forumPost.php?house=<?php echo $houseID; ?>'>  
+            <div id="comment_area" class="row">
+                <div class="col-md-10"> 
+                    <textarea placeholder="Comment..." name='comment' id='comment' class ='text'></textarea><br/> 	
+                </div>
+                <div class="col-md-1" style="text-align:right;">
+                    <button type='submit' class="btn-info btn-lg" value='Post'>Post</button>
+                </div>
+            </div> 
+        </form> 
+        <?php
+                }
+        ?>
+        <h2 id="display_comment_title" hidden="true">Comments</h2>
+        <div id="display_comment" class="row">
+            <?php 
+                $sql2 = "select contentPost, firstname, timePost from comment, user where id_house = '$houseID' and user.userID = comment.userID order by timepost desc"; 
+                $stmt2 = db2_prepare($conn, $sql2);
+                $result3 = db2_execute($stmt2);
+                if ($result3 == true) { 
+                    echo  '<script>$("#display_comment_title").show()</script>';
+                    while ($row = db2_fetch_array($stmt2)){
+                        echo '<div class="col-md-9"><hr><p id="commentLine" style="padding-left: 1cm; font: 12px;"></p>'.$row[0].'</div>
+                               <div class="col-md-3"><hr><p style="text-align:right;">' . $row[1] . '  (' .substr($row[2],0, 16). ')</p></div>';
+                    }
+                }
+                db2_close($conn);
+            ?>
+        </div>       
     </div>
-	
-	<?php 
-		$sql2 = "select contentPost, email, timePost from comment, user where id_house = '$houseID' and user.userID = comment.userID"; 
-		$stmt2 = db2_prepare($conn, $sql2);
-		$result3 = db2_execute($stmt2);
-		if ($result3 == true) {   
-			while ($row = db2_fetch_array($stmt2)){
-				echo '<hr><h4 id="commentLine" style="padding-left: 2cm; font: 12px;">'.$row[0].'<h5 style="padding-left: 15cm">'.$row[1].'  '.substr($row[2],0, 16).'</h5></h4>';
-			}
-		}
-		db2_close($conn);
-	?>
-
+    
     <div id="fourth"> 
         <div id="footer">
             <p style="color:yellow;">© Copyright 2015 | All rights reserved to FoundIt</p>
@@ -363,49 +398,8 @@ include('php/signup.php');
             </ul>
         </div>
     </div>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Script to favorite house -->
-    <script>
-		function addFavorite(MLSNumber) {
-			$.post("php/addHouse.php", {id_house: MLSNumber},function(data, status){
-				//$('#successSaved').slideDown(2000, function(){ $('h3').fadeOut(2000)})
-			});	
-			$("#button1").replaceWith("<h3><b>Saved!</b></h3>");
-			}
-		
-		function init() {
-			map = new google.maps.Map(document.getElementById('map'), {
-			  center: {lat: -34.397, lng: 150.644},
-			  zoom: 8
-			});
-		}
-
-			
-		
-		
-		function toggleByClass(className) {
-            $("."+className).toggle();
-        }
-			
-    </script>
-
-    <!-- lightGallery script -->
-    <script src="lib/lightgallery/js/lightgallery.min.js"></script>
-    <script src="lib/lightgallery/js/lg-thumbnail.min.js"></script>
-    <script src="lib/lightgallery/js/lg-fullscreen.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $("#gallery").lightGallery({
-            thumbnail: true
-        }); 
-    });
-    </script>
-
-</body>
+    
+    </body> 
+     
 
 </html>

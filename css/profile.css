@@ -1,9 +1,8 @@
 #custom-search-input{
-    width: 40%;   
+    width: 50%;   
     display: block;
     margin-left: auto;
-    margin-right: auto;
-    padding: 3px;
+    margin-right: auto;     
     border: solid 1px #E4E4E4;
     border-radius: 6px;
     background-color: #fff;
@@ -14,8 +13,7 @@
     box-shadow: none;
 }
 
-#custom-search-input a{ 
-    margin: 2px 0 0 0;
+#custom-search-input a{  
     background: none;
     box-shadow: none;
     border: 0;

@@ -2,7 +2,6 @@
 
 drop table house^
 
-
 create table house 
 (
 	status varchar(10), 

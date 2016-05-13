@@ -25,7 +25,8 @@ var crimes = [];
 var heatmap;
 
 //for flood zone
-var flood = []; 
+var floods = []; 
+var num = 1;
 
 function init () { 
     //Initialize the map
@@ -379,6 +380,7 @@ function getCityBoundary(){
 }
 
 function AddPoints(data){
+//    console.log(data);
     //first spilt the string into individual points
     var pointsData=data.split(", "); 
     
@@ -388,40 +390,78 @@ function AddPoints(data){
     for (var i=0;i<len;i++)
     {
         var xy = pointsData[i].split(" ");   
-        var pt = new google.maps.LatLng(xy[1], xy[0]);  
+        var pt = new google.maps.LatLng(xy[1], xy[0]);   
         ptsArray.push(pt); 
-    } 
+    }  
 }
 
 function getFloodZone(){
     //PHP calling   
-    var a_url="php/getFloodZone.php";
+    var a_url="php/getFloodZone.php?city=" + selected_city;
     
     $.get(a_url, function(data, status){  
-        var count = data.length;
-        for(var a = 0; a < count; a++){ 
+        var a = 0;
+        for(a in data){ 
             ptsArray = [];
-            var points = data[a].SHAPE;  
+            //Get multipolygon unformatted string from database
+            var point = data[a].SHAPE;   
 
-            var regex = /\(([^()]+)\)/g; 
+            //Parse the multipolygon unformatted string 
+            var list_poly = point.match(/\([^\(\)]+\)/g);
 
-            //Parse the wkt and
-            AddPoints(regex.exec(points)[1]);
-             
-            var line = new google.maps.Polyline({
+            for(b in list_poly){  
+                //Remove the brackets '(' & ')'
+                var tmp = list_poly[b].substring(1,list_poly[b].length-1); 
+
+                //Split multipolygon into points 
+                var coords = tmp.split(", "); 
+                for(var c = 0; c < coords.length; c++){ 
+                    var test = coords[c].split(" ");  
+//                    console.log(test[0] + ", " + test[1]); 
+                    var pt = new google.maps.LatLng(test[1], test[0]);  
+                    ptsArray.push(pt); 
+                } 
+            }  
+
+            var poly = new google.maps.Polygon({
                 path: ptsArray,
-                geodesic: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 1.0,
-                strokeWeight: 2
+                strokeColor: '#1A1AFF',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#1A1AFF',
+                fillOpacity: 0.35
             });
 
-            flood.push(line); 
-            line.setMap(map);  
-        } 
+            poly.addListener('click', showArrays);
+            floods.push(poly);   
+        }  
     }, "json");   
 }
  
+function showArrays(event) {
+    infoWindow = new google.maps.InfoWindow;
+    // Since this polygon has only one path, we can call getPath() to return the
+    // MVCArray of LatLngs.
+    var vertices = this.getPath();
+
+    var contentString = '<b>Floodzone information</b><br>' +
+        'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
+        '<br>';
+
+    // Iterate over the vertices.
+    for (var i =0; i < vertices.getLength(); i++) {
+        var xy = vertices.getAt(i);
+        contentString += '<br>' + 'Coordinate ' + i + ':<br>' + xy.lat() + ',' +
+            xy.lng();
+    }
+
+    // Replace the info window's content and position.
+    infoWindow.setContent(contentString);
+    infoWindow.setPosition(event.latLng);
+
+    infoWindow.open(map);
+}
+
 function getHouse(){
     //PHP calling  
     var a_url="php/getHouse.php?city=" + selected_city; 
@@ -511,7 +551,7 @@ function getSchool(){
 function getCrime(){
     //PHP calling  
     var a_url="php/getCrime.php?city=" + selected_city; 
-    $.get(a_url, function(data, status){  
+    $.get(a_url, function(data, status){   
         var count = 0;  
         for(count in data)  { 
             //Create icon for crime
@@ -527,12 +567,12 @@ function getCrime(){
             
             //Create infobox content
             var crime_content = '<div style="font-size:15px;"><b>Criminal name: </b>' + data[count].firstname + " " + data[count].lastname + "<br>" + 
-				'<b>Location of crime: </b>' + data[count].street + ", " + data[count].city + ",CA" + data[count].zip + '<br>' +
+				'<b>Location of crime: </b>' + data[count].street + ", " + data[count].city + ", CA" + data[count].zip + '<br>' +
                 '<b>Date of birth: </b>' + data[count].dob + '<br>' + 
                 '<b>Gender: </b>' + data[count].gender + "</div>";  
             
             //Create infobox
-            setInfoBox('Sexsual assult', crime_content, crime);
+            setInfoBox('Sexual assult', crime_content, crime);
             
             //Add school to list
             crimes.push(crime);
@@ -565,7 +605,7 @@ function getData(city) {
           getCityBoundary();
           
           //Display flood zone
-//          getFloodZone(); 
+          getFloodZone(); 
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
@@ -585,6 +625,10 @@ function clearMarkers() {
     displayCityBoundary (null);
     cityBoundary = [];
      
+    //Clear flood zone
+    displayFloodZone(null)
+    floods = [];
+    
     //Clear houses
     for (var i = 0; i < houses.length; i++)  {
         houses[i].setMap(null); 
@@ -614,8 +658,8 @@ function displayEarthquake (check){
 }
 
 function displayFloodZone(check){
-    for (var i = 0; i < flood.length; i++) 
-        flood[i].setMap(check);
+    for (var i = 0; i < floods.length; i++) 
+        floods[i].setMap(check);
 }
 
 function setInfoBox(tab_name, message, marker){   
@@ -642,6 +686,7 @@ function setInfoBox(tab_name, message, marker){
         infowindow.close(); 
     }); 
 }
+
 // add thousand separator for current price
 function numberWithThousandSep(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

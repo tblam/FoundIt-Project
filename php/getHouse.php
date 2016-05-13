@@ -4,7 +4,7 @@ include("connectToDatabase.php");
 
 $city =  $_GET['city'];  
 
-$sql ="select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat from house where city ='$city'";
+$sql ="select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat from house where city ='$city' and status = 'Active' fetch first 150 row only";
     
 //Execute the query      
 $stmt = db2_prepare($conn, $sql);

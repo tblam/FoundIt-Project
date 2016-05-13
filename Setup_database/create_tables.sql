@@ -1,30 +1,6 @@
---db2 -td"^" -f create.sql
-
---create bufferpool bp8k pagesize 8 k^
---create system temporary tablespace tmpsys8k pagesize 8 k bufferpool bp8k^
---db2se enable_db cs174^
-
-drop table restaurant^ 
-drop table user^
-drop table forum^
-drop table forumpost^
+drop table user^ 
 drop table profile^
-drop table favoritehouse^
-drop table message^
-drop table sex_offenders^
-
-create table restaurant 
-(
-	name varchar(50), 
-	street varchar (50),
-	city varchar (40),
-	state char(2),
-	zip char(5),
-	county varchar(40),
-	long double,
-	lat double,
-	loc DB2GSE.ST_POINT
-)^
+drop table favoritehouse^  
 
 create table user
 (
@@ -35,15 +11,7 @@ create table user
 	email varchar(50) not null,
 	password varchar(12)not null
 )^
-
-create table comment
-(
-	id_house varchar(10) not null references house(MLSNumber) on delete cascade,
-	userID int not null references user(userID) on delete cascade,
-	contentPost varchar(1000) not null,
-	timePost timestamp not null
-)^
-
+ 
 create table profile
 (
 	userID int not null references user(userID) on delete cascade,
@@ -54,27 +22,12 @@ create table profile
 
 create table favoriteHouse
 (
-	userID int not null references user(userID) on delete cascade,
-	id_house integer not null references house(MLSNumber) on delete cascade,
-)^
-
-
-CREATE TABLE  sex_offenders(
-	last_name	varchar(128),
-	first_name	varchar(128),
-	dob		varchar(16),	
-	gender			varchar(16),	
-	addr_street		varchar(64),	
-	addr_city		varchar(32),
-	addr_state		char(2),
-	addr_zip		char(5),
-	location		db2gse.st_point,
-	photo		varchar(20)
-	)^
-
-list tables^
+	userID integer not null references user(userID) on delete cascade,
+	id_house varchar(10) not null references house(MLSNumber) on delete cascade
+)^ 
+ 
 --test user log in
-insert into user (firstname, lastname, email, password) values ('Luan', 'Bui', 'mluan1110@gmail.com', 'pass')^
+insert into user (firstname, lastname, email, password) values ('Luan', 'Bui', 'mluan1110@gmail.com', 'test')^
 insert into user (firstname, lastname, email, password) values ('Tran', 'Lam', 'tblam55@gmail.com', 'tran')^
 
 select * from user^

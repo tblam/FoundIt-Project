@@ -36,9 +36,7 @@
     <script src="js/jquery.autocomplete.js"></script>    
 </head>
 
-<body>
-
-    <!-- Navigation -->
+<body> 
     <div id="navigation" class="container-fluid">
             <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
                 <div  class="container">
@@ -65,7 +63,7 @@
         </div>
     
     <!-- Body section -->
-    <div id="search-background">
+    <div id="search-background" style="padding-top: 1cm;">
         <div id="custom-search-input">
             <div class="input-group col-md-12">
                 <input id="autocomplete" type="text" class="form-control input-lg" placeholder="Where would you like to live?" /> 
@@ -75,7 +73,7 @@
     
     <div class="col-xs-12 col-sm-4 col-md-4" id="sidebar">
         <div id="profile">
-            <img src="images/default_profile.jpg">
+            <img src="images/default.png">
         </div> 
         <div id="list">
             <p>Name: 
@@ -86,6 +84,7 @@
             </p> 
         </div>
     </div>
+    
     <div class="col-xs-12 col-sm-8 col-md-8" id="mainContent">
         <div id="topContent">
             <p>Favorite Houses</p>
@@ -96,7 +95,7 @@
 			$userID = (int) $_SESSION['userID'];
 			
 			//setlocale(LC_MONETARY, 'en_US');
-			$sql = "SELECT address, city, BedsTotal, BathsTotal, SqftTotal, LotSizeArea_Min, Age, CurrentPrice, Status, MLSNumber FROM favoriteHouse, house WHERE userID = $userID AND id_house = MLSNumber";  
+			$sql = "SELECT address, city, BedsTotal, BathsTotal, SqftTotal, LotSizeArea_Min, Age, CurrentPrice, Status, MLSNumber, long, lat FROM favoriteHouse, house WHERE userID = $userID AND id_house = MLSNumber";  
 			 
 			//Execute the query      
 			$stmt = db2_prepare($conn, $sql);
@@ -107,7 +106,7 @@
 						$id_house = $row[9];
 						//echo $id_house;
 						echo '<div id="houseInfo" class="houseInfo">
-						<a href="forum.php?house='.$id_house.'"><img src="images/sample.jpg" alt="sample"> </a><b>'.
+						<a href="forum.php?house='.$id_house.'"><img src="http://maps.googleapis.com/maps/api/streetview?size=640x480&location='.$row[11].','.$row[10].'" alt="sample"> </a><b>'.
 						'Address: <a href="forum.php?house='.$id_house.'">' . $row[0] . ', '.$row[1]. '</a></b><br>'.
 						'Bedrooms Total: ' . $row[2] . '<br>'.
 						'Bathrooms Total: ' . $row[3] . '<br>'.
@@ -116,26 +115,12 @@
 						'Age: ' . $row[6]. ' year(s)<br>'.
 						'<b>'.'CurrentPrice: $'. number_format($row[7]). '<br>'.
 						'Status: ' . $row[8]. '</b><br>
-						<div class="remove"><button class="btn btn-warning" onclick="removeHouse(\''.$id_house.'\')">Remove</button></div></div>';
-						//<div class="remove"><button type="submit" class="btn btn-warning"><a href= "remove.php?MLSNumber={\''.$row[9].'\'}">Remove</a></button></div></div>';
-						
-						//$result1 = db2_exec($conn, "DELETE from favoriteHouse WHERE id_house = $id_house AND userID = $userID");							
-					
-					//$json[] = array(
-						//'address' => $row[0], 
-						//'BedsTotal' => $row[1],
-						//'BathsTotal' => $row[2],
-						//'SqftTotal' => $row[3],
-						//'LotSizeArea_Min' => $row[4],
-						//'Age' => $row[5],
-						//'CurrentPrice' => $row[6], 
-				} 
-					//echo json_encode($json); 
+						<div class="remove"><button class="btn btn-warning" onclick="removeHouse(\''.$id_house.'\')">Remove</button></div></div>'; 
+				}  
 			}
 			else
 				echo "Excution error!";
-			
-			//$result1 = db2_exec($conn, "DELETE from favoriteHouse WHERE id_house = $id_house AND userID = $userID");
+			 
 			//Close connection
 			db2_close($conn);
 		?>

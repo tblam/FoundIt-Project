@@ -1,4 +1,4 @@
---db2 -td"^" -f create.sql
+--db2 -td"^" -f create_crime.sql
  
 drop table sex_offenders^
 
