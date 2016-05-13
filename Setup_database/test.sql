@@ -1,1 +1,0 @@
-select INTERSECTION from (select CAST(db2gse.ST_AsText(db2gse.ST_Intersection(DB2GSE.ST_Transform(a.SHAPE, 1), b.shape)) as VARCHAR (2000)) INTERSECTION from floodzone a, city_boundary b where b.name = 'Milpitas') where INTERSECTION <> 'POINT EMPTY'^

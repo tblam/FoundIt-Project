@@ -1,9 +1,0 @@
-Not supported commands:
-list tables
-
-Export whole database
-db2move foundit export
-
-
-Commands used:
-select name, owner from sysibm.systables where owner = 'SYSADM';		owner is schema
