@@ -12,7 +12,7 @@ include('php/signup.php');
         <!-- Bootstrap Core CSS -->
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/jquery-2.2.3.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
               
         <!-- Custom CSS -->
@@ -35,6 +35,7 @@ include('php/signup.php');
         var current_location; 
         var map;
         var markers = []; 
+        var previous_infobox;
          
         function init() {  
             current_location = {lat: current_lat, lng: current_long}; 
@@ -53,14 +54,21 @@ include('php/signup.php');
                 animation: google.maps.Animation.DROP, 
             });  
             
-            var panorama = new google.maps.StreetViewPanorama(
-                document.getElementById('pano'), {
-                    position: current_location,
-                    pov: {
-                        heading: 34,
-                        pitch: 10
-                    }
-                }); 
+            var streetViewService = new google.maps.StreetViewService();
+            var STREETVIEW_MAX_DISTANCE = 100;
+            var latLng = current_location;
+            streetViewService.getPanoramaByLocation(latLng, STREETVIEW_MAX_DISTANCE, function (streetViewPanoramaData, status) { 
+                if (status === google.maps.StreetViewStatus.OK) {
+                    var panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById('pano'), {
+                            position: current_location
+                        }); 
+                } else {
+                    alert("No street view available!");
+                }
+            });
+            
+            
             
 //            var url = "https://maps.googleapis.com/maps/api/streetview?size=400x300&location=" + current_lat + "," + current_long+"&fov=90 &pitch=10&key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg";
 //            console.log(url); 
@@ -118,15 +126,30 @@ include('php/signup.php');
                 position: place.geometry.location
             });
              
-            markers.push(marker);
+            markers.push(marker); 
+            
             google.maps.event.addListener(marker, 'click', function() {
+                //Close previous infobox
+                if(previous_infobox != null) 
+                    previous_infobox.close(); 
+                
+                //Set info box content
                 var name;
                 if(place.name == "")
                     name = $("#place_input").val();
                 else
                     name = place.name;
                 infowindow.setContent(name);
-                infowindow.open(map, this);
+                
+                //Open infobox
+                infowindow.open(map, this); 
+                previous_infobox = infowindow; 
+            }); 
+             
+    
+            // Listen for user click on map to close any open info box
+            google.maps.event.addListener(map, "click", function () { 
+                infowindow.close(); 
             }); 
         }
         
@@ -137,7 +160,7 @@ include('php/signup.php');
                 else
                     alert(data);
             });     
-        }
+        } 
     </script>
     </head>  
 <body>   
@@ -241,8 +264,7 @@ include('php/signup.php');
             </nav> 
         </div> 
         
-    <div id="top_picture" class="container-fluid"> 
-        <div id="pano" style="height:500px; width:100%;"></div>  
+    <div id="pano" style="height:500px; width:100%;" class="container-fluid"> 
     </div>
     
 	<div id="housing_info" class="container">
@@ -329,7 +351,7 @@ include('php/signup.php');
 			<div class="col-md-6">
                 <h2><b>Search your own attractions</b></h2>
 				<div id="map" style="width: 100%; height: 350px;"> 
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg&libraries=places&callback=init" async defer></script>
+                    
                 </div>   
                 
                 <div class="input-group stylish-input-group" style="margin-top:1%;">  
@@ -343,9 +365,19 @@ include('php/signup.php');
 			</div>
 		</div>
 	</div> 
+    
 	<?php
         if(isset($_SESSION['username'])){ 
-            echo '<center><button id="save_button" type="button" class="btn-lg btn-success navbar-btn" onclick="addFavorite(\''.$houseID.'\')">Add this house to my list</button></center>';
+            $user = (int) $_SESSION['userID'];
+            $sql3 = "select userID from favoriteHouse where userID = $user and id_house = '$houseID'"; 
+            $stmt3 = db2_prepare($conn, $sql3);
+            $result4 = db2_execute($stmt3);
+            if($result4 == true && (db2_fetch_array($stmt3)) == true) {
+                echo '<center><h3 class="container"><b>Saved in the favorite list!</b></h3></center>';
+            }
+            else{
+                echo '<center><button id="save_button" type="button" class="btn-lg btn-success navbar-btn" onclick="addFavorite(\''.$houseID.'\')">Add this house to my list</button></center>';
+            }
         }
     ?> 
     <hr>
@@ -399,7 +431,14 @@ include('php/signup.php');
         </div>
     </div>
     
-    </body> 
-     
+    </body>  
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg&libraries=places&callback=init" async defer></script>
+    <script>
+    $("#place_input").bind("keypress", function(event) {
+            if(event.which == 13) { 
+                getAttractions();
+        }
+    }); 
+    </script>
 </html>

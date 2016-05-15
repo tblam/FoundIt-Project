@@ -74,9 +74,6 @@ h3{
     margin-right: auto;
 }   
 
-#autocomplete autocomplete{
-    
-}
 #custom-search-input{
     width: 40%;   
     display: block;
@@ -213,15 +210,12 @@ h3{
 
 /* Carousel */
 
+/*
 .carousel,
 .item,
 .active {
     height: 100%;
-}
-
-.carousel-inner {
-    height: 100%;
-}
+} 
 
 .carousel {
     width: 100%;  
@@ -233,6 +227,7 @@ h3{
     height: 100%;
     max-height: 100%;
 }
+*/
 
 .social i:hover {
     color: #FFF;

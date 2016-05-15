@@ -276,7 +276,12 @@ include('php/signup.php');
             window.location.href = "home.php";
         }
     }); 
-    
+     
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('#login_error').fadeOut(2000);
+        }, 2000);
+    });
 </script>
 
 </html>

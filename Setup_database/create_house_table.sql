@@ -26,3 +26,5 @@ create table house
 import from houses.csv of del insert into house (status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat)^ 
 
 update house set loc = db2gse.ST_Point(long, lat, 1)^
+
+--EXPORT TO house_fusion.csv OF DEL MODIFIED BY NOCHARDEL select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat from house^

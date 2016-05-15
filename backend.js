@@ -202,7 +202,7 @@ function init () {
             previous_infox.close();
         infowindow.open(map, this);    
         previous_infox = infowindow; 
-    });
+    }); 
 }   
 
 // Add a Home control that returns the user to current position
@@ -336,8 +336,8 @@ function getCityBoundary(){
     var a_url="php/getCityBoundary.php?city=" + selected_city;
 
     $.get(a_url, function(data, status){   
-        var count = data.length;
-        for(var a = 0; a < count; a++){
+        var a = 0; 
+        for(a in data){
             var poly;
             ptsArray = [];
             var triangleCoords = data[a].SHAPE;  
@@ -397,10 +397,13 @@ function AddPoints(data){
 
 function getFloodZone(){
     //PHP calling   
-    var a_url="php/getFloodZone.php?city=" + selected_city;
-    
+    var a_url="php/getFloodZone.php?city=" + selected_city; 
     $.get(a_url, function(data, status){  
         var a = 0;
+        if(!data){
+            $("#displayFloodZone").attr("disabled", true);  
+            $("#label_displayFloodZone").text('No flood data');
+        }
         for(a in data){ 
             ptsArray = [];
             //Get multipolygon unformatted string from database
@@ -416,8 +419,7 @@ function getFloodZone(){
                 //Split multipolygon into points 
                 var coords = tmp.split(", "); 
                 for(var c = 0; c < coords.length; c++){ 
-                    var test = coords[c].split(" ");  
-//                    console.log(test[0] + ", " + test[1]); 
+                    var test = coords[c].split(" ");   
                     var pt = new google.maps.LatLng(test[1], test[0]);  
                     ptsArray.push(pt); 
                 } 
@@ -433,9 +435,16 @@ function getFloodZone(){
             });
 
             poly.addListener('click', showArrays);
-            floods.push(poly);   
+            floods.push(poly);    
+            
+            if(a == data.length - 1){
+                $("#displayFloodZone").attr("disabled", false);
+                $("#label_displayFloodZone").text('Flood zone');
+            } 
         }  
     }, "json");   
+    
+        
 }
  
 function showArrays(event) {
@@ -466,20 +475,20 @@ function getHouse(){
     //PHP calling  
     var a_url="php/getHouse.php?city=" + selected_city; 
 	var store_MLSN;
+    
     $.get(a_url, function(data, status){  
         var count = 0; 
         for(count in data)  {
 			var icon = {
-            url: 'icons/house.png', 
-            scaledSize: new google.maps.Size(30, 30)
+                url: 'icons/house.png', 
+                scaledSize: new google.maps.Size(30, 30)
             } 
             var house = new google.maps.Marker({
                 map: map,
 				icon: icon,
-                position: new google.maps.LatLng(data[count].lat, data[count].long),
-                animation:google.maps.Animation.DROP, 
+                position: {lat: data[count].lat, lng: data[count].long} 
             });  
-			
+            
             store_MLSN = (data[count].MLSNumber).substring(0);
 
             var house_content = '<div style="text-align:center; font-size:17px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a></b></div>' +
@@ -489,18 +498,78 @@ function getHouse(){
                 '<b>Lot Size Area: </b>' + data[count].LotSizeArea_Min + ' sqft<br>' +
                 '<b>Age: </b>' + data[count].Age + ' year(s)<br>' +
                 '<b>Price: </b>$ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>' +
-                '<b>MLSNumber: </b>' + data[count].MLSNumber + "</div>";
-            
-            if(display_saveButton != "")
-				house_content += '<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
-
-            //Create infobox
+                '<b>MLSNumber: </b>' + data[count].MLSNumber + '</div>';
+      
+            if(display_saveButton != "")  
+                house_content += '<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';     
+				
+             //Create infobox
             setInfoBox('House information', house_content, house);
-            
+
             //Add house to list
             houses.push(house);
         } 
      }, "json"); 
+    
+//    var layer = new google.maps.FusionTablesLayer({
+//      map: map,
+//      heatmap: { enabled: false },
+//      query: {
+//        select: "*",
+//        from: "1tQxcgEByzTejNyfCbX0CsZLQKE0SJY-3dHffFUUF",
+//        where: "col13='Milpitas'"
+//      },
+//      options: {
+//        styleId: 2,
+//        templateId: 3
+//      }
+//    }); 
+
+//    // Using fusion table from Google API
+//    var fusion_url = 'https://www.googleapis.com/fusiontables/v2/query?sql=';
+//    var a_query = "select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age,       location from 1tQxcgEByzTejNyfCbX0CsZLQKE0SJY-3dHffFUUF where City ='" + selected_city + "' and status ='Active'";
+//    var key = "&key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg";
+//    
+//    var url = fusion_url + encodeURIComponent(a_query) + key;
+//    
+//    $.get(url, function(data, status){ 
+//        var store_MLSN;
+//        var list_data = data['rows'];
+//        for(var count in list_data){
+//            var rows = list_data[count];
+//            var coord = rows[14].split(",");  
+//            
+//            var icon = {
+//                url: 'icons/house.png', 
+//                scaledSize: new google.maps.Size(30, 30)
+//            } 
+//            
+//            var house = new google.maps.Marker({
+//                map: map,
+//                position: new google.maps.LatLng(coord[0], coord[1]),
+//				icon: icon
+//            });   
+//            store_MLSN = rows[2];
+//
+//            var house_content = '<div style="text-align:center; font-size:17px;"><b><a href="forum.php?house=' + store_MLSN+'" >' + rows[3] + ", " + rows[12] + '</a></b></div>' +
+//                '<div style="font-size:14px;"><b>Bedrooms: </b>' + rows[7] + '<br>' +
+//                '<b>Bathrooms: </b>' + rows[6] + '<br>' + 
+//                '<b>Area: </b>' + rows[10] + ' sqft<br>' +
+//                '<b>Lot Size Area: </b>' + rows[11] + ' sqft<br>' +
+//                '<b>Age: </b>' + rows[13] + ' year(s)<br>' +
+//                '<b>Price: </b>$ ' + numberWithThousandSep(rows[4]) + '<br>' +
+//                '<b>MLSNumber: </b>' + store_MLSN + "</div>";
+// 
+//            if(display_saveButton != "")
+//				house_content += '<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';
+//
+//            //Create infobox
+//            setInfoBox('House information', house_content, house);
+//            
+//            //Add house to list
+//            houses.push(house);
+//        } 
+//    }, "jsonp");  
 }
 
 function addFavorite(MLSNumber) { 
@@ -552,7 +621,12 @@ function getCrime(){
     //PHP calling  
     var a_url="php/getCrime.php?city=" + selected_city; 
     $.get(a_url, function(data, status){   
-        var count = 0;  
+        var count = 0;    
+        if(!data){
+            $("#displayCrime").attr("disabled", true);  
+            $("#label_displayCrime").text('No crime data');
+        }
+            
         for(count in data)  { 
             //Create icon for crime
             var icon = {
@@ -576,6 +650,10 @@ function getCrime(){
             
             //Add school to list
             crimes.push(crime);
+            if(count == data.length - 1){
+                $("#displayCrime").attr("disabled", false);
+                $("#label_displayCrime").text('Crime');
+            }
         } 
     }, "json");
 }
@@ -589,23 +667,29 @@ function getData(city) {
           map.setCenter(current_location);
           map.setZoom(13); 
           
+          //Reset the labels
+          $("#displayCrime").attr("disabled", true);  
+          $("#label_displayCrime").text('Crime');
+          $("#displayFloodZone").attr("disabled", true);  
+          $("#label_displayFloodZone").text('Loading flood data');
+          
           //Clear all markers on map
           clearMarkers();
+          
+          //Display city boundary
+          getCityBoundary(); 
           
           //Display houses
           getHouse();
           
-          //Display schools 
-          getSchool();  
-           
           //Display crime zone
-          getCrime();
-          
-          //Display city boundary
-          getCityBoundary();
+          getCrime(); 
           
           //Display flood zone
-          getFloodZone(); 
+          getFloodZone();  
+          
+          //Display schools 
+          getSchool();   
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
@@ -663,8 +747,7 @@ function displayFloodZone(check){
 }
 
 function setInfoBox(tab_name, message, marker){   
-     //Create info window for each marker
-//    var infowindow = new google.maps.InfoWindow();
+    //Create info window for each marker 
     var infowindow = new InfoBubble({ 
         minWidth: 400,
         minHeight: 'auto',
@@ -676,10 +759,8 @@ function setInfoBox(tab_name, message, marker){
         if(previous_infox != null)
             previous_infox.close();
         infowindow.open(map, this);    
-        previous_infox = infowindow;
-		//infowindow.setZIndex(100);
-    }); 
-	
+        previous_infox = infowindow; 
+    });  
     
     // Listen for user click on map to close any open info bubbles
     google.maps.event.addListener(map, "click", function () { 
@@ -691,3 +772,7 @@ function setInfoBox(tab_name, message, marker){
 function numberWithThousandSep(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+function checkFavouriteList(){
+    
+} 

@@ -95,7 +95,7 @@
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-email">Email</label>
-			                        	<input type="email" name="email" id="email" placeholder="Your email..." class="form-email form-control">
+			                        	<input type="text" name="email" id="email" placeholder="Your email..." class="form-email form-control">
 			                        </div>
                                     <div class="form-group"> 
                                         <label class="sr-only" for="form-message">Message</label>

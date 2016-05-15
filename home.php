@@ -5,31 +5,32 @@ include('php/signup.php');
 
 <!DOCTYPE HTML>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>FoundIt - Home</title> 
-    
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-     
-    <!--    My AutoComplete-->
-    <script type="text/javascript" src="js/city-autocomplete.js"></script> 
-    <link rel="stylesheet" href="css/jquery.autocomplete.css">
-    <script src="js/jquery.autocomplete.js"></script>
-    
-    <!-- Customed CSS for home page -->
-    <link rel="stylesheet" href="css/home.css"/>
-    <script src="backend.js"></script> 
-    <script src="js/infobubble.js"></script> 
-    
-    <!-- Custom CSS for sign up / sign in modal-->
-    <link href="css/signup_login/normalize.css" rel="stylesheet" type='text/css'/>  
-    <link href="css/signup_login/style.css" rel="stylesheet" type='text/css'/>   
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    
+    <head>
+        <meta charset="UTF-8">
+        <title>FoundIt - Home</title> 
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> 
+<!--        <script src="js/jquery-2.2.3.min.js"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
+
+        <!--    My AutoComplete-->
+        <script type="text/javascript" src="js/city-autocomplete.js"></script> 
+        <link rel="stylesheet" href="css/jquery.autocomplete.css">
+        <script src="js/jquery.autocomplete.js"></script>
+
+        <!-- Customed CSS for home page -->
+        <link rel="stylesheet" href="css/home.css"/>
+        <script src="backend.js"></script> 
+        <script src="js/infobubble.js"></script> 
+
+        <!-- Custom CSS for sign up / sign in modal-->
+        <link href="css/signup_login/normalize.css" rel="stylesheet" type='text/css'/>  
+        <link href="css/signup_login/style.css" rel="stylesheet" type='text/css'/>   
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> 
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     </head>
     
     <body>   
@@ -135,12 +136,12 @@ include('php/signup.php');
         </div>
     
         <div id="map-filter" class="controls" style = "z-index: 0"> 
-            <label><input id="displayCityBoundary" type="checkbox" checked="true"> City Boundary</label> 
-			<label><input id="displaySchool" type="checkbox"> Schools</label>
-			<label><input id="displayCrime" type="checkbox"> Crimes</label>
-            <label><input id="displayEarthquake-heatmap" type="checkbox" > Earthquake zone</label>
-            <label><input id="displayEarthquake" type="checkbox" > Earthquake points</label>
-            <label><input id="displayFloodZone" type="checkbox"> Floodzone</label> 
+            <input id="displayCityBoundary" type="checkbox" checked="true"><label id="label_displayCityBoundary" for="displayCityBoundary">City Boundary</label> 
+			<input id="displaySchool" type="checkbox"><label id="label_displaySchool" for="displaySchool">Schools</label>
+			<input id="displayCrime" type="checkbox"><label id="label_displayCrime" for="displayCrime">Crimes</label>
+            <input id="displayEarthquake-heatmap" type="checkbox"><label id="label_displayEarthquake-heatmap" for="displayEarthquake-heatmap">Earthquake zone</label>
+            <input id="displayEarthquake" type="checkbox"><label id="label_displayEarthquake" for="displayEarthquake">Earthquake points</label>
+            <input id="displayFloodZone" type="checkbox" disabled=true><label id="label_displayFloodZone" for="displayFloodZone">Loading flood data</label>
         </div> 
         
         <div id="searcharea" class="container">   
@@ -196,7 +197,13 @@ include('php/signup.php');
     </body> 
 
 <script>
-    var display_saveButton = '<?php echo $_SESSION['username']; ?>' ;  
+//    var display_saveButton = '<?php echo $_SESSION['username']; ?>' ; 
+    var display_saveButton = '<?php if(isset($_SESSION['username']))
+										echo $_SESSION['userID'];
+									else
+										echo "";
+	?>';  
+    
     
     $('.form').find('input, textarea').on('keyup blur focus', function (e) { 
         var $this = $(this),
@@ -299,5 +306,17 @@ include('php/signup.php');
         
         $(this).parent().parent().parent().prev().html(final_message);   
     });
+    
+    <?php
+        if(isset($_SESSION['username'])){ 
+            $user = (int) $_SESSION['userID'];
+            $sql3 = "select userID from favoriteHouse where userID = $user and id_house = '$houseID'"; 
+            $stmt3 = db2_prepare($conn, $sql3);
+            $result4 = db2_execute($stmt3);
+            if($result4 == true && (db2_fetch_array($stmt3)) == true) {
+                echo '<script>$(".btn btn-success pull-right").hide();</script>';
+            } 
+        }
+    ?> 
 </script>
 </html>
