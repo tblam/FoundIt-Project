@@ -165,12 +165,7 @@ include('php/signup.php');
             <a onclick="storedata('Los Gatos')" class="img-wrap"><img class="img-responsive" src="images/cities/LosGatos.jpeg" alt="img01"/>
                 <div id="description-text"> Los Gatos </div>
             </a>   
-        </div>
-        <div id="custom-image">
-            <a onclick="storedata('Oakland')" class="img-wrap"><img class="img-responsive" src="images/cities/Oakland.jpg" alt="img01"/>
-                <div id="description-text"> Oakland </div>
-            </a>   
-        </div>
+        </div> 
         <div id="custom-image">
             <a onclick="storedata('Santa Clara')" class="img-wrap"><img class="img-responsive" src="images/cities/SantaClara.jpg" alt="img01"/>
                 <div id="description-text"> Santa Clara </div>
