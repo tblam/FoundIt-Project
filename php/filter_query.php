@@ -15,7 +15,7 @@ else
     $price_range = "CurrentPrice >= $min_price";  
  
 // SQL query to fetch information of registerd users and finds user match.
-$sql = "select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat from house where city ='$city' AND BathsTotal >= $num_bath AND BedsTotal >= $num_bed AND $price_range" ; 
+$sql = "select status, AdditionalListingInfo, MLSNumber, address, CurrentPrice, DOM, BathsTotal, BedsTotal, BathsFull, BathsHalf, SqftTotal, LotSizeArea_Min, City, Age, long, lat from house where city ='$city' AND status ='Active' AND BathsTotal >= $num_bath AND BedsTotal >= $num_bed AND $price_range" ; 
      
 //Execute the query      
 $stmt = db2_prepare($conn, $sql);

@@ -337,7 +337,7 @@ function getCityBoundary(){
     //PHP calling   
     var a_url="php/getCityBoundary.php?city=" + selected_city;
 
-    $.get(a_url, function(data, status){   
+    $.get(a_url, function(data, status){    
         var a = 0; 
         for(a in data){
             var poly;
@@ -814,8 +814,4 @@ function setInfoBox(tab_name, message, marker){
 // add thousand separator for current price
 function numberWithThousandSep(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function checkFavouriteList(){
-    
 } 
