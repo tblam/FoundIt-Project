@@ -14,6 +14,8 @@ var cityBoundary =[];
 //for houses
 var houses = [];
 var MLSN;
+var house_content;
+var house;
 
 //for school
 var schools = [];
@@ -483,15 +485,15 @@ function getHouse(){
                 url: 'icons/house.png', 
                 scaledSize: new google.maps.Size(30, 30)
             } 
-            var house = new google.maps.Marker({
+            house = new google.maps.Marker({
                 map: map,
 				icon: icon,
                 position: {lat: data[count].lat, lng: data[count].long} 
             });  
             
-            store_MLSN = (data[count].MLSNumber).substring(0);
+            MLSN = (data[count].MLSNumber).substring(0); 
 
-            var house_content = '<div style="text-align:center; font-size:17px;"><b><a href="forum.php?house='+store_MLSN+'" >' + data[count].address + ", " + data[count].city + '</a></b></div>' +
+            house_content = '<div style="text-align:center; font-size:17px;"><b><a href="forum.php?house='+MLSN+'" >' + data[count].address + ", " + data[count].city + '</a></b></div>' +
                 '<div style="font-size:14px;"><b>Bedrooms: </b>' + data[count].BedsTotal + '<br>' +
                 '<b>Bathrooms: </b>' + data[count].BathsTotal + '<br>' + 
                 '<b>Area: </b>' + data[count].SqftTotal + ' sqft<br>' +
@@ -499,15 +501,42 @@ function getHouse(){
                 '<b>Age: </b>' + data[count].Age + ' year(s)<br>' +
                 '<b>Price: </b>$ ' + numberWithThousandSep(data[count].CurrentPrice) + '<br>' +
                 '<b>MLSNumber: </b>' + data[count].MLSNumber + '</div>';
-      
-            if(display_saveButton != "")  
-                house_content += '<button type="button" class="btn btn-success pull-right" style="height:30px; width:55px" onclick="addFavorite(\''+ store_MLSN +'\')"> Save </button>';     
-				
-             //Create infobox
+            
+            if(display_saveButton != "")  {
+                house_content += '<button type="button" class="btn btn-success pull-right" onclick="addFavorite(\''+ MLSN +'\')"> Save </button>';
+//                var url = "php/checkFavList.php?userID=" + display_saveButton + "&houseID=" + MLSN; 
+//                $.get("php/checkFavList.php",{userID:display_saveButton, houseID: MLSN}, function(data, status){   
+//                    if(data)
+//                        testing(true); 
+//                    else    
+//                        testing(false);
+//                });    
+//                
+//                $.ajax({
+//                    async: false,
+//                    type: 'GET',
+//                    url: url, 
+//                    success: function (data){
+//                        if(data)
+//                            testing(true); 
+//                        else
+//                            testing(false); 
+//                        } 
+//                });
+            }
+            
+            //Create infobox
             setInfoBox('House information', house_content, house);
 
             //Add house to list
             houses.push(house);
+             
+             
+//            //Create infobox
+//            setInfoBox('House information', house_content, house);
+//
+//            //Add house to list
+//            houses.push(house);
         } 
      }, "json"); 
     
@@ -517,7 +546,7 @@ function getHouse(){
 //      query: {
 //        select: "*",
 //        from: "1tQxcgEByzTejNyfCbX0CsZLQKE0SJY-3dHffFUUF",
-//        where: "col13='Milpitas'"
+//        where: ""
 //      },
 //      options: {
 //        styleId: 2,
@@ -570,6 +599,18 @@ function getHouse(){
 //            houses.push(house);
 //        } 
 //    }, "jsonp");  
+}
+
+function testing(check){  
+    if(!check)
+        house_content += '<button type="button" class="btn btn-success pull-right" onclick="addFavorite(\''+ MLSN +'\')"> Save </button>';
+    else
+        house_content += '<button type="button" class="btn btn-waring pull-right" disable="true"> Saved </button>';
+    //Create infobox
+    setInfoBox('House information', house_content, house);
+
+    //Add house to list
+    houses.push(house); 
 }
 
 function addFavorite(MLSNumber) { 
@@ -670,8 +711,10 @@ function getData(city) {
           //Reset the labels
           $("#displayCrime").attr("disabled", true);  
           $("#label_displayCrime").text('Crime');
+          $("#displayCrime").attr("checked", false); 
           $("#displayFloodZone").attr("disabled", true);  
           $("#label_displayFloodZone").text('Loading flood data');
+          $("#displayFloodZone").attr("checked", false);  
           
           //Clear all markers on map
           clearMarkers();

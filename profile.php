@@ -64,12 +64,14 @@
                     <center><img id="profile" src="images/default.png" class="img-circle"  width="304" height="236"></center>
                 </div>
                
+<!--
                 <div>
-                    <form action="php/upload_img.php" method="POST" enctype="multipart/form-data"> 
+                    <form method="POST" enctype="multipart/form-data"> 
                         <input style="float:left;" type="file" name="fileToUpload" id="fileToUpload">
                         <input style="float:right;" type="submit" value="Upload" name="submit">
                     </form>
                 </div>
+-->
                 <hr>
                 
                 <div style="float:left; margin: 0;">

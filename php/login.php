@@ -40,9 +40,7 @@ if (isset($_POST['submit_login'])) {
                     }, 2000);
                 });</script>'; 
             }  
-        }
-         
-        
+        } 
     }
 }
 ?>

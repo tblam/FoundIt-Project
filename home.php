@@ -307,16 +307,16 @@ include('php/signup.php');
         $(this).parent().parent().parent().prev().html(final_message);   
     });
     
-    <?php
-        if(isset($_SESSION['username'])){ 
-            $user = (int) $_SESSION['userID'];
-            $sql3 = "select userID from favoriteHouse where userID = $user and id_house = '$houseID'"; 
-            $stmt3 = db2_prepare($conn, $sql3);
-            $result4 = db2_execute($stmt3);
-            if($result4 == true && (db2_fetch_array($stmt3)) == true) {
-                echo '<script>$(".btn btn-success pull-right").hide();</script>';
-            } 
-        }
-    ?> 
+//    <?php
+//        if(isset($_SESSION['username'])){ 
+//            $user = (int) $_SESSION['userID'];
+//            $sql3 = "select userID from favoriteHouse where userID = $user and id_house = '$houseID'"; 
+//            $stmt3 = db2_prepare($conn, $sql3);
+//            $result4 = db2_execute($stmt3);
+//            if($result4 == true && (db2_fetch_array($stmt3)) == true) {
+//                echo '<script>$(".btn btn-success pull-right").hide();</script>';
+//            } 
+//        }
+//    ?> 
 </script>
 </html>

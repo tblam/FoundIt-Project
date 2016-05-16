@@ -66,12 +66,7 @@ include('php/signup.php');
                 } else {
                     alert("No street view available!");
                 }
-            });
-            
-            
-            
-//            var url = "https://maps.googleapis.com/maps/api/streetview?size=400x300&location=" + current_lat + "," + current_long+"&fov=90 &pitch=10&key=AIzaSyD5wg59qptDQmk185hwXK9uRb0PA7ttvBg";
-//            console.log(url); 
+            }); 
         }
          
         function getAttractions(){

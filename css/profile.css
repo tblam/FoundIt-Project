@@ -76,9 +76,7 @@ body{
     color: red;
 } 
 
-#sidebar{ 
-    margin-left: 2%;
-    width: inherit; 
+#sidebar{  
     background-color: lightgoldenrodyellow; 
 }
 

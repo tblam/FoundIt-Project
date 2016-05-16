@@ -2,8 +2,8 @@
 // Create database connection 
 include("connectToDatabase.php");
 
-$houseID =  $_GET['houseID']; 
-$userID =  $_GET['userID'];   
+$houseID =  $_POST['houseID']; 
+$userID = (int) $_POST['userID'];   
 
 $sql = "select userID from favoriteHouse where userID = $userID and id_house = '$houseID'";  
 //echo $sql;
@@ -12,9 +12,9 @@ $result = db2_execute($stmt);
 
 if($result){
     if($row = db2_fetch_array($stmt))
-        echo "true";
+        echo "saved"; 
     else
-        echo "";
+        return null;
 }else
     echo "error"; 
 
