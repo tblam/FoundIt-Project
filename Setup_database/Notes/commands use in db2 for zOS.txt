@@ -1,3 +1,5 @@
+db2 list node directory
+
 Not supported commands:
 list tables
 
