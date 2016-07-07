@@ -1,0 +1,11 @@
+Not supported commands:
+list tables
+
+Export whole database
+db2move foundit export
+
+Export from data from LUW to ixf format 
+db2 export to school.ixf of ixf select name,type,api,staterank,address,city,county,zipcode,state,long,lat from school
+
+Commands used:
+select name, owner from sysibm.systables where owner = 'SYSADM';		owner is schema
